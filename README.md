@@ -2,4 +2,4 @@ membattles
 ==========
 
 TODO:
-* Fix timing issues
+* Make controlling the speed less weird

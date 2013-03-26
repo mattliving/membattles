@@ -25,8 +25,8 @@ class MovingText
     @ctx.fillText(@string, @x, @y)
 
   applyForce: (fx, fy) ->
-    @fx = fx*0.01
-    @fy = fy*0.01
+    @fx = fx*0.0005
+    @fy = fy*0.0005
 
   update: ->
     @vx += @fx
@@ -39,28 +39,33 @@ class MovingText
 
 window.MovingText = MovingText
 
-animate = (canvas, ctx, dx, time) ->
-   # dx = Date.now() - lastTime
+animate = (canvas, ctx, lastTime) ->
+  time = Date.now()
+  dx = time - lastTime
+  while dx > 0
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    
+    for text in window.elements
+      if text?
+        text.update()
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height)
-  
-  for text in window.elements
+        text.draw()
 
-    text.update()
+        text.applyForce(0, 9.8)
 
-    text.draw()
-
-    text.applyForce(0, 9.8)
+        if text.x > canvas.width or text.y > canvas.height
+          window.elements.splice(window.elements.indexOf(text), 1)
+    dx--
 
   requestAnimFrame ->
-    animate(canvas, ctx, dx, time)
+    animate(canvas, ctx, time)
 
 canvas = $("canvas")[0]
 window.ctx = canvas.getContext("2d")
 
 window.textEls = []
 for eng, french of data
-  textEls.push new MovingText(french, ctx, 50, 400, 600, -800)
+  textEls.push new MovingText(french, ctx, 50, 400, 1500, -3000)
 
 i = 0
 setInterval(->
@@ -69,5 +74,5 @@ setInterval(->
 , 1000)
 
 setTimeout(->
-  animate(canvas, ctx, 0, 0)
+  animate(canvas, ctx, Date.now())
 , 1000)
