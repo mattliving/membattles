@@ -16,8 +16,12 @@
         <!-- endbuild -->
     </head>
     <body>
-        <div class="container row">
-            <canvas id="canvas" class="span12" height="500"></canvas>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span12 hero-unit">
+                    <canvas id="canvas" width="1280" height="900"></canvas>
+                </div>
+            </div>
         </div>
 
         <!--[if lt IE 7]>
@@ -34,7 +38,6 @@
 
         <!-- build:js scripts/main.js -->
         <script src="components/jquery/jquery.js"></script>
-        <script src="scripts/main.js"></script>
         <!-- endbuild -->
 
         <!-- build:js(.tmp) scripts/coffee.js -->

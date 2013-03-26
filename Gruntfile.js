@@ -1,4 +1,4 @@
-// Generated on 2013-03-26 using generator-webapp 0.1.5
+// Generated on 2013-03-01 using generator-webapp 0.1.5
 'use strict';
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
@@ -32,9 +32,9 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
             },
-            compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass']
+            less: {
+                files: ['<%= yeoman.app %>/styles/{,*/}*.less'],
+                tasks: ['less:compile']
             },
             livereload: {
                 files: [
@@ -132,20 +132,10 @@ module.exports = function (grunt) {
                 }]
             }
         },
-        compass: {
-            options: {
-                sassDir: '<%= yeoman.app %>/styles',
-                cssDir: '.tmp/styles',
-                imagesDir: '<%= yeoman.app %>/images',
-                javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
-                importPath: 'app/components',
-                relativeAssets: true
-            },
-            dist: {},
-            server: {
-                options: {
-                    debugInfo: true
+        less: {
+            compile: {
+                files: {
+                    '.tmp/styles/main.css': 'app/styles/main.less'
                 }
             }
         },
@@ -154,13 +144,22 @@ module.exports = function (grunt) {
         /*concat: {
             dist: {}
         },*/
-        
-        uglify: {
+        requirejs: {
             dist: {
-                files: {
-                    '<%= yeoman.dist %>/scripts/main.js': [
-                        '<%= yeoman.app %>/scripts/{,*/}*.js'
-                    ],
+                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+                options: {
+                    // `name` and `out` is set by grunt-usemin
+                    baseUrl: 'app/scripts',
+                    optimize: 'none',
+                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
+                    // https://github.com/yeoman/grunt-usemin/issues/30
+                    //generateSourceMaps: true,
+                    // required to support SourceMaps
+                    // http://requirejs.org/docs/errors.html#sourcemapcomments
+                    preserveLicenseComments: false,
+                    useStrict: true,
+                    wrap: true,
+                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
                 }
             }
         },
@@ -239,6 +238,8 @@ module.exports = function (grunt) {
         }
     });
 
+    grunt.loadNpmTasks('grunt-contrib-less');
+
     grunt.renameTask('regarde', 'watch');
 
     grunt.registerTask('server', function (target) {
@@ -249,7 +250,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'clean:server',
             'coffee:dist',
-            'compass:server',
+            'less:compile',
             'livereload-start',
             'connect:livereload',
             'open',
@@ -260,7 +261,6 @@ module.exports = function (grunt) {
     grunt.registerTask('test', [
         'clean:server',
         'coffee',
-        'compass',
         'connect:test',
         'mocha'
     ]);
@@ -268,8 +268,9 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'coffee',
-        'compass:dist',
+        'less',
         'useminPrepare',
+        'requirejs',
         'imagemin',
         'htmlmin',
         'concat',
