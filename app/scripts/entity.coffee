@@ -1,10 +1,10 @@
 define ["app"], (App) ->
 
-	class Entity
+  class Entity
 
-		constructor: (@x, @y) ->
+    constructor: (@x, @y) ->
 
-		draw: (ctx) ->
+    draw: (ctx) ->
 
-		update: () ->
-			
+    update: () ->
+      

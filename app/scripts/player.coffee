@@ -1,6 +1,8 @@
 define ["app"], (App) ->
 
-	class Player
+  class Player
 
-		constructor: (@x, @y) ->
-		@garden = {}
+    constructor: (@x, @y) ->
+      @garden = {}
+      @mediumPlants = 0
+      @largePlants = 0
