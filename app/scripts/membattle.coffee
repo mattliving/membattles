@@ -1,4 +1,4 @@
-define ["jquery"], ($) ->
+define ["app"], (App) ->
 
 	class Membattle
 

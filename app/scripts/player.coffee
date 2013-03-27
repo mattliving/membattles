@@ -1,4 +1,6 @@
-class player
+define ["app"], (App) ->
 
-	constructor: (@x, @y) ->
+	class player
+
+		constructor: (@x, @y) ->
 		@garden = {}

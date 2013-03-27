@@ -13,8 +13,8 @@ require.config
     backbone: 
       deps: ["jquery", "underscore"]
       exports: "Backbone"
+
     bootstrap:
       deps: ["jquery"]
 
-require ["membattle", "backbone"], (Membattle, Backbone) ->
-  membattle = new Membattle()
+require ["app"], (App) ->
