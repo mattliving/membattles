@@ -1,14 +1,11 @@
-define ["app", "movingtext"], (App, MovingText) ->
+define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, MovingText) ->
 
   class Membattle
 
     prob = Math.random()
-
-    canvas = $("canvas")[0]
-    ctx = canvas.getContext("2d")
-    medium_plants = []
-    large_plants  = []
-    text_elements = []
+    canvas   = $("canvas")[0]
+    ctx      = canvas.getContext("2d")
+    entities = []
     data =
       sausage: "saucisson"
       frog: "grenoille"
@@ -17,59 +14,48 @@ define ["app", "movingtext"], (App, MovingText) ->
       tortoise: "tortue"
       mother: "mere"
       computer: "l'ordinateur"
-
+    
     constructor: ->
-      initPlants(large_plants, Math.floor(prob*4)+2, "large_plant")
-      initPlants(medium_plants, Math.floor(prob*3)+1, "medium_plant")
+      initPlants(Math.floor(prob*4)+2, "medium")
+      initPlants(Math.floor(prob*3)+1, "large")
+      entities.push new ImageEntity(0, 0, "/images/floor.png", false)
+      window.e = entities
 
     startAnimation: ->
       for eng, french of data
-        text_elements.push new MovingText(french, ctx, 50, 400, 2000, -3000)
-
+        entities.push new MovingText(french, ctx, 50, 400, 2000, -3000)
       i = 0
+      text_entities = _.filter entities, (ent) -> ent instanceof MovingText
       setInterval(->
-        if i < text_elements.length
-          text_elements[i++].active = true
+        if i < text_entities.length
+          text_entities[i++].active = true
       , 1000)
 
       animate(canvas, ctx, Date.now())
 
-    initPlants = (a, n, type) ->
+    initPlants = (n, type) ->
       for i in [1..n]
-        img = new Image()
-        if type is "medium_plant"
-          img.src = "/images/medium_plant.png"
+        if type is "medium"
+          plant = new Plant(0, 0, "/images/medium_plant.png", true)
         else
-          img.src = "/images/large_plant.png" 
-        img.dataset.type = type
-        img.dataset.x = i
-        img.dataset.y = (if type is "medium_plant" then 280 else 256)
-        img.onload = onImageLoad
-        a.push img
-
-    onImageLoad = ->
-      if @dataset.type is "medium_plant"
-        @dataset.x = +@dataset.x + large_plants.length + 0.1
-      @dataset.x = @dataset.x*@width*0.35
-      ctx.drawImage(@, @dataset.x, @dataset.y, @width*0.3, @height*0.3) 
-
+          plant = new Plant(0, 0, "/images/large_plant.png", true)
+        plant.x = i
+        plant.y = (if type is "medium_plant" then 280 else 256)
+        entities.push plant
 
     animate = (canvas, ctx, lastTime) ->
       time = Date.now()
       dx = time - lastTime
       while dx > 0 # at the moment we do one tick per millisecond
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        
-        for text in text_elements
-          if text? and text.active
-            text.update()
+        for entity in entities
+          if entity? and entity.active and (not (entity instanceof ImageEntity) or entity.loaded)
 
-            text.draw()
+            entity.draw(ctx)
+            entity.update()
 
-            text.applyForce(0, 9.8)
-
-            if text.x > canvas.width - 100 or text.y > canvas.height - 100
-              text_elements.splice(text_elements.indexOf(text), 1)
+            # if entity.x > canvas.width - 100 or entity.y > canvas.height - 100
+            #   entities.splice(entities.indexOf(entity), 1)
         dx--
 
       requestAnimFrame ->
