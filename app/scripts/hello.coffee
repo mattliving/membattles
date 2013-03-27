@@ -15,14 +15,14 @@ window.elements = []
 
 class MovingText
 
-  constructor: (@string, @ctx, @x=0, @y=0, fx=0, fy=0) ->
+  constructor: (@text, @ctx, @x=0, @y=0, fx=0, fy=0) ->
     @vx = 0
     @vy = 0
     @applyForce(fx, fy)
     @ctx.font = "12pt Helvetica"
 
   draw: ->
-    @ctx.fillText(@string, @x, @y)
+    @ctx.fillText(@text, @x, @y)
 
   applyForce: (fx, fy) ->
     @fx = fx*0.0005
@@ -37,12 +37,11 @@ class MovingText
   push: ->
     window.elements.push(@)
 
-window.MovingText = MovingText
 
 animate = (canvas, ctx, lastTime) ->
   time = Date.now()
   dx = time - lastTime
-  while dx > 0
+  while dx > 0 # at the moment we do one tick per millisecond
     ctx.clearRect(0, 0, canvas.width, canvas.height)
     
     for text in window.elements
@@ -63,9 +62,9 @@ animate = (canvas, ctx, lastTime) ->
 canvas = $("canvas")[0]
 window.ctx = canvas.getContext("2d")
 
-window.textEls = []
+textEls = []
 for eng, french of data
-  textEls.push new MovingText(french, ctx, 50, 400, 1500, -3000)
+  textEls.push new MovingText(french, ctx, 50, 400, 2000, -3000)
 
 i = 0
 setInterval(->
