@@ -11,6 +11,10 @@ define ["app", "entity", "imageEntity"], (App, Entity, ImageEntity) ->
       @ctx.font = "15pt Merriweather"
       @collided = false
 
+    active: (a = true) ->
+      @trigger("active")
+      @active = a
+
     draw: (ctx) ->
       if @collided
         @explode(ctx)
@@ -18,10 +22,10 @@ define ["app", "entity", "imageEntity"], (App, Entity, ImageEntity) ->
         @expFrames++
         if @expFrames > 50
           @active = false
+          @trigger("inactive wrongHit")
       else
         ctx.fillText(@text, @x, @y)
 
-    # this doesn't work right now, needs to be a separate function
     explode: (ctx) ->
       ctx.beginPath()
       ctx.arc(@x, @y, 40, 2*Math.PI, false)

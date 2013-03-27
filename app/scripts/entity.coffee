@@ -4,7 +4,7 @@ define ["app"], (App) ->
 
     constructor: (@x, @y) ->
 
-    draw: (ctx) ->
+    draw: ->
 
-    update: () ->
+    update: ->
       

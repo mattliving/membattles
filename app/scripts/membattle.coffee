@@ -3,10 +3,12 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
 
   class Membattle extends Backbone.Events
 
+    window.MovingText = MovingText
+    window.Entity = Entity
+
     prob = Math.random()
     $canvas = $("canvas")
     $canvas.attr("width", $(".span12").css("width"))
-    console.log $canvas
     canvas   = $canvas[0]
     ctx      = canvas.getContext("2d")
     entities = []
@@ -48,10 +50,9 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
       # cheap and easy way to show text only at certain times.
       i = 0
       text_entities = _.filter entities, (e) -> e instanceof MovingText
-      setInterval(->
-        if i < text_entities.length
+      for text in text_entities
+        text.on "finish", ->
           text_entities[i++].active = true
-      , 5000)
 
       @animate(Date.now())
 
