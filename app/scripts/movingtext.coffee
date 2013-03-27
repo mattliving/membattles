@@ -10,9 +10,8 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
       @applyForce(fx, fy)
       @ctx.font = "15pt Merriweather"
       @collided = false
-      @on "collided", (good) ->
+      @on "collided", (@success) ->
         @collided = true
-        @success = good
 
     activate: (a = true) ->
       @trigger("active")
