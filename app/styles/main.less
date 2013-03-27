@@ -1,19 +1,65 @@
 @import "../components/bootstrap/less/bootstrap.less";
 
 body {
-	padding-top: 30px;
-    background: #fafafa;
+    background-color: transparent;
+    background: transparent;
+    color: #3e3e3e;
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	line-height: 20px;
+	font-family: "Helvetica Neue","Helvetica","Arial","Kai","KaiTi",Sans-Serif;
+	color: #3e3e3e;
 }
 
-.hero-unit {
-	padding: none;
+.container-fluid, .row-fluid, .hero-unit {
+	padding: 0;
+	margin: 0;
 }
 
-.garden-box .typing-wrapper .typing-type-here {
+canvas {
+	margin: auto 2% auto 2%;
+}
+
+.typing-wrapper .typing-type-here {
 	background-image: none;
 	width: 100%;
 	padding: 5px 20px;
-	height: 50px;
+	height: 40px;
+	margin-top: 10px;
+}
+
+.shiny-box, input[type="text"] {
+	color: #6d6e70;
+	border: 1px solid #e6e6e6;
+	text-shadow: 0 1px 0 #aaa,0 1px 0 #e6e6e6 #aaa;
+	text-shadow: 0 1px 0 #e6e6e6 #aaa,0 1px 0 #e6e6e6 #aaa;
+	background-color: #fff;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+	-moz-box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+	box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
+	background-repeat: repeat-x;
+	background-size: 100% 100%;
+	border: 1px solid #e6e6e6;
+	color: #3e3e3e;
+	font-family: "Times New Roman","Times","Kai","KaiTi",Serif;
+	font-size: 26px;
+	line-height: 36px;
+	-webkit-transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
+	-moz-transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
+	-o-transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
+	transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
+}
+
+.shiny-box.incorrect {
+	border-color: #dd2231;
+	background-color: #e44e5a;
+	color: white;
 }
 
 textarea.roundy, input[type="text"].roundy, input[type="password"].roundy, input[type="email"].roundy, .uneditable-input.roundy, .input.roundy {

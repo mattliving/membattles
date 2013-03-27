@@ -4,7 +4,10 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
   class Membattle
 
     prob = Math.random()
-    canvas   = $("canvas")[0]
+    $canvas = $("canvas")
+    $canvas.attr("width", $(".span12").css("width"))
+    # $canvas.attr("height", $(".span12").css("height"))
+    canvas   = $canvas[0]
     ctx      = canvas.getContext("2d")
     entities = []
 
