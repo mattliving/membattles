@@ -1,6 +1,10 @@
 define ["app"], (App) ->
 
-	class Player
+	class Entity
 
 		constructor: (@x, @y) ->
-		@garden = {}
+
+		draw: (ctx) ->
+
+		update: () ->
+			

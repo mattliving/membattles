@@ -1,35 +1,36 @@
-define ["app"], (App) ->
+define ["app", "imageEntity", "plant"], (App, ImageEntity, Plant) ->
 
 	class Membattle
 
 		prob = Math.random()
 
-		canvas = $("canvas")[0]
-		ctx = canvas.getContext("2d")
-		medium_plants = []
-		large_plants  = []
+		canvas   = $("canvas")[0]
+		ctx      = canvas.getContext("2d")
+		entities = []
 
 		constructor: ->
 
-			initPlants(large_plants, Math.floor(prob*4)+2, "large_plant")
-			initPlants(medium_plants, Math.floor(prob*3)+1, "medium_plant")
+			initPlants(Math.floor(prob*4)+2, "medium")
+			initPlants(Math.floor(prob*3)+1, "large")
+			entities.push new ImageEntity(0, 0, "/images/floor.png", false)
 
-		initPlants = (a, n, type) ->
+		initPlants = (n, type) ->
 			for i in [1..n]
-				img = new Image()
-				if type is "medium_plant"
-					img.src = "/images/medium_plant.png"
+				if type is "medium"
+					plant = new Plant(0, 0, "/images/medium_plant.png", false)
 				else
-					img.src = "/images/large_plant.png" 
-				img.dataset.type = type
-				img.dataset.x = i
-				img.dataset.y = (if type is "medium_plant" then 280 else 256)
-				img.onload = onImageLoad
-				a.push img
+					plant = new Plant(0, 0, "/images/large_plant.png", false)
+				plant.x = i
+				plant.y = (if type is "medium_plant" then 280 else 256)
+				entities.push plant
 
-		onImageLoad = ->
-			if @dataset.type is "medium_plant"
-				@dataset.x = +@dataset.x + large_plants.length + 0.1
-			@dataset.x = @dataset.x*@width*0.35
-			ctx.drawImage(@, @dataset.x, @dataset.y, @width*0.3, @height*0.3)
+		# onImageLoad = ->
+		# 	if @dataset.type is "medium_plant"
+		# 		@dataset.x = +@dataset.x + large_plants.length + 0.1
+		# 	@dataset.x = @dataset.x*@width*0.35
+		# 	ctx.drawImage(@, @dataset.x, @dataset.y, @width*0.3, @height*0.3)
+
+		update: ->
+			for entity in entities
+				entity.draw(ctx)
 
