@@ -1,6 +1,6 @@
 define ["app"], (App) ->
 
-  class Entity
+  class Entity extends Backbone.Events
 
     constructor: (@x, @y) ->
 

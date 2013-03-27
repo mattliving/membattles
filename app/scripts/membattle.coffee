@@ -1,7 +1,7 @@
 define ["app", "imageEntity", "plant", "cannon", "movingtext"], 
 (App, ImageEntity, Plant, Cannon, MovingText) ->
 
-  class Membattle
+  class Membattle extends Backbone.Events
 
     prob = Math.random()
     canvas   = $("canvas")[0]
@@ -10,7 +10,7 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
 
     data =
       sausage: "saucisson"
-      frog: "grenoille"
+      frog: "grenouille"
       cat: "chat"
       fish: "poisson"
       tortoise: "tortue"
