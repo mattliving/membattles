@@ -24,6 +24,13 @@ class MovingText
   draw: ->
     @ctx.fillText(@text, @x, @y)
 
+  explode: ->
+    @ctx.beginPath()
+    @ctx.arc(@x, @y, 40, 2*Math.PI, false)
+    @ctx.fillStyle = "red"
+    @ctx.fill()
+    @ctx.fillStyle = "black"
+
   applyForce: (fx, fy) ->
     @fx = fx*0.0005
     @fy = fy*0.0005
@@ -52,7 +59,8 @@ animate = (canvas, ctx, lastTime) ->
 
         text.applyForce(0, 9.8)
 
-        if text.x > canvas.width or text.y > canvas.height
+        if text.x > canvas.width - 100 or text.y > canvas.height - 100
+          text.explode()
           window.elements.splice(window.elements.indexOf(text), 1)
     dx--
 
