@@ -1,4 +1,5 @@
-define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, MovingText) ->
+define ["app", "imageEntity", "plant", "cannon", "movingtext"], 
+(App, ImageEntity, Plant, Cannon, MovingText) ->
 
   class Membattle
 
@@ -6,6 +7,7 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
     canvas   = $("canvas")[0]
     ctx      = canvas.getContext("2d")
     entities = []
+
     data =
       sausage: "saucisson"
       frog: "grenoille"
@@ -16,14 +18,26 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
       computer: "l'ordinateur"
 
     constructor: ->
-      @mediumPlants = 4
+      @mediumPlants = 3
       @largePlants  = 2
-      entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0.8, true)
+      entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0, 0.8, true)
+      entities.push new Cannon(@mediumPlants+@largePlants, canvas.height/2, "/images/cannon.png", 50, 1.2, true)
       @initPlants(0, canvas.height/2-20, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-20, @largePlants, "large")
       for eng, french of data
         entities.push new MovingText(entities, french, ctx, 50, 400, 2000, -3000)
 
+
+    initPlants: (x, y, n, type) ->
+      for i in [1..n]
+        if type is "medium"
+          plant   = new Plant(x, y, "/images/medium_plant.png", 1.1, 0.3, true)
+          plant.x = i+@largePlants-1
+          plant.y += 24
+        else
+          plant   = new Plant(x, y, "/images/large_plant.png", 1.1, 0.3, true)
+          plant.x = i-1
+        entities.push plant
 
     startAnimation: ->
       # cheap and easy way to show text only at certain times.
@@ -35,17 +49,6 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
       , 1000)
 
       @animate(canvas, ctx, Date.now())
-
-    initPlants: (x, y, n, type) ->
-      for i in [1..n]
-        if type is "medium"
-          plant   = new Plant(x, y, "/images/medium_plant.png", 0.3, true)
-          plant.x = i+@largePlants
-          plant.y += 24
-        else
-          plant   = new Plant(x, y, "/images/large_plant.png", 0.3, true)
-          plant.x = i
-        entities.push plant
 
     animate: (lastTime) ->
       time = Date.now()
