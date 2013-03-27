@@ -7,6 +7,6 @@ define ["app"], (App) ->
 
     constructor: ->
       @$input = $("#guess")
-      @$input.keypress (e) =>
-        guess = $(e.currentTarget).val() + String.fromCharCode(e.charCode)
+      @$input.change (e) =>
+        guess = $(e.currentTarget).val()
         @trigger("change", guess)

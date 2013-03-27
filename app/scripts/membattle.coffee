@@ -42,10 +42,12 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       @initPlants(0, canvas.height/2-4, @largePlants, "large")
       for eng, french of data
         newText = new MovingText(items, french, eng, ctx, cannon.x*cannon.offset+60, cannon.y-30, 2400, -3500)
+        @input.listenTo newText, "collided", (success) ->
+          if success
+            @.$input.val("")
         newText.listenTo @input, "change", (guess) ->
           if @active
             if @translation is guess
-              console.log @
               @trigger("collided", true)
         items.push newText
 
