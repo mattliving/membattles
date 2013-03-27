@@ -16,10 +16,11 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
       computer: "l'ordinateur"
     
     constructor: ->
-      initPlants(Math.floor(prob*4)+2, "medium")
-      initPlants(Math.floor(prob*3)+1, "large")
-      entities.push new ImageEntity(0, 0, "/images/floor.png", false)
-      window.e = entities
+      @mediumPlants = 4
+      @largePlants  = 2
+      entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0.8, false)
+      @initPlants(0, canvas.height/2-20, @mediumPlants, "medium")
+      @initPlants(0, canvas.height/2-20, @largePlants, "large")
 
     startAnimation: ->
       for eng, french of data
@@ -31,26 +32,27 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
           text_entities[i++].active = true
       , 1000)
 
-      animate(canvas, ctx, Date.now())
+      @animate(canvas, ctx, Date.now())
 
-    initPlants = (n, type) ->
+    initPlants: (x, y, n, type) ->
       for i in [1..n]
         if type is "medium"
-          plant = new Plant(0, 0, "/images/medium_plant.png", true)
+          plant   = new Plant(x, y, "/images/medium_plant.png", 0.3, true)
+          plant.x = i+@largePlants
+          plant.y += 24
         else
-          plant = new Plant(0, 0, "/images/large_plant.png", true)
-        plant.x = i
-        plant.y = (if type is "medium_plant" then 280 else 256)
+          plant   = new Plant(x, y, "/images/large_plant.png", 0.3, true)
+          plant.x = i
         entities.push plant
 
-    animate = (canvas, ctx, lastTime) ->
+    animate: (lastTime) ->
       time = Date.now()
       dx = time - lastTime
       while dx > 0 # at the moment we do one tick per millisecond
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         for entity in entities
-          if entity? and entity.active and (not (entity instanceof ImageEntity) or entity.loaded)
-
+          if entity? and entity.active
+            
             entity.draw(ctx)
             entity.update()
 
@@ -58,5 +60,8 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
             #   entities.splice(entities.indexOf(entity), 1)
         dx--
 
-      requestAnimFrame ->
-        animate(canvas, ctx, time)
+      requestAnimFrame =>
+        @animate(time)
+
+
+

@@ -2,4 +2,5 @@ membattles
 ==========
 
 TODO:
-* Make controlling the speed less weird
+* Increase the number of milliseconds per frame
+* Add in the buttons with the guesses
