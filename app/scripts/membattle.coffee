@@ -34,16 +34,8 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       items.push cannon
       @initPlants(0, canvas.height/2-4, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-4, @largePlants, "large")
-      for eng, french of data
-        newText = new MovingText(items, french, eng, ctx, cannon.x*cannon.offset+60, cannon.y-30, 2400, -3500)
-        @input.listenTo newText, "collided", (success) ->
-          if success
-            @.$input.val("")
-        newText.listenTo @input, "change", (guess) ->
-          if @active
-            if @translation is guess
-              @trigger("collided", true)
-        items.push newText
+      @initMovingText(cannon.x*cannon.offset+60, cannon.y-30)
+
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -56,7 +48,15 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
           plant.x = i
         items.push plant
 
-    initMovingText: ->
+    initMovingText: (x, y) ->
+      for eng, french of data
+        newText = new MovingText(items, french, eng, ctx, x, y, 2400, -3500)
+        @input.listenTo newText, "collided", (success) -> @.$input.val("")
+        newText.listenTo @input, "change", (guess) ->
+          if @active
+            if @translation is guess
+              @trigger("collided", true)
+        items.push newText
 
     startAnimation: ->
       # cheap and easy way to show text only at certain times.
@@ -72,17 +72,13 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       time = Date.now()
       dx = time - lastTime
       @ms += dx
-      if @ms > 10
+      while @ms > 10
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         for item in items
           if item? and item.active
-
             item.draw(ctx)
             item.update()
-
-            # if entity.x > canvas.width - 100 or entity.y > canvas.height - 100
-            #   items.splice(items.indexOf(entity), 1)
-        @ms = 0
+        @ms -= 10
       requestAnimFrame =>
         @animate(time)
 
