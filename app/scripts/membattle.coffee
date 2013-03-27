@@ -14,19 +14,21 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
       tortoise: "tortue"
       mother: "mere"
       computer: "l'ordinateur"
-    
+
     constructor: ->
       @mediumPlants = 4
       @largePlants  = 2
       entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0.8, true)
       @initPlants(0, canvas.height/2-20, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-20, @largePlants, "large")
+      for eng, french of data
+        entities.push new MovingText(entities, french, ctx, 50, 400, 2000, -3000)
+
 
     startAnimation: ->
-      for eng, french of data
-        entities.push new MovingText(french, ctx, 50, 400, 2000, -3000)
+      # cheap and easy way to show text only at certain times.
       i = 0
-      text_entities = _.filter entities, (ent) -> ent instanceof MovingText
+      text_entities = _.filter entities, (e) -> e instanceof MovingText
       setInterval(->
         if i < text_entities.length
           text_entities[i++].active = true
