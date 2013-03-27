@@ -1,30 +1,30 @@
-class MovingText
+define ["app"], (App) ->
 
-  constructor: (@text, @ctx, @x=0, @y=0, fx=0, fy=0) ->
-    @vx = 0
-    @vy = 0
-    @applyForce(fx, fy)
-    @ctx.font = "12pt Helvetica"
+  class MovingText
 
-  draw: ->
-    @ctx.fillText(@text, @x, @y)
+    constructor: (@text, @ctx, @x=0, @y=0, fx=0, fy=0) ->
+      @vx = 0
+      @vy = 0
+      @applyForce(fx, fy)
+      @ctx.font = "12pt Helvetica"
+      @active = false
 
-  explode: ->
-    @ctx.beginPath()
-    @ctx.arc(@x, @y, 40, 2*Math.PI, false)
-    @ctx.fillStyle = "red"
-    @ctx.fill()
-    @ctx.fillStyle = "black"
+    draw: ->
+      @ctx.fillText(@text, @x, @y)
 
-  applyForce: (fx, fy) ->
-    @fx = fx*0.0005
-    @fy = fy*0.0005
+    explode: ->
+      @ctx.beginPath()
+      @ctx.arc(@x, @y, 40, 2*Math.PI, false)
+      @ctx.fillStyle = "red"
+      @ctx.fill()
+      @ctx.fillStyle = "black"
 
-  update: ->
-    @vx += @fx
-    @vy += @fy
-    @x += @vx
-    @y += @vy
+    applyForce: (fx, fy) ->
+      @fx = fx*0.0005
+      @fy = fy*0.0005
 
-  push: ->
-    window.elements.push(@)
+    update: ->
+      @vx += @fx
+      @vy += @fy
+      @x += @vx
+      @y += @vy
