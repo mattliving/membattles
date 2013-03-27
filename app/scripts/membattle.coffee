@@ -6,7 +6,7 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
     prob = Math.random()
     $canvas = $("canvas")
     $canvas.attr("width", $(".span12").css("width"))
-    # $canvas.attr("height", $(".span12").css("height"))
+    console.log $canvas
     canvas   = $canvas[0]
     ctx      = canvas.getContext("2d")
     entities = []
