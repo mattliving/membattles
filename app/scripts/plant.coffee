@@ -1,6 +1,6 @@
-define ["app", "imageEntity"], (App, ImageEntity) ->
+define ["app", "imageItem"], (App, ImageItem) ->
 
-  class Plant extends ImageEntity
+  class Plant extends ImageItem
 
     draw: (ctx) ->
       if @loaded
