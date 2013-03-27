@@ -2,7 +2,7 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
 
   class MovingText extends Item
 
-    constructor: (items, @text, @ctx, @x=0, @y=0, fx=0, fy=0, @active = false) ->
+    constructor: (items, @text, @translation, @ctx, @x=0, @y=0, fx=0, fy=0, @active = false) ->
       @images = _.filter items, (e) -> e instanceof ImageItem
       @type = "text"
       @vx = 0
@@ -10,8 +10,11 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
       @applyForce(fx, fy)
       @ctx.font = "15pt Merriweather"
       @collided = false
+      @on "collided", (good) ->
+        @collided = true
+        @success = good
 
-    active: (a = true) ->
+    activate: (a = true) ->
       @trigger("active")
       @active = a
 
@@ -22,14 +25,14 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
         @expFrames++
         if @expFrames > 50
           @active = false
-          @trigger("inactive wrongHit")
+          @trigger("inactive")
       else
         ctx.fillText(@text, @x, @y)
 
     explode: (ctx) ->
       ctx.beginPath()
       ctx.arc(@x, @y, 40, 2*Math.PI, false)
-      ctx.fillStyle = "red"
+      ctx.fillStyle = if @success then "green" else "red"
       ctx.fill()
       ctx.fillStyle = "black"
 
@@ -50,4 +53,5 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
           xdiff = @x - image.x
           ydiff = @y - image.y
           if  0 < xdiff < image.img.width and 0 < ydiff < image.img.height
+            @trigger("collided", false)
             @collided = true

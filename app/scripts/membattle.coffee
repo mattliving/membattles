@@ -1,17 +1,19 @@
-define ["app", "imageItem", "floor", "plant", "cannon", "movingtext"], 
-(App, ImageItem, Floor, Plant, Cannon, MovingText) ->
+define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
+(App, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
 
   class Membattle extends Backbone.Events
 
     window.MovingText = MovingText
-    window.Entity = Entity
-
+    window.Item       = Item
+    
     prob = Math.random()
+    
     $canvas = $("canvas")
+    canvas  = $canvas[0]
+    ctx     = canvas.getContext("2d")
+    items   = []
+
     $canvas.attr("width", $(".span12").css("width"))
-    canvas   = $canvas[0]
-    ctx      = canvas.getContext("2d")
-    items = []
 
     data =
       sausage: "saucisson"
@@ -23,6 +25,7 @@ define ["app", "imageItem", "floor", "plant", "cannon", "movingtext"],
       computer: "l'ordinateur"
 
     constructor: ->
+      @input = new InputHandler()
       @ms = 0
       @mediumPlants = 3
       @largePlants  = 2
@@ -32,7 +35,13 @@ define ["app", "imageItem", "floor", "plant", "cannon", "movingtext"],
       @initPlants(0, canvas.height/2-4, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-4, @largePlants, "large")
       for eng, french of data
-        items.push new MovingText(items, french, ctx, cannon.x*cannon.offset+60, cannon.y-30, 2400, -3500)
+        newText = new MovingText(items, french, eng, ctx, cannon.x*cannon.offset+60, cannon.y-30, 2400, -3500)
+        newText.listenTo @input, "change", (guess) ->
+          if @active
+            if @translation is guess
+              console.log @
+              @trigger("collided", true)
+        items.push newText
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -49,9 +58,9 @@ define ["app", "imageItem", "floor", "plant", "cannon", "movingtext"],
       # cheap and easy way to show text only at certain times.
       i = 0
       text_items = _.filter items, (e) -> e instanceof MovingText
-      for text in text_items
-        text.on "finish", ->
-          text_items[i++].active = true
+      text_items[i++].activate()
+      for j in [i..text_items.length-1]
+        text_items[j].listenTo text_items[j-1], "inactive", -> @activate()
 
       @animate(Date.now())
 
