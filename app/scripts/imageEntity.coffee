@@ -1,4 +1,4 @@
-define ["app", "entity"], (App, Entity) ->
+define ["app", "entity", "imageEntity"], (App, Entity, ImageEntity) ->
 
   class ImageEntity extends Entity
 

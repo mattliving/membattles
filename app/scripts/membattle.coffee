@@ -16,14 +16,19 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
       tortoise: "tortue"
       mother: "mere"
       computer: "l'ordinateur"
-    
+
     constructor: ->
+      @ms = 0
       @mediumPlants = 3
       @largePlants  = 2
+      cannon = new Cannon(@mediumPlants+@largePlants, canvas.height/2, "/images/cannon.png", 50, 1.2, true)
       entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0, 0.8, true)
-      entities.push new Cannon(@mediumPlants+@largePlants, canvas.height/2, "/images/cannon.png", 50, 1.2, true)
+      entities.push cannon
       @initPlants(0, canvas.height/2-20, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-20, @largePlants, "large")
+      for eng, french of data
+        entities.push new MovingText(entities, french, ctx, cannon.x*cannon.offset+60, cannon.y-30, 2400, -3500)
+
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -37,21 +42,21 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
         entities.push plant
 
     startAnimation: ->
-      for eng, french of data
-        entities.push new MovingText(french, ctx, 50, 400, 2000, -3000)
+      # cheap and easy way to show text only at certain times.
       i = 0
-      text_entities = _.filter entities, (ent) -> ent instanceof MovingText
+      text_entities = _.filter entities, (e) -> e instanceof MovingText
       setInterval(->
         if i < text_entities.length
           text_entities[i++].active = true
-      , 1000)
+      , 5000)
 
-      @animate(canvas, ctx, Date.now())
+      @animate(Date.now())
 
     animate: (lastTime) ->
       time = Date.now()
       dx = time - lastTime
-      while dx > 0 # at the moment we do one tick per millisecond
+      @ms += dx
+      if @ms > 10
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         for entity in entities
           if entity? and entity.active
@@ -61,8 +66,7 @@ define ["app", "imageEntity", "plant", "cannon", "movingtext"],
 
             # if entity.x > canvas.width - 100 or entity.y > canvas.height - 100
             #   entities.splice(entities.indexOf(entity), 1)
-        dx--
-
+        @ms = 0
       requestAnimFrame =>
         @animate(time)
 
