@@ -18,15 +18,18 @@ class Membattle
 			if type is "medium_plant"
 				img.src = "/images/medium_plant.png"
 			else
-				img.src = "/images/large_plant.png"
-			x = i 
-			y = (if type is "medium_plant" then 280 else 256)
-			img.onload = () =>
-				if type is "medium_plant"
-					x = +x + large_plants.length + 0.1
-				x = x*@width*0.35
-				ctx.drawImage(@, x, y, @width*0.3, @height*0.3)
+				img.src = "/images/large_plant.png" 
+			img.dataset.type = type
+			img.dataset.x = i
+			img.dataset.y = (if type is "medium_plant" then 280 else 256)
+			img.onload = onImageLoad
 			a.push img
+
+	onImageLoad = ->
+		if @dataset.type is "medium_plant"
+			@dataset.x = +@dataset.x + large_plants.length + 0.1
+		@dataset.x = @dataset.x*@width*0.35
+		ctx.drawImage(@, @dataset.x, @dataset.y, @width*0.3, @height*0.3)
 
 membattle = new Membattle()
 
