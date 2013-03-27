@@ -2,7 +2,7 @@ define ["app", "entity"], (App, Entity) ->
 
   class ImageEntity extends Entity
 
-    constructor: (@x, @y, @src, @scale, @active = false) ->
+    constructor: (@x, @y, @src, @offset, @scale, @active = false) ->
       @loaded = false
       @type = "image"
       @img = new Image()
@@ -12,4 +12,4 @@ define ["app", "entity"], (App, Entity) ->
 
     draw: (ctx) ->
       if @loaded
-        ctx.drawImage(@img, @x, @y, @img.width*@scale, @img.height*@scale)
+        ctx.drawImage(@img, @x*@offset, @y, @img.width*@scale, @img.height*@scale)
