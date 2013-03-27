@@ -2,18 +2,12 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
 (App, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
 
   class Membattle extends Backbone.Events
-
-    window.MovingText = MovingText
-    window.Item       = Item
-    
-    prob = Math.random()
     
     $canvas = $("canvas")
+    $canvas.attr("width", $(".span12").css("width"))
     canvas  = $canvas[0]
     ctx     = canvas.getContext("2d")
     items   = []
-
-    $canvas.attr("width", $(".span12").css("width"))
 
     data =
       sausage: "saucisson"
@@ -24,7 +18,13 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       mother: "mere"
       computer: "l'ordinateur"
 
-    constructor: ->
+    constructor: (@player1, @player2) ->
+      # @player1.fetch((data) ->
+      #   console.log data
+      # )
+      # @player2.fetch((data) ->
+      #   console.log data
+      # )
       @input = new InputHandler()
       @ms = 0
       @mediumPlants = 3
@@ -55,6 +55,8 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
           plant   = new Plant(x, y, "/images/large_plant.png", 1.1, 0.3, true)
           plant.x = i
         items.push plant
+
+    initMovingText: ->
 
     startAnimation: ->
       # cheap and easy way to show text only at certain times.
