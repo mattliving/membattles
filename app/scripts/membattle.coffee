@@ -18,7 +18,7 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
     constructor: ->
       @mediumPlants = 4
       @largePlants  = 2
-      entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0.8, false)
+      entities.push new ImageEntity(0, canvas.height/2, "/images/floor.png", 0.8, true)
       @initPlants(0, canvas.height/2-20, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-20, @largePlants, "large")
 
@@ -52,7 +52,7 @@ define ["app", "imageEntity", "plant", "movingtext"], (App, ImageEntity, Plant, 
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         for entity in entities
           if entity? and entity.active
-            
+
             entity.draw(ctx)
             entity.update()
 
