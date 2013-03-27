@@ -13,9 +13,7 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
       @on "collided", (@success) ->
         @collided = true
 
-    activate: (a = true) ->
-      @trigger("active")
-      @active = a
+    activate: (@active = true) -> @trigger("active")
 
     draw: (ctx) ->
       if @collided

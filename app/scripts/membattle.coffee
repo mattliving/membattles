@@ -70,17 +70,13 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       time = Date.now()
       dx = time - lastTime
       @ms += dx
-      if @ms > 10
+      while @ms > 10
         ctx.clearRect(0, 0, canvas.width, canvas.height)
         for item in items
           if item? and item.active
-
             item.draw(ctx)
             item.update()
-
-            # if entity.x > canvas.width - 100 or entity.y > canvas.height - 100
-            #   items.splice(items.indexOf(entity), 1)
-        @ms = 0
+        @ms -= 10
       requestAnimFrame =>
         @animate(time)
 
