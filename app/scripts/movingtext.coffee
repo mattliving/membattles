@@ -1,9 +1,9 @@
-define ["app", "entity", "imageEntity"], (App, Entity, ImageEntity) ->
+define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
 
-  class MovingText extends Entity
+  class MovingText extends Item
 
-    constructor: (entities, @text, @ctx, @x=0, @y=0, fx=0, fy=0, @active = false) ->
-      @images = _.filter entities, (e) -> e instanceof ImageEntity
+    constructor: (items, @text, @ctx, @x=0, @y=0, fx=0, fy=0, @active = false) ->
+      @images = _.filter items, (e) -> e instanceof ImageItem
       @type = "text"
       @vx = 0
       @vy = 0
