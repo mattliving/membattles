@@ -36,7 +36,6 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       @initPlants(0, canvas.height/2-4, @largePlants, "large")
       @initMovingText(cannon.x*cannon.offset+60, cannon.y-30)
 
-
     initPlants: (x, y, n, type) ->
       for i in [1..n]
         if type is "medium"
