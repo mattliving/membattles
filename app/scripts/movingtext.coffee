@@ -8,7 +8,7 @@ define ["app", "entity", "imageEntity"], (App, Entity, ImageEntity) ->
       @vx = 0
       @vy = 0
       @applyForce(fx, fy)
-      @ctx.font = "12pt Helvetica"
+      @ctx.font = "15pt Helvetica"
       @collided = false
 
     draw: (ctx) ->

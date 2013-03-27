@@ -5,7 +5,4 @@ define ["jquery", "backbone", "underscore", "membattle"],
   )
   
   membattle = new Membattle()
-
-  setTimeout(-> 
-    membattle.startAnimation()
-  , 1000)
+  membattle.startAnimation()
