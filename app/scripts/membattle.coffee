@@ -24,7 +24,13 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       mother: "mere"
       computer: "l'ordinateur"
 
-    constructor: ->
+    constructor: (@player1, @player2) ->
+      # @player1.fetch((data) ->
+      #   console.log data
+      # )
+      # @player2.fetch((data) ->
+      #   console.log data
+      # )
       @input = new InputHandler()
       @ms = 0
       @mediumPlants = 3
