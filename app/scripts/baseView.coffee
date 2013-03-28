@@ -5,9 +5,11 @@ define ["app", "baseView"], (App, BaseView) ->
     initialize: ->
       @model.on "change", @render, this
       @model.on "destroy", @cleanup, this
+      @render()
 
     render: ->
       @$el.html @template(@model.toJSON())
+      console.log @template(@model.toJSON())
       this
 
     postInitialize: ->

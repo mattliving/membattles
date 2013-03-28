@@ -19,13 +19,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       mother: "mere"
       computer: "l'ordinateur"
 
-    constructor: (@player1, @player2) ->
-      # @player1.fetch((data) ->
-      #   console.log data
-      # )
-      # @player2.fetch((data) ->
-      #   console.log data
-      # )
+    constructor: () ->
       @$playerHeader = $("#inputArea h2")
       @setPlayer()
       @input = new InputHandler()

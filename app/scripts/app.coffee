@@ -10,13 +10,31 @@ define ["jquery", "backbone", "underscore", "membattle", "player", "playerView"]
       username: "matthew.livingston"
   )
   playerModel2 = new Player(
+    position: "right"
     user:
-      username: "alxhill"
+      username: "edcooke"
   )
-  playerModel1.fetch()
-  playerModel2.fetch()
-  playerView1 = new PlayerView(model: playerModel1)
-  playerView2 = new PlayerView(model: playerModel2)
-
-  membattle = new Membattle(playerView1, playerView2)
+  playerModel1.fetch(
+    success: ->
+      small = playerModel1.get("user").photo_small.replace("large", "small")
+      user  = playerModel1.get("user")
+      user.photo_small = small
+      playerModel1.set("user", user)
+      playerView1 = new PlayerView(
+        el: $("#player1")
+        model: playerModel1
+      )
+  )
+  playerModel2.fetch(
+    success: ->
+      small = playerModel2.get("user").photo_small.replace("large", "small")
+      user  = playerModel2.get("user")
+      user.photo_small = small
+      playerModel2.set("user", user)
+      playerView2 = new PlayerView(
+        el: $("#player2")
+        model: playerModel2
+      )
+  )
+  membattle = new Membattle()
   membattle.startAnimation()
