@@ -8,7 +8,5 @@ define ["jquery", "backbone", "underscore", "membattle", "player", "playerView"]
   player1 = new PlayerView(model: new Player())
   player2 = new PlayerView(model: new Player())
 
-  console.log player1
-
   membattle = new Membattle(player1, player2)
   membattle.startAnimation()

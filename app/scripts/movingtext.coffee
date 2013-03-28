@@ -2,8 +2,7 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
 
   class MovingText extends Item
 
-    constructor: (items, @text, @translation, @ctx, @x=0, @y=0, fx=0, fy=0, @active = false) ->
-      @images = _.filter items, (e) -> e instanceof ImageItem
+    constructor: (@floor, @text, @translation, @ctx, fx=0, fy=0, @active = false) ->
       @type = "text"
       @vx = 0
       @vy = 0
@@ -46,9 +45,8 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
         @y += @vy
         @applyForce(0, 9.8)
 
-        for image in @images
-          xdiff = @x - image.x
-          ydiff = @y - image.y
-          if  0 < xdiff < image.img.width and 0 < ydiff < image.img.height
-            @trigger("collided", false)
-            @collided = true
+        xdiff = @x - @floor.x
+        ydiff = @y - @floor.y
+        if  0 < xdiff < @floor.img.width and 0 < ydiff < @floor.img.height
+          @trigger("collided", false)
+          @collided = true

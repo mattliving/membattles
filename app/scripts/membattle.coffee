@@ -10,14 +10,16 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
     items   = []
     currentPlayer = "Player One's Turn!"
 
-    data =
+    data1 =
       sausage: "saucisson"
       frog: "grenouille"
       cat: "chat"
       fish: "poisson"
+    data2 =
       tortoise: "tortue"
       mother: "mere"
       computer: "l'ordinateur"
+      naughty: "mechant"
 
     constructor: (@player1, @player2) ->
       # @player1.fetch((data) ->
@@ -32,14 +34,15 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       @ms = 0
       @mediumPlants = 3
       @largePlants  = 2
-      items.push new Floor(0, canvas.height/2, "/images/floor.png", 0, 1, true)
-      cannon = new Cannon(@mediumPlants+@largePlants+1, canvas.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
-      items.push cannon
+      @floor = new Floor(0, canvas.height/2, "/images/floor.png", 0, 1, true)
+      items.push @floor
       @initPlants(0, canvas.height/2-4, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-4, @largePlants, "large")
-      cannon2 = new Cannon(@mediumPlants+@largePlants+5, canvas.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
-      items.push cannon2
-      @initMovingText(cannon.x*cannon.offset+60, cannon.y-30)
+      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, canvas.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
+      items.push @cannon1
+      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, canvas.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
+      items.push @cannon2
+      @initMovingText()
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -53,26 +56,44 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
         items.push plant
 
     initMovingText: (x, y) ->
-      for eng, french of data
-        newText = new MovingText(items, french, eng, ctx, x, y, 2400, -3500)
-        @input.listenTo newText, "collided", (success) -> @.$input.val("")
+      for eng, french of data1
+        newText = new MovingText(@floor, french, eng, ctx, 2400, -3500)
         newText.listenTo @input, "change", (guess) ->
-          if @active
-            if @translation is guess
-              @trigger("collided", true)
+          if guess is @translation
+            @trigger("collided", true)
+        @cannon1.addText(newText)
         items.push newText
+
+      for eng, french of data2
+        newText = new MovingText(@floor, french, eng, ctx, -2400, -3500)
+        newText.listenTo @input, "change", (guess) ->
+          if guess is @translation
+            @trigger("collided", true)
+        @cannon2.addText(newText)
+        items.push newText
+
+      @cannon1.listenTo @cannon2, "exploded", ->
+        console.log @, "cannon1"
+        @trigger("nextText")
+
+      @cannon2.listenTo @cannon1, "exploded", ->
+        console.log @, "cannon2"
+        @trigger("nextText")
+
+      @input.listenTo @cannon1, "exploded", -> @$input.val("")
+      @input.listenTo @cannon2, "exploded", -> @$input.val("")
 
     setPlayer: ->
       @$playerHeader.text(currentPlayer)
 
     startAnimation: ->
       # cheap and easy way to show text only at certain times.
-      i = 0
-      text_items = _.filter items, (e) -> e instanceof MovingText
-      text_items[i++].activate()
-      for j in [i..text_items.length-1]
-        text_items[j].listenTo text_items[j-1], "inactive", -> @activate()
-
+      # i = 0
+      # text_items = _.filter items, (e) -> e instanceof MovingText
+      # text_items[i++].activate()
+      # for j in [i..text_items.length-1]
+      #   text_items[j].listenTo text_items[j-1], "inactive", -> @activate()
+      @cannon1.trigger("nextText")
       @animate(Date.now())
 
     animate: (lastTime) ->
