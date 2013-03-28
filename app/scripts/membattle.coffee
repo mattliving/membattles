@@ -8,6 +8,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
     canvas  = $canvas[0]
     ctx     = canvas.getContext("2d")
     items   = []
+    currentPlayer = "Player One's Turn!"
 
     data =
       sausage: "saucisson"
@@ -25,6 +26,8 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       # @player2.fetch((data) ->
       #   console.log data
       # )
+      @$playerHeader = $("#inputArea h2")
+      @setPlayer()
       @input = new InputHandler()
       @ms = 0
       @mediumPlants = 3
@@ -58,6 +61,9 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
             if @translation is guess
               @trigger("collided", true)
         items.push newText
+
+    setPlayer: ->
+      @$playerHeader.text(currentPlayer)
 
     startAnimation: ->
       # cheap and easy way to show text only at certain times.
