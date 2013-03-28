@@ -30,10 +30,12 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       @mediumPlants = 3
       @largePlants  = 2
       items.push new Floor(0, canvas.height/2, "/images/floor.png", 0, 1, true)
-      cannon = new Cannon(@mediumPlants+@largePlants+1, canvas.height/2-4, "/images/cannon.png", 50, 1.2, true)
+      cannon = new Cannon(@mediumPlants+@largePlants+1, canvas.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
       items.push cannon
       @initPlants(0, canvas.height/2-4, @mediumPlants, "medium")
       @initPlants(0, canvas.height/2-4, @largePlants, "large")
+      cannon2 = new Cannon(@mediumPlants+@largePlants+5, canvas.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
+      items.push cannon2
       @initMovingText(cannon.x*cannon.offset+60, cannon.y-30)
 
     initPlants: (x, y, n, type) ->

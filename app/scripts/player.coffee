@@ -15,6 +15,7 @@ define ["app"], (App) ->
       photo_large: ""
       points: 0
       lives: 3
+      position: "left"
 
     initialize: (@username) ->
       @url += @username

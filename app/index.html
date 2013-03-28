@@ -21,7 +21,7 @@
         <div class="row-fluid">
           <div class="span12">
             <div class="span4">
-              <div class="media well">
+              <div class="span9 player media well">
                 <img class="img-polaroid pull-left" src="/images/holder.png">
                 <div class="media-body">
                   <h4 class="media-heading">matthew.livingston</h4>
@@ -30,18 +30,20 @@
                   <img class="media-object" src="/images/small_plant.png">
                 </div>
               </div>
+              <div class="span3"></div>
             </div>
             <div class="typing-wrapper span4">
                 <input type="text" id="guess" class="shiny-box roundy typing-type-here" tabindex="1" autocomplete="off" spellcheck="false">
             </div>
             <div class="span4">
-              <div class="media well">
+              <div class="span3"></div>
+              <div id="player2" class="span9 media well">
                 <img class="img-polaroid pull-right" src="/images/holder.png">
                 <div class="media-body pull-right">
                   <h4 class="media-heading pull-right">alxhill</h4>
-                  <img class="media-object clearfix" src="/images/small_plant.png">
-                  <img class="media-object clearfix" src="/images/small_plant.png">
-                  <img class="media-object clearfix" src="/images/small_plant.png">
+                  <img class="media-object pull-right" src="/images/small_plant.png">
+                  <img class="media-object pull-right" src="/images/small_plant.png">
+                  <img class="media-object pull-right" src="/images/small_plant.png">
                 </div>
               </div>
             </div>
@@ -49,6 +51,19 @@
           </div>
         </div>
       </div>
+
+      <script id="playerTemplate" type="text/template" class="template">
+        <div class="span9 player media well">
+          <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src=<%= photo_small %>>
+          <div class="media-body">
+            <h4 class="media-heading"><%= username %>
+            </h4>
+            <% for (var i = 0; i < lives; i++) { %>
+              <img class="media-object" src="/images/small_plant.png">
+            <% } %>
+          </div>
+        </div>
+      </script>
 
       <!--[if lt IE 7]>
           <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>

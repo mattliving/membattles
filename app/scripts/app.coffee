@@ -1,5 +1,5 @@
-define ["jquery", "backbone", "underscore", "membattle", "player"], 
-($, Backbone, _, Membattle, Player) ->
+define ["jquery", "backbone", "underscore", "membattle", "player", "playerView"], 
+($, Backbone, _, Membattle, Player, PlayerView) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || (callback) -> window.setTimeout(callback, 1000 / 60)
