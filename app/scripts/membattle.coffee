@@ -15,6 +15,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       frog: "grenouille"
       cat: "chat"
       fish: "poisson"
+
     data2 =
       tortoise: "tortue"
       mother: "mere"
@@ -57,7 +58,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
 
     initMovingText: (x, y) ->
       for eng, french of data1
-        newText = new MovingText(@floor, french, eng, ctx, 2400, -3500)
+        newText = new MovingText(@floor, french, eng, ctx, 3000, -10000)
         newText.listenTo @input, "change", (guess) ->
           if guess is @translation
             @trigger("collided", true)
@@ -65,7 +66,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
         items.push newText
 
       for eng, french of data2
-        newText = new MovingText(@floor, french, eng, ctx, -2400, -3500)
+        newText = new MovingText(@floor, french, eng, ctx, -3000, -10000)
         newText.listenTo @input, "change", (guess) ->
           if guess is @translation
             @trigger("collided", true)

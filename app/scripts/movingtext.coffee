@@ -7,7 +7,7 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
       @vx = 0
       @vy = 0
       @applyForce(fx, fy)
-      @ctx.font = "15pt Merriweather"
+      @ctx.font = "15pt 'Comic Sans MS'"
       @collided = false
       @on "collided", (@success) ->
         @collided = true
@@ -43,7 +43,7 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
         @vy += @fy
         @x += @vx
         @y += @vy
-        @applyForce(0, 9.8)
+        @applyForce(0, 70)
 
         xdiff = @x - @floor.x
         ydiff = @y - @floor.y
