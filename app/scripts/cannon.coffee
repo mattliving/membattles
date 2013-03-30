@@ -10,11 +10,11 @@ define ["app", "imageItem"], (App, ImageItem) ->
       @img.onload = =>
         @loaded = true
 
-      # eventy stuff for firing words out
       @text = []
       @currentText = 0
       @on "nextText", ->
         if @currentText < @text.length
+          console.log "activating next" + (+@mirrored + 1)
           @text[@currentText++].activate()
 
     addText: (text) ->

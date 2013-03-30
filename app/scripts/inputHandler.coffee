@@ -8,5 +8,8 @@ define ["app"], (App) ->
     constructor: ->
       @$input = $("#guess")
       @$input.change (e) =>
-        guess = $(e.currentTarget).val()
+        $el = $(e.currentTarget)
+        guess = $el.val()
+        $el.val("")
+        console.log "changed to " + guess
         @trigger("change", guess)

@@ -43,10 +43,9 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
         @vy += @fy
         @x += @vx
         @y += @vy
-        @applyForce(0, 70)
+        @applyForce(0, 9.8)
 
         xdiff = @x - @floor.x
         ydiff = @y - @floor.y
         if  0 < xdiff < @floor.img.width and 0 < ydiff < @floor.img.height
           @trigger("collided", false)
-          @collided = true
