@@ -21,8 +21,7 @@
         <div class="row-fluid">
           <div class="span12">
             <div class="span4">
-              <div id="player1" class="span9 player media well">
-              </div>
+              <div id="player1"></div>
               <div class="span3"></div>
             </div>
             <div id="inputArea" class="span4">
@@ -33,8 +32,7 @@
             </div>
             <div class="span4">
               <div class="span3"></div>
-              <div id="player2" class="span9 media well">
-              </div>
+              <div id="player2"></div>
             </div>
             <canvas id="canvas" height="900"></canvas>
           </div>
@@ -52,6 +50,16 @@
         </div>
       </script>
 
+      <script id="courseTemplate" type="text/template" class="template">
+            <a href="<%= link %>" target="_blank">
+                <%= name %>
+            </a>
+        </script>
+
+      <script id="noItemsTemplate" type="text/template" class="template">
+        Nothing to display.
+      </script>
+
       <!--[if lt IE 7]>
           <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
       <![endif]-->
@@ -67,5 +75,5 @@
       <!-- build:js scripts/main.js -->
       <script data-main="scripts/main" src="components/requirejs/require.js"></script>
       <!-- endbuild -->
-</body>
+  </body>
 </html>

@@ -3,6 +3,7 @@ require.config
     backbone: "../components/backbone/backbone-min"
     underscore: "../components/underscore/underscore-min"
     jquery: "../components/jquery/jquery.min"
+    marionette: "../components/marionette/lib/backbone.marionette.min"
     bootstrap: "vendor/bootstrap"
 
   shim:
@@ -13,8 +14,13 @@ require.config
     backbone: 
       deps: ["jquery", "underscore"]
       exports: "Backbone"
-
+    marionette: 
+      deps: ["jquery", "underscore", "backbone"]
+      exports: "Marionette"
     bootstrap:
       deps: ["jquery"]
 
-require ["app"], (App) ->
+require ["app", "backbone"], (App, Backbone) ->
+
+  App.start()
+  Backbone.history.start()
