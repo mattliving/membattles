@@ -5,6 +5,6 @@ define ["marionette"],
   	
   	tagName: "li"
 
-  	template: $("#courseTemplate")
+  	template: "#courseTemplate"
 
   CourseView

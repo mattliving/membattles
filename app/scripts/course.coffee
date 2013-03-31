@@ -2,8 +2,6 @@ define ["app"], (App) ->
 
   class Course extends Backbone.Model
 
-    # url: "/:slug"
-
     defaults:
       description: "",
       creator: {},

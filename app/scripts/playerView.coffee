@@ -1,7 +1,10 @@
 define ["app", "marionette"], (App, Marionette) ->
 
-  class PlayerView extends Marionette.ItemView
+  class PlayerView extends Marionette.Layout
 
-    className: "span9 media well"
+    className: "media well"
         
-    template: $("#playerTemplate")
+    template: "#playerTemplate"
+
+    regions: 
+      courses: "#courses"

@@ -6,11 +6,12 @@ define [
 
   class CoursesView extends Marionette.CollectionView
 
+    template: $("")
     tagName: "ul"
 
     className: "nav nav-tabs nav-stacked"
 
-    emptyView: EmptyView
+    # emptyView: EmptyView
     itemView: CourseView
 
    	# vent.on("nodeClicked", (d) ->
