@@ -7,4 +7,4 @@ define ["app"], (App) ->
 
     draw: (ctx) ->
 
-    update: () ->
+    update: ->
