@@ -22,7 +22,7 @@ define ["app", "imageItem"], (App, ImageItem) ->
       text.y = @y
       if @mirrored then text.x = canvas.width - text.x
       @text.push text
-      @listenTo text, "collided", =>
+      @listenTo text, "inactive", =>
         @trigger("exploded")
 
     draw: (ctx) ->
