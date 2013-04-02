@@ -1,7 +1,10 @@
-define ["app", "baseView"], (App, BaseView) ->
+define ["app", "marionette"], (App, Marionette) ->
 
-  class PlayerView extends BaseView
+  class PlayerView extends Marionette.Layout
 
-    template: _.template(
-      $("#playerTemplate").html()
-    )
+    className: "media well"
+        
+    template: "#playerTemplate"
+
+    regions: 
+      courses: "#courses"

@@ -21,15 +21,7 @@
         <div class="row-fluid">
           <div class="span12">
             <div class="span4">
-              <div class="span9 player media well">
-                <img class="img-polaroid pull-left" src="/images/holder.png">
-                <div class="media-body">
-                  <h4 class="media-heading">matthew.livingston</h4>
-                  <img class="media-object" src="/images/small_plant.png">
-                  <img class="media-object" src="/images/small_plant.png">
-                  <img class="media-object" src="/images/small_plant.png">
-                </div>
-              </div>
+              <div id="player1" class="span9"></div>
               <div class="span3"></div>
             </div>
             <div id="inputArea" class="span4">
@@ -40,32 +32,33 @@
             </div>
             <div class="span4">
               <div class="span3"></div>
-              <div id="player2" class="span9 media well">
-                <img class="img-polaroid pull-right" src="/images/holder.png">
-                <div class="media-body pull-right">
-                  <h4 class="media-heading pull-right">alxhill</h4>
-                  <img class="media-object pull-right" src="/images/small_plant.png">
-                  <img class="media-object pull-right" src="/images/small_plant.png">
-                  <img class="media-object pull-right" src="/images/small_plant.png">
-                </div>
-              </div>
+              <div id="player2" class="span9"></div>
             </div>
             <canvas id="canvas" height="900"></canvas>
           </div>
         </div>
       </div>
-
+      
       <script id="playerTemplate" type="text/template" class="template">
-        <div class="span9 player media well">
-          <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src=<%= photo_small %>>
-          <div class="media-body">
-            <h4 class="media-heading"><%= username %>
-            </h4>
-            <% for (var i = 0; i < lives; i++) { %>
-              <img class="media-object" src="/images/small_plant.png">
-            <% } %>
-          </div>
+        <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="<%= photo_small %>">
+        <div class="media-body">
+          <h4 class="media-heading"><%= username %>
+          </h4>
+          <% for (var i = 0; i < lives; i++) { %>
+            <img class="media-object <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="/images/small_plant.png">
+          <% } %>
         </div>
+        <div id="courses"></div>
+      </script>
+
+      <script id="courseTemplate" type="text/template" class="template">
+        <a href="<%= url %>" target="_blank">
+          <%= name %>
+        </a>
+      </script>
+
+      <script id="noItemsTemplate" type="text/template" class="template">
+        Nothing to display.
       </script>
 
       <!--[if lt IE 7]>
@@ -83,5 +76,5 @@
       <!-- build:js scripts/main.js -->
       <script data-main="scripts/main" src="components/requirejs/require.js"></script>
       <!-- endbuild -->
-</body>
+  </body>
 </html>

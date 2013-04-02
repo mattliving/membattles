@@ -24,7 +24,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       computer: "l'ordinateur"
       naughty: "mechant"
 
-    constructor: (@player1, @player2) ->
+    constructor: ->
       @$playerHeader = $("#inputArea h2")
       @setPlayer()
       @input = new InputHandler()
