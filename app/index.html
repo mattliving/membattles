@@ -49,12 +49,36 @@
           <% } %>
         </div>
         <div id="courses"></div>
+        <button class="btn btn-block" data-toggle="button" type="button">Ready!</button>
       </script>
 
       <script id="courseTemplate" type="text/template" class="template">
-        <a href="<%= url %>" target="_blank">
+        <a>
+          <img class="img-polaroid" src="<%= photo %>" width="32" height="32">
           <%= name %>
         </a>
+      </script>
+
+      <script id="gameTemplate" type="text/template" class="template">
+          <div class="span4">
+            <div id="player1" class="span9"></div>
+            <div class="span3"></div>
+          </div>
+          <div id="inputArea" class="span4">
+            <h2></h2>
+            <div class="typing-wrapper">
+              <input type="text" id="guess" class="shiny-box roundy typing-type-here" tabindex="1" autocomplete="off" spellcheck="false">
+            </div>
+          </div>
+          <div class="span4">
+            <div class="span3"></div>
+            <div id="player2" class="span9"></div>
+          </div>
+          <canvas id="canvas" height="900"></canvas>
+      </script>
+
+      <script id="loginTemplate" type="text/template" class="template">
+        
       </script>
 
       <script id="noItemsTemplate" type="text/template" class="template">

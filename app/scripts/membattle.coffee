@@ -8,7 +8,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
     canvas  = $canvas[0]
     ctx     = canvas.getContext("2d")
     items   = []
-    currentPlayer = "Player One's Turn!"
+    currentPlayer = 1
 
     data1 =
       sausage: "saucisson"
@@ -23,7 +23,8 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
 
     constructor: () ->
       @$playerHeader = $("#inputArea h2")
-      @setPlayer()
+      @$player1      = $("#player1")
+      @$player2      = $("#player2")
       @input = new InputHandler()
       @ms = 0
       @mediumPlants = 3
@@ -51,7 +52,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
 
     initMovingText: (x, y) ->
       for eng, french of data1
-        newText = new MovingText(@floor, french, eng, ctx, 2400, -3500)
+        newText = new MovingText(ctx, @floor, french, eng, 2400, -3500)
         newText.listenTo @input, "change", (guess) ->
           if guess is @translation
             @trigger("collided", true)
@@ -59,7 +60,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
         items.push newText
 
       for eng, french of data2
-        newText = new MovingText(@floor, french, eng, ctx, -2400, -3500)
+        newText = new MovingText(ctx, @floor, french, eng, -2400, -3500)
         newText.listenTo @input, "change", (guess) ->
           if guess is @translation
             @trigger("collided", true)
@@ -67,18 +68,25 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
         items.push newText
 
       @cannon1.listenTo @cannon2, "exploded", ->
-        console.log @, "cannon1"
         @trigger("nextText")
 
       @cannon2.listenTo @cannon1, "exploded", ->
-        console.log @, "cannon2"
         @trigger("nextText")
 
       @input.listenTo @cannon1, "exploded", -> @$input.val("")
       @input.listenTo @cannon2, "exploded", -> @$input.val("")
 
     setPlayer: ->
-      @$playerHeader.text(currentPlayer)
+      if currentPlayer is 1
+        @$player2.removeClass("currentPlayer")
+        @$player1.addClass("currentPlayer")
+        currentPlayer = 2
+      else if currentPlayer is 2
+        @$player1.removeClass("currentPlayer")
+        @$player2.addClass("currentPlayer")
+        currentPlayer = 1
+
+      # @$playerHeader.text(currentPlayer)
 
     startAnimation: ->
       # cheap and easy way to show text only at certain times.

@@ -4,7 +4,7 @@ require.config
     underscore: "../components/underscore/underscore-min"
     jquery: "../components/jquery/jquery.min"
     marionette: "../components/marionette/lib/backbone.marionette.min"
-    bootstrap: "vendor/bootstrap"
+    bootstrap_button: "../components/bootstrap/js/bootstrap-button"
 
   shim:
     jquery: 

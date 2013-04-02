@@ -1,12 +1,11 @@
 define [
 	"marionette", 
-	"emptyView", 
-	"courseView"], 
+	"views/emptyView", 
+	"views/courseView"], 
 (Marionette, EmptyView, CourseView) ->
 
   class CoursesView extends Marionette.CollectionView
 
-    template: $("")
     tagName: "ul"
 
     className: "nav nav-tabs nav-stacked"

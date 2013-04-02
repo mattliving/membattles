@@ -1,5 +1,8 @@
 @import "../components/bootstrap/less/bootstrap.less";
 
+@lightblue: #15a1ec;
+@darkblue: #2993cf;
+
 body {
   background-color: transparent;
   background: transparent;
@@ -21,6 +24,14 @@ body {
 	margin: 0;
 }
 
+.box-shadow (@x: 10px, @y: 10px, @blur: 10px, @spread: -4px, @inset...) {
+	-webkit-box-shadow: @x @y @blur @spread @darkblue @inset;
+	-moz-box-shadow: 		@x @y @blur @spread @darkblue @inset;
+	-ms-box-shadow: 		@x @y @blur @spread @darkblue @inset;
+	-o-box-shadow: 			@x @y @blur @spread @darkblue @inset;
+	box-shadow: 				@x @y @blur @spread @darkblue @inset;
+}
+
 #inputArea {
 	h2 {
 		text-align: center;
@@ -31,11 +42,25 @@ body {
 	margin-top: 5%;
 }
 
-#player2 {
-	h4 {
-		width: 100%;
-		text-align: right;
+#player1, #player2 {
+	#courses {
+		li {
+			a {
+				padding: 5px;
+			}
+			&.active a {
+				.box-shadow(0px, 0px, 14px, 0px, inset);
+			}
+		}
 	}
+	&.currentPlayer {
+		.box-shadow;
+	}
+}
+
+#player2 h4 {
+	width: 100%;
+	text-align: right;
 }
 
 .media-body .media-object {

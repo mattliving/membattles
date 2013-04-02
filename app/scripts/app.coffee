@@ -1,17 +1,18 @@
 define [
   "marionette", 
-  "membattle", 
-  "player", 
-  "playerView",
-  "courses",
-  "coursesView"], 
+  "membattle",
+  "models/player", 
+  "views/playerView",
+  "collections/courses",
+  "views/coursesView"], 
 (Marionette, Membattle, Player, PlayerView, Courses, CoursesView) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || (callback) -> window.setTimeout(callback, 1000 / 60)
   )
 
-  app = new Marionette.Application()
+  app        = new Marionette.Application()
+  # gameLayout = new GameLayout()
 
   player1Model = new Player(
     username: "matthew.livingston"
