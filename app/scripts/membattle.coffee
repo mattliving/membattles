@@ -1,5 +1,5 @@
-define ["vent", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
-(vent, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
+define ["marionette", "vent", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
+(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
 
   class Membattle extends Marionette.View
 

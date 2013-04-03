@@ -9,20 +9,25 @@ define [
     className: "media well"
         
     template: "#playerTemplate"
+
+    ui: 
+      btn: ".btn"
   
     events: 
-      "click #courses li" : "toggleSelected"
       "click .btn" : "toggleButton"
 
     regions: 
       courses: "#courses"
 
     initialize: ->
-      $(".btn").button()
+      @courses.on "show", (view) =>
+        @listenTo view, "itemview:selected", (childView) =>
+          @selectedCourse = childView
 
-    toggleSelected: (e) ->
-      $this = $(e.currentTarget)
-      $this.parent().children("li.active").removeClass "active"
-      $this.addClass "active"
+    onDomRefresh: ->
+      @ui.btn.button()
 
-    toggleButton: (e) ->
+    toggleButton: () ->
+      if @selectedCourse
+        @ui.btn.button("toggle")
+

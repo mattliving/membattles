@@ -13,6 +13,10 @@ define [
     # emptyView: EmptyView
     itemView: CourseView
 
+    initialize: ->
+      # @on "itemview:selected", (view) ->
+      #   console.log view
+
    	# vent.on("nodeClicked", (d) ->
     # 	@collection.reset(ResourceData)
     # )
