@@ -3,7 +3,6 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
   class MovingText extends Item
 
     constructor: (@floor, @text, @translation, @ctx, fx=0, fy=0, @active = false) ->
-      @type = "text"
       @vx = 0
       @vy = 0
       @applyForce(fx, fy)
@@ -36,7 +35,6 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
       @fx = fx*0.0005
       @fy = fy*0.0005
 
-    i = 0
     update: ->
       if not @collided
         @vx += @fx

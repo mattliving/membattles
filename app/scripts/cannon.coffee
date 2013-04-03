@@ -8,22 +8,7 @@ define ["app", "imageItem"], (App, ImageItem) ->
       @img = new Image()
       @img.src = @src
       @img.onload = =>
-        @loaded = true
-
-      @text = []
-      @currentText = 0
-      @on "nextText", ->
-        if @currentText < @text.length
-          console.log "activating next" + (+@mirrored + 1)
-          @text[@currentText++].activate()
-
-    addText: (text) ->
-      text.x = @x*@offset+60
-      text.y = @y
-      if @mirrored then text.x = canvas.width - text.x
-      @text.push text
-      @listenTo text, "inactive", =>
-        @trigger("exploded")
+        @loaded = true      
 
     draw: (ctx) ->
       if @loaded

@@ -1,7 +1,7 @@
 define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
 (App, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
 
-  class Membattle extends Backbone.Events
+  class Membattle
     
     $canvas = $("canvas")
     $canvas.attr("width", $(".span12").css("width"))
