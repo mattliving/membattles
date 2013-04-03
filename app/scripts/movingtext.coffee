@@ -2,7 +2,7 @@ define ["app", "item", "imageItem"], (App, Item, ImageItem) ->
 
   class MovingText extends Item
 
-    constructor: (@floor, @text, @translation, @ctx, fx=0, fy=0, @active = false) ->
+    constructor: (@ctx, @floor, @text, @translation, fx=0, fy=0, @active = false) ->
       @vx = 0
       @vy = 0
       @applyForce(fx, fy)

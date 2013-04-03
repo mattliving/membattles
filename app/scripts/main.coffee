@@ -4,7 +4,10 @@ require.config
     underscore: "../components/underscore/underscore-min"
     jquery: "../components/jquery/jquery.min"
     marionette: "../components/marionette/lib/backbone.marionette.min"
-    bootstrap: "vendor/bootstrap"
+    text: "../components/requirejs-text/text"
+    tpl: "../components/requirejs-tpl/tpl"
+    'backbone.wreqr': "../components/backbone.wreqr/lib/amd/backbone.wreqr.min"
+    'bootstrap.button': "../components/bootstrap/js/bootstrap-button"
 
   shim:
     jquery: 
@@ -17,7 +20,7 @@ require.config
     marionette: 
       deps: ["jquery", "underscore", "backbone"]
       exports: "Marionette"
-    bootstrap:
+    "bootstrap.button":
       deps: ["jquery"]
 
 require ["app", "backbone"], (App, Backbone) ->

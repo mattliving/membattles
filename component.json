@@ -8,7 +8,8 @@
     "backbone": "~1.0.0",
     "underscore": "~1.4.4",
     "requirejs": "~2.1.5",
-    "marionette": "~1.0.2"
+    "marionette": "~1.0.2",
+    "backbone.wreqr": "~0.2.0"
   },
   "devDependencies": {}
 }

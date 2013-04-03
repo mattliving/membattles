@@ -1,4 +1,4 @@
-define ["app", "course"],
+define ["app", "models/course"],
 (App, Course) ->
   
   class Courses extends Backbone.Collection
@@ -9,5 +9,8 @@ define ["app", "course"],
       response.courses_learning
 
     model: Course
+
+    comparator: (course) ->
+      course.get("name")
 
   Courses

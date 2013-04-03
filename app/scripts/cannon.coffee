@@ -7,9 +7,23 @@ define ["app", "imageItem"], (App, ImageItem) ->
       @type = "image"
       @img = new Image()
       @img.src = @src
-      @img.onload = =>
-        @loaded = true      
+      @img.onload = => @loaded = true
 
+      # eventy stuff for firing words out
+      @text = []
+      @currentText = 0
+      @on "nextText", ->
+        if @currentText < @text.length
+          @text[@currentText++].activate()
+
+    addText: (text) ->
+      text.x = @x*@offset+60
+      text.y = @y
+      if @mirrored then text.x = $(".span12").css("width") - text.x
+      @text.push text
+      @listenTo text, "collided", =>
+        @trigger("exploded")
+    
     draw: (ctx) ->
       if @loaded
         mirrorAxis = Math.round(@x*@offset + @img.width/2)

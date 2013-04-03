@@ -1,14 +1,12 @@
-define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
-(App, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
+define ["marionette", "vent", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
+(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
 
-  class Membattle
-    
-    $canvas = $("canvas")
-    $canvas.attr("width", $(".span12").css("width"))
-    canvas  = $canvas[0]
-    ctx     = canvas.getContext("2d")
-    items   = []
-    currentPlayer = "Player One's Turn!"
+  class Membattle extends Marionette.View
+
+    tagName: "canvas"
+
+    attributes:
+      height : "900px"
 
     data1 =
       hello: "konnichiwa"
@@ -24,17 +22,25 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       computer: "l'ordinateur"
       naughty: "mechant"
 
-    constructor: ->
+    initialize: () ->
+      @$el.attr("width", $(".span12").css("width"))
+      @ctx = @el.getContext("2d")
       @$playerHeader = $("#inputArea h2")
-      @setPlayer()
+      @$player1      = $("#player1")
+      @$player2      = $("#player2")
+      @items = []
+      @currentPlayer = 1
       @input = new InputHandler()
       @mediumPlants = 3
       @largePlants  = 2
-      @floor = new Floor(0, canvas.height/2, "/images/floor.png", 0, 1, true)
-      items.push @floor
-      @initPlants(0, canvas.height/2-4, @mediumPlants, "medium")
-      @initPlants(0, canvas.height/2-4, @largePlants, "large")
-      @initCannons()
+      @floor = new Floor(0, @el.height/2, "/images/floor.png", 0, 1, true)
+      @items.push @floor
+      @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
+      @initPlants(0, @el.height/2-4, @largePlants, "large")
+      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, @el.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
+      @items.push @cannon1
+      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
+      @items.push @cannon2
       @initMovingText()
 
     initPlants: (x, y, n, type) ->
@@ -46,7 +52,7 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
         else
           plant   = new Plant(x, y, "/images/large_plant.png", 1.1, 0.3, true)
           plant.x = i
-        items.push plant
+        @items.push plant
 
     initCannons: ->
       @cannon1 = new Cannon(@mediumPlants+@largePlants+1, canvas.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
@@ -56,36 +62,43 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
 
     initMovingText: ->
       for eng, french of data1
-        newText = new MovingText(@floor, french, eng, ctx, 3000, -2800)
+        newText = new MovingText(@ctx, @floor, french, eng, 2400, -3500)
         newText.listenTo @input, "change", (guess) ->
           if @active
             console.log "data1 incorrect"
             @trigger("collided", guess is @translation)
         @cannon1.addText(newText)
-        items.push newText
+        @items.push newText
 
       for eng, french of data2
-        newText = new MovingText(@floor, french, eng, ctx, -3000, -2800)
+        newText = new MovingText(@ctx, @floor, french, eng, -2400, -3500)
         newText.listenTo @input, "change", (guess) ->
           if @active
             console.log "data2 incorrect"
             @trigger("collided", guess is @translation)
         @cannon2.addText(newText)
-        items.push newText
+        @items.push newText
 
       @cannon1.listenTo @cannon2, "exploded", ->
-        console.log "c1 next"
         @trigger("nextText")
 
       @cannon2.listenTo @cannon1, "exploded", ->
-        console.log "c2 next"
         @trigger("nextText")
 
       @input.listenTo @cannon1, "exploded", -> @$input.val("")
       @input.listenTo @cannon2, "exploded", -> @$input.val("")
 
     setPlayer: ->
-      @$playerHeader.text(currentPlayer)
+      if @currentPlayer is 1
+        @$player2.removeClass("@currentPlayer")
+        @$player1.addClass("@currentPlayer")
+        @currentPlayer = 2
+      else if @currentPlayer is 2
+        @$player1.removeClass("@currentPlayer")
+        @$player2.addClass("@currentPlayer")
+        @currentPlayer = 1
+
+      # @$playerHeader.text(@currentPlayer)
 
     startAnimation: ->
       @ms = 0
@@ -97,14 +110,11 @@ define ["app", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "i
       dx = time - lastTime
       @ms += dx
       while @ms > 10
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        for item in items
+        @ctx.clearRect(0, 0, @el.width, @el.height)
+        for item in @items
           if item? and item.active
-            item.draw(ctx)
+            item.draw(@ctx)
             item.update()
         @ms -= 10
       requestAnimFrame =>
         @animate(time)
-
-
-
