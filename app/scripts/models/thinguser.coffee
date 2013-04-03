@@ -1,4 +1,4 @@
-define ["app"], (App) ->
+define [], () ->
 
   class Thinguser extends Backbone.Model
 

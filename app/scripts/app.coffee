@@ -1,18 +1,21 @@
 define [
   "marionette", 
   "membattle",
+  "views/gameLayout",
+  "views/loginView",
   "models/player", 
   "views/playerView",
   "collections/courses",
   "views/coursesView"], 
-(Marionette, Membattle, Player, PlayerView, Courses, CoursesView) ->
+(Marionette, Membattle, GameLayout, LoginView, Player, PlayerView, Courses, CoursesView) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || (callback) -> window.setTimeout(callback, 1000 / 60)
   )
 
   app        = new Marionette.Application()
-  # gameLayout = new GameLayout()
+  # loginView  = new LoginView()
+  gameLayout = new GameLayout()
 
   player1Model = new Player(
     username: "matthew.livingston"
@@ -35,15 +38,15 @@ define [
   player2Courses.url += player2Model.get("username")
 
   app.addRegions
-    player1: "#player1"
-    player2: "#player2"
+    main: "#main"
 
   app.addInitializer () ->
+    app.main.show(gameLayout)
     player1Model.fetch(
       success: ->
         small = player1Model.get("photo_small").replace("large", "small")
         player1Model.set("photo_small", small)
-        app.player1.show(player1View)
+        gameLayout.player1.show(player1View)
     ).done () ->
       player1Courses.fetch(
         success: ->
@@ -56,7 +59,7 @@ define [
       success: ->
         small = player2Model.get("photo_small").replace("large", "small")
         player2Model.set("photo_small", small)
-        app.player2.show(player2View)
+        gameLayout.player2.show(player2View)
     ).done () ->
       player2Courses.fetch(
         success: ->
@@ -65,8 +68,8 @@ define [
           )
           player2View.courses.show(player2CoursesView)
       )
-
-  membattle = new Membattle()
-  membattle.startAnimation()
+    membattle = new Membattle()
+    gameLayout.game.show(membattle)
+    membattle.startAnimation()
 
   return app

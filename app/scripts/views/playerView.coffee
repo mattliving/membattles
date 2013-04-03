@@ -1,12 +1,15 @@
-define ["app", "marionette", "bootstrap_button"], 
-(App, Marionette) ->
+define [
+  "marionette", 
+  "vent", 
+  "bootstrap.button"], 
+(Marionette, vent) ->
 
   class PlayerView extends Marionette.Layout
 
     className: "media well"
         
     template: "#playerTemplate"
-
+  
     events: 
       "click #courses li" : "toggleSelected"
       "click .btn" : "toggleButton"
@@ -23,4 +26,3 @@ define ["app", "marionette", "bootstrap_button"],
       $this.addClass "active"
 
     toggleButton: (e) ->
-      console.log $(e.currentTarget)

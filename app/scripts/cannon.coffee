@@ -20,7 +20,7 @@ define ["app", "imageItem"], (App, ImageItem) ->
     addText: (text) ->
       text.x = @x*@offset+60
       text.y = @y
-      if @mirrored then text.x = canvas.width - text.x
+      if @mirrored then text.x = $(".span12").css("width") - text.x
       @text.push text
       @listenTo text, "collided", =>
         @trigger("exploded")

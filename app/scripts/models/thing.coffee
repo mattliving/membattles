@@ -1,4 +1,4 @@
-define ["app"], (App) ->
+define [], () ->
 
   class Thing extends Backbone.Model
 
@@ -15,5 +15,3 @@ define ["app"], (App) ->
       attributes: {},
       id: null,
       columns: {}
-
-  Thing

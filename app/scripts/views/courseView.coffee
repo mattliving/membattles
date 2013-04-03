@@ -8,7 +8,7 @@ define ["marionette", "collections/thingusers"],
     template: "#courseTemplate"
     
     events:
-      click: "fetchThingusers"
+      click: "fetchThings"
 
     fetchThingusers: (e) ->
       @thingusers = new Thingusers()
@@ -18,4 +18,3 @@ define ["marionette", "collections/thingusers"],
           console.log @thingusers
       )
       
-  CourseView

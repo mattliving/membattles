@@ -18,24 +18,7 @@
     </head>
     <body>
       <div class="container-fluid">
-        <div class="row-fluid">
-          <div class="span12">
-            <div class="span4">
-              <div id="player1" class="span9"></div>
-              <div class="span3"></div>
-            </div>
-            <div id="inputArea" class="span4">
-              <h2></h2>
-              <div class="typing-wrapper">
-                <input type="text" id="guess" class="shiny-box roundy typing-type-here" tabindex="1" autocomplete="off" spellcheck="false">
-              </div>
-            </div>
-            <div class="span4">
-              <div class="span3"></div>
-              <div id="player2" class="span9"></div>
-            </div>
-            <canvas id="canvas" height="900"></canvas>
-          </div>
+        <div id="main" class="row-fluid">
         </div>
       </div>
       
@@ -74,11 +57,38 @@
             <div class="span3"></div>
             <div id="player2" class="span9"></div>
           </div>
-          <canvas id="canvas" height="900"></canvas>
+          <div id="game"></div>
       </script>
 
       <script id="loginTemplate" type="text/template" class="template">
-        
+        <h1>Membattles!</h1>
+        <div class="row-fluid">
+          <div class="span4"></div>
+          <form class="span4 form-horizontal">
+            <h3>Login</h3>
+            <div class="control-group">
+              <label class="control-label" for="inputEmail">Email</label>
+              <div class="controls">
+                <input type="text" id="inputEmail" placeholder="Email">
+              </div>
+            </div>
+            <div class="control-group">
+              <label class="control-label" for="inputPassword">Password</label>
+              <div class="controls">
+                <input type="password" id="inputPassword" placeholder="Password">
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="controls">
+                <label class="checkbox">
+                  <input type="checkbox"> Remember me
+                </label>
+                <button type="submit" class="btn">Sign in</button>
+              </div>
+            </div>
+          </form>
+          <div class="span4"></div>
+        </div>
       </script>
 
       <script id="noItemsTemplate" type="text/template" class="template">
