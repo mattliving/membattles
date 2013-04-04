@@ -1,5 +1,9 @@
-define ["marionette", "vent", "views/membattle"], 
-(Marionette, vent, Membattle) ->
+define [
+  "marionette", 
+  "vent", 
+  "views/inputView",
+  "views/membattle"], 
+(Marionette, vent, InputView, Membattle) ->
 
   class GameLayout extends Marionette.Layout
         
@@ -7,9 +11,13 @@ define ["marionette", "vent", "views/membattle"],
 
     template: "#gameTemplate"
 
+    ui: 
+      input: "#inputArea"
+
     regions: 
       player1: "#player1"
       player2: "#player2"
+      input:   "#inputArea"
       game:    "#game"
 
     initialize: ->
@@ -40,16 +48,16 @@ define ["marionette", "vent", "views/membattle"],
           @startGame() 
 
     startGame: () ->
-      $inputArea = $("#inputArea")
-      $inputArea.append("<h2>Game starting in 3 seconds!</h2>")
+      @input.show(new InputView())
+      @ui.input.append("<h2>Game starting in 3 seconds!</h2>")
       setTimeout (() =>
-        $inputArea.children("h2").text("Game starting in 2 seconds!")
+        @ui.input.children("h2").text("Game starting in 2 seconds!")
       ), 1000
       setTimeout (() =>
-        $inputArea.children("h2").text("Game starting in 1 seconds!")
+        @ui.input.children("h2").text("Game starting in 1 seconds!")
       ), 2000
-      setTimeout  (() =>
-        $inputArea.children("h2").remove()
+      setTimeout (() =>
+        @ui.input.children("h2").remove()
         membattle = new Membattle()
         @game.show(membattle)
         membattle.startAnimation()

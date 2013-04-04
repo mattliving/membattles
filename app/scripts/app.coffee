@@ -22,7 +22,6 @@ define [
   player2Model = new Player(
     username: "edcooke"
     position: "right"
-
   )
 
   player1View = new PlayerView(

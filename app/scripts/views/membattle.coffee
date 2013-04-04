@@ -1,11 +1,11 @@
 define [
   "marionette",
   "vent",
-  "item",
-  "imageItem",
-  "floor",
-  "plant",
-  "cannon",
+  "items/item",
+  "items/imageItem",
+  "items/floor",
+  "items/plant",
+  "items/cannon",
   "views/textView",
   "inputHandler"
 ],
