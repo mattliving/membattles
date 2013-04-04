@@ -1,32 +1,22 @@
-define ["app", "Item", "models/text", "collections/texts"], (App, Item, TextModel, Texts) ->
+define ["Item"], 
+(Item) ->
 
   class TextView extends Item
 
-    constructor: (@course_id, @floor, startPostition, startForce = [0, 0]) ->
-      @collection = new Texts()
-      @active = false
+    constructor: (@collection, @floor, startPosition, startForce = [0, 0]) ->
 
-      $.getJSON "http://www.memrise.com/api/course/get/?course_id=#{@course_id}&levels_with_thing_ids=true", ({course: levels: 0: {thing_ids}}) =>
-        @collection.unloaded = thing_ids.length
-        for thing_id in thing_ids
-          newText = new TextModel
-            id: thing_id
-            position: startPostition
-            floor: @floor
-          [fx, fy] = startForce
-          newText.applyForce(fx, fy)
-          newText.fetch success: (model) -> model.trigger 'loaded'
-          @collection.addText(newText)
-        return
-
-      @collection.on "ready", @activate, @
+      @collection.map (model) =>
+        model.set("position", startPosition)
+        model.set("force", startForce)
+        model.set("floor", @floor)
 
       @collection.on 'next', =>
         @model = @collection.getNext()
         @trigger 'next'
 
+      @activate()
+
     draw: (ctx) ->
-      ctx.font = "15pt 'Comic Sans MS'"
       if @model.get("collided")
         @explode(ctx)
         @expFrames ?= 0
@@ -49,5 +39,5 @@ define ["app", "Item", "models/text", "collections/texts"], (App, Item, TextMode
     update: -> @model.update()
 
     activate: ->
-      @active = true
       @collection.trigger "next"
+      @active = true

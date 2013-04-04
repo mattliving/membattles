@@ -11,12 +11,6 @@ define ["app"], (App) ->
       active:   false
       success:  false
 
-    initialize: ->
-      @on "loaded", -> @set "loaded", true
-      @on "collided", (success) ->
-        @set "collided", true
-        @set "success", success
-
     url: ->
       "http://www.memrise.com/api/thing/get/?thing_id=#{@get('id')}"
 
@@ -25,6 +19,12 @@ define ["app"], (App) ->
         text: columns["1"].val
         translation: columns["2"].val
       }
+
+    initialize: ->
+      @on "loaded", -> @set "loaded", true
+      @on "collided", (success) ->
+        @set "collided", true
+        @set "success", success
 
     activate: ->
       @set("active", true)

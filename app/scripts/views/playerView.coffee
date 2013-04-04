@@ -1,8 +1,9 @@
 define [
   "marionette", 
-  "vent", 
+  "vent",
+  "collections/things", 
   "bootstrap.button"], 
-(Marionette, vent) ->
+(Marionette, vent, Things) ->
 
   class PlayerView extends Marionette.Layout
 
@@ -32,7 +33,13 @@ define [
         @selectedCourse.model.fetch(
           success: (model) ->
             vent.trigger("course:fetched")
-        )
+        ).done () =>
+          @things = new Things()
+          @things.url += @selectedCourse.model.get("levels")[0].id
+          @things.fetch(
+            success: (collection) ->
+              vent.trigger("things:fetched", collection)
+            )
 
     onDomRefresh: ->
       @ui.btn.button()

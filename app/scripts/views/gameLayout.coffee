@@ -25,13 +25,17 @@ define [
 
       @player1.on "show", (view) =>
         @listenTo view, "ready", () =>
-          @player1Ready  = if @player1Ready then false else true
+          @player1Ready = if @player1Ready then false else true
           @trigger("ready")
+        vent.on "things:fetched", (things) =>
+          @player1Things = things
 
       @player2.on "show", (view) =>
         @listenTo view, "ready", () =>
-          @player2Ready  = if @player2Ready then false else true
+          @player2Ready = if @player2Ready then false else true
           @trigger("ready") 
+        vent.on "things:fetched", (things) =>
+          @player2Things = things
 
       @on "ready", () =>
         if @player1Ready and @player2Ready
@@ -42,7 +46,7 @@ define [
           vent.trigger("game:starting")
 
       i = 0
-      vent.on "course:fetched", =>
+      vent.on "things:fetched", =>
         i++
         if i is @numberOfPlayers
           @startGame() 
@@ -58,7 +62,7 @@ define [
       ), 2000
       setTimeout (() =>
         @ui.input.children("h2").remove()
-        membattle = new Membattle()
+        membattle = new Membattle(@player1Things, @player2Things)
         @game.show(membattle)
         membattle.startAnimation()
       ), 3000
