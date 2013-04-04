@@ -12,7 +12,10 @@ define ["app"], (App) ->
       success:  false
 
     initialize: ->
-      @on "loaded", -> @loaded = true
+      @on "loaded", -> @set "loaded", true
+      @on "collided", (success) ->
+        @set "collided", true
+        @set "success", success
 
     url: ->
       "http://www.memrise.com/api/thing/get/?thing_id=#{@get('id')}"
@@ -37,6 +40,7 @@ define ["app"], (App) ->
       [fx, fy] = @get("force")
       [vx, vy] = @get("velocity")
       [x,  y ] = @get("position")
+
       if not @get("collided")
         vx += fx
         vy += fy
@@ -46,3 +50,10 @@ define ["app"], (App) ->
         @set("position", [x, y])
 
         @applyForce(0, 9.8)
+
+        floor = @get("floor")
+
+        dx = x - floor.x
+        dy = y - floor.y
+        if  0 < dx < floor.img.width and 0 < dy < floor.img.height
+          @trigger("collided", false)

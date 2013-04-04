@@ -9,15 +9,13 @@ define ["app", "Item", "models/text", "collections/texts"], (App, Item, TextMode
       $.getJSON "http://www.memrise.com/api/course/get/?course_id=#{@course_id}&levels_with_thing_ids=true", ({course: levels: 0: {thing_ids}}) =>
         @collection.unloaded = thing_ids.length
         for thing_id in thing_ids
-          newText = new TextModel(
+          newText = new TextModel
             id: thing_id
             position: startPostition
             floor: @floor
-          )
           [fx, fy] = startForce
           newText.applyForce(fx, fy)
-          newText.fetch success: (model) ->
-            model.trigger 'loaded'
+          newText.fetch success: (model) -> model.trigger 'loaded'
           @collection.addText(newText)
         return
 

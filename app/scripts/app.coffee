@@ -3,14 +3,14 @@ define [
   "membattle",
   "views/gameLayout",
   "views/loginView",
-  "models/player", 
+  "models/player",
   "views/playerView",
   "collections/courses",
   "views/coursesView",
   "models/text",
   "collections/texts",
   "views/textView"
-], 
+],
 (Marionette, Membattle, GameLayout, LoginView, Player, PlayerView, Courses, CoursesView, TextModel, Texts, TextView) ->
 
   window.requestAnimFrame = do ((callback) ->
@@ -57,7 +57,7 @@ define [
           player1CoursesView = new CoursesView(
             collection: player1Courses
           )
-          player1View.courses.show(player1CoursesView)
+          # player1View.courses.show(player1CoursesView)
       )
     player2Model.fetch(
       success: ->
@@ -70,9 +70,9 @@ define [
           player2CoursesView = new CoursesView(
             collection: player2Courses
           )
-          player2View.courses.show(player2CoursesView)
+          # player2View.courses.show(player2CoursesView)
       )
-    
+
     membattle = new Membattle()
     gameLayout.game.show(membattle)
     membattle.startAnimation()
