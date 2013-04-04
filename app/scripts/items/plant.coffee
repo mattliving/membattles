@@ -1,4 +1,4 @@
-define ["app", "imageItem"], (App, ImageItem) ->
+define ["app", "items/imageItem"], (App, ImageItem) ->
 
   class Plant extends ImageItem
 

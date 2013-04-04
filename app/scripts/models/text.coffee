@@ -57,3 +57,4 @@ define ["app"], (App) ->
         dy = y - floor.y
         if  0 < dx < floor.img.width and 0 < dy < floor.img.height
           @trigger("collided", false)
+  window.TextModel = TextModel

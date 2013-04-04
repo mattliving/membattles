@@ -1,4 +1,4 @@
-define ["Item"], 
+define ["items/item"],
 (Item) ->
 
   class TextView extends Item
@@ -13,6 +13,8 @@ define ["Item"],
       @collection.on 'next', =>
         @model = @collection.getNext()
         @trigger 'next'
+
+      @on "inactive", -> @expFrames = 0
 
       @activate()
 
