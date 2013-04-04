@@ -8,14 +8,26 @@ define ["app", "models/text"], (App, Text) ->
     
     current: 0
     
-    getNext: -> @get(@current++)
+    getNext: -> @at(@current++)
 
     addText: (text) ->
-      @add(text)
+      @push(text)
+      @listenTo text, 'loaded', ->
+        @unloaded--
+        if @unloaded is 0
+          @trigger "ready"
       @listenTo text, 'inactive', => @trigger 'next'
       
-    parse: ({course}) ->
-      thing_ids = []
-      for thing_id in course.levels[0].thing_ids
-        thing_ids.push id: thing_id
-      return thing_ids
+    # parse: ({course}) ->
+    #   console.log "bp", @
+    #   thing_ids = []
+    #   for thing_id in course.levels[0].thing_ids
+    #     thing_ids.push id: thing_id
+    #   console.log "ap", @
+    #   return thing_ids
+    
+    # fetch: (options) ->
+    #   for id in @thing_ids
+    #     text = new Text(id: id)
+    #     text.fetch()
+    #     @add text

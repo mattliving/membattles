@@ -1,5 +1,15 @@
-define ["marionette", "vent", "item", "imageItem", "floor", "plant", "cannon", "movingtext", "inputHandler"], 
-(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, MovingText, InputHandler) ->
+define [
+  "marionette",
+  "vent",
+  "item",
+  "imageItem",
+  "floor",
+  "plant",
+  "cannon",
+  "views/textView",
+  "inputHandler"
+],
+(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextView, InputHandler) ->
 
   class Membattle extends Marionette.View
 
@@ -37,11 +47,10 @@ define ["marionette", "vent", "item", "imageItem", "floor", "plant", "cannon", "
       @items.push @floor
       @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
       @initPlants(0, @el.height/2-4, @largePlants, "large")
-      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, @el.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
-      @items.push @cannon1
-      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
-      @items.push @cannon2
-      @initMovingText()
+      @initCannons()
+      @movingText = new TextView(46239, @floor, [400, 400], [2400, -3000])
+      @items.push @movingText
+      #@initMovingText()
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -55,12 +64,12 @@ define ["marionette", "vent", "item", "imageItem", "floor", "plant", "cannon", "
         @items.push plant
 
     initCannons: ->
-      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, canvas.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
-      items.push @cannon1
-      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, canvas.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
-      items.push @cannon2
+      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, @el.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
+      @items.push @cannon1
+      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
+      @items.push @cannon2
 
-    initMovingText: ->
+    ###initMovingText: ->
       for eng, french of data1
         newText = new MovingText(@ctx, @floor, french, eng, 2400, -3500)
         newText.listenTo @input, "change", (guess) ->
@@ -86,7 +95,7 @@ define ["marionette", "vent", "item", "imageItem", "floor", "plant", "cannon", "
         @trigger("nextText")
 
       @input.listenTo @cannon1, "exploded", -> @$input.val("")
-      @input.listenTo @cannon2, "exploded", -> @$input.val("")
+      @input.listenTo @cannon2, "exploded", -> @$input.val("")###
 
     setPlayer: ->
       if @currentPlayer is 1
