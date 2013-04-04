@@ -9,20 +9,37 @@ define [
     className: "media well"
         
     template: "#playerTemplate"
+
+    ui: 
+      btn: ".btn"
   
     events: 
-      "click #courses li" : "toggleSelected"
-      "click .btn" : "toggleButton"
+      "click .btn" : "toggleReady"
 
     regions: 
       courses: "#courses"
 
     initialize: ->
-      $(".btn").button()
+      @courses.on "show", (view) =>
+        @listenTo view, "itemview:selected", (childView) =>
+          @selectedCourse = childView
 
-    toggleSelected: (e) ->
-      $this = $(e.currentTarget)
-      $this.parent().children("li.active").removeClass "active"
-      $this.addClass "active"
+      vent.on "game:starting", =>
+        @selectedCourse.model.url = @selectedCourse.model.urlRoot + @selectedCourse.model.get("id")
+        @selectedCourse.model.parse = (response) ->
+          response.course
 
-    toggleButton: (e) ->
+        @selectedCourse.model.fetch(
+          success: (model) ->
+            vent.trigger("course:fetched")
+        )
+
+    onDomRefresh: ->
+      @ui.btn.button()
+
+    toggleReady: () ->
+      if @selectedCourse
+        @ui.btn.button("toggle")
+        @model.ready()
+        if @model.get("ready")
+          @trigger("ready")

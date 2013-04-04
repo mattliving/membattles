@@ -1,5 +1,5 @@
-define ["marionette"], 
-(Marionette) ->
+define ["marionette", "vent", "views/membattle"], 
+(Marionette, vent, Membattle) ->
 
   class GameLayout extends Marionette.Layout
         
@@ -13,3 +13,44 @@ define ["marionette"],
       game:    "#game"
 
     initialize: ->
+      @numberOfPlayers = 2
+
+      @player1.on "show", (view) =>
+        @listenTo view, "ready", () =>
+          @player1Ready  = if @player1Ready then false else true
+          @trigger("ready")
+
+      @player2.on "show", (view) =>
+        @listenTo view, "ready", () =>
+          @player2Ready  = if @player2Ready then false else true
+          @trigger("ready") 
+
+      @on "ready", () =>
+        if @player1Ready and @player2Ready
+          @player1.currentView.removeRegion("courses")
+          @player2.currentView.removeRegion("courses")
+          @player1.currentView.ui.btn.remove()
+          @player2.currentView.ui.btn.remove()
+          vent.trigger("game:starting")
+
+      i = 0
+      vent.on "course:fetched", =>
+        i++
+        if i is @numberOfPlayers
+          @startGame() 
+
+    startGame: () ->
+      $inputArea = $("#inputArea")
+      $inputArea.append("<h2>Game starting in 3 seconds!</h2>")
+      setTimeout (() =>
+        $inputArea.children("h2").text("Game starting in 2 seconds!")
+      ), 1000
+      setTimeout (() =>
+        $inputArea.children("h2").text("Game starting in 1 seconds!")
+      ), 2000
+      setTimeout  (() =>
+        $inputArea.children("h2").remove()
+        membattle = new Membattle()
+        @game.show(membattle)
+        membattle.startAnimation()
+      ), 3000

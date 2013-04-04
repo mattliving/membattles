@@ -24,6 +24,7 @@ define ["app"], (App) ->
       points: 0
       lives: 3
       position: "left"
+      ready: false
 
     addCannon: (cannon) ->
       @set("cannon", cannon)
@@ -40,3 +41,6 @@ define ["app"], (App) ->
       #   if @currentText < @text.length
       #     console.log "activating next" + (+@mirrored + 1)
       #     @text[@currentText++].activate()
+
+    ready: ->
+      @set("ready", !@get("ready"))

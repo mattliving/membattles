@@ -1,5 +1,5 @@
-define ["marionette", "collections/thingusers"], 
-(Marionette, Thingusers) ->
+define ["marionette", "vent", "collections/things"], 
+(Marionette, vent, Thingusers) ->
   
   class CourseView extends Marionette.ItemView
     
@@ -8,13 +8,17 @@ define ["marionette", "collections/thingusers"],
     template: "#courseTemplate"
     
     events:
-      click: "fetchThings"
+      click: "toggleSelected"
 
-    fetchThingusers: (e) ->
-      @thingusers = new Thingusers()
-      @thingusers.url += @model.get("id")
-      @thingusers.fetch(
+    toggleSelected: () ->
+      @$el.parent().children("li.active").removeClass "active"
+      @$el.addClass "active"
+      @trigger("selected")
+
+    fetchThings: () ->
+      @things = new Things()
+      @things.url += @model.get("id")
+      @things.fetch(
         success: =>
-          console.log @thingusers
+          console.log @things
       )
-      

@@ -3,6 +3,7 @@ define ["app", "models/thing"],
   
   class Things extends Backbone.Collection
 
+    # url: 
     model: Thing
 
   Things

@@ -2,6 +2,8 @@ define ["app"], (App) ->
 
   class Course extends Backbone.Model
 
+    urlRoot: "http://www.memrise.com/api/course/get/?course_id="
+      
     defaults:
       description: "",
       creator: {},

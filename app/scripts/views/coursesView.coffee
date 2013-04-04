@@ -13,8 +13,6 @@ define [
     # emptyView: EmptyView
     itemView: CourseView
 
-   	# vent.on("nodeClicked", (d) ->
-    # 	@collection.reset(ResourceData)
-    # )
+    initialize: ->
 
   CoursesView

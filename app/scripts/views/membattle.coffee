@@ -10,13 +10,12 @@ define [
   "inputHandler"
 ],
 (Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextView, InputHandler) ->
-
   class Membattle extends Marionette.View
 
     tagName: "canvas"
 
     attributes:
-      height : "900px"
+      height : "800px"
 
     data1 =
       hello: "konnichiwa"

@@ -1,17 +1,12 @@
 define [
   "marionette",
-  "membattle",
   "views/gameLayout",
   "views/loginView",
   "models/player",
   "views/playerView",
   "collections/courses",
-  "views/coursesView",
-  "models/text",
-  "collections/texts",
-  "views/textView"
-],
-(Marionette, Membattle, GameLayout, LoginView, Player, PlayerView, Courses, CoursesView, TextModel, Texts, TextView) ->
+  "views/coursesView"],
+(Marionette, GameLayout, LoginView, Player, PlayerView, Courses, CoursesView) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || (callback) -> window.setTimeout(callback, 1000 / 60)
@@ -25,8 +20,9 @@ define [
     username: "matthew.livingston"
   )
   player2Model = new Player(
-    username: "alxhill"
-    position: "right" # shouldn't the view store the position?
+    username: "edcooke"
+    position: "right"
+
   )
 
   player1View = new PlayerView(
@@ -57,7 +53,7 @@ define [
           player1CoursesView = new CoursesView(
             collection: player1Courses
           )
-          # player1View.courses.show(player1CoursesView)
+          player1View.courses.show(player1CoursesView)
       )
     player2Model.fetch(
       success: ->
@@ -70,11 +66,7 @@ define [
           player2CoursesView = new CoursesView(
             collection: player2Courses
           )
-          # player2View.courses.show(player2CoursesView)
+          player2View.courses.show(player2CoursesView)
       )
-
-    membattle = new Membattle()
-    gameLayout.game.show(membattle)
-    membattle.startAnimation()
 
   return app
