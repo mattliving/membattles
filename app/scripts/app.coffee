@@ -1,13 +1,12 @@
 define [
   "marionette", 
-  "membattle",
   "views/gameLayout",
   "views/loginView",
   "models/player", 
   "views/playerView",
   "collections/courses",
   "views/coursesView"], 
-(Marionette, Membattle, GameLayout, LoginView, Player, PlayerView, Courses, CoursesView) ->
+(Marionette, GameLayout, LoginView, Player, PlayerView, Courses, CoursesView) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || (callback) -> window.setTimeout(callback, 1000 / 60)
@@ -21,7 +20,7 @@ define [
     username: "matthew.livingston"
   )
   player2Model = new Player(
-    username: "alxhill"
+    username: "edcooke"
     position: "right"
   )
 
@@ -68,8 +67,5 @@ define [
           )
           player2View.courses.show(player2CoursesView)
       )
-    membattle = new Membattle()
-    gameLayout.game.show(membattle)
-    membattle.startAnimation()
 
   return app

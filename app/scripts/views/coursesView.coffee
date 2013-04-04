@@ -14,11 +14,5 @@ define [
     itemView: CourseView
 
     initialize: ->
-      # @on "itemview:selected", (view) ->
-      #   console.log view
-
-   	# vent.on("nodeClicked", (d) ->
-    # 	@collection.reset(ResourceData)
-    # )
 
   CoursesView

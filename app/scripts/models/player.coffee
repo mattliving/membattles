@@ -22,3 +22,7 @@ define ["app"], (App) ->
       points: 0
       lives: 3
       position: "left"
+      ready: false
+
+    ready: ->
+      @set("ready", !@get("ready"))
