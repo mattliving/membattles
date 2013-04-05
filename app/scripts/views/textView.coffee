@@ -37,7 +37,6 @@ define ["items/item"],
           @expFrames ?= 0
           @expFrames++
           if @expFrames > 50
-            console.log "inactive"
             @model.trigger("inactive")
             @trigger("inactive")
         else

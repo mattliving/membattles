@@ -17,15 +17,10 @@ define [
     attributes:
       height : "800px"
 
-    initialize: (player1Things, player2Things) ->
+    initialize: (thisPlayer, thatPlayer) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
-      @$playerHeader = $("#inputArea h2")
-      @$player1      = $("#player1")
-      @$player2      = $("#player2")
       @items = []
-      @currentPlayer = 1
-      @input = new InputHandler()
       @mediumPlants = 3
       @largePlants  = 2
       @floor = new Floor(0, @el.height/2, "/images/floor.png", 0, 1, true)
@@ -33,7 +28,7 @@ define [
       @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
       @initPlants(0, @el.height/2-4, @largePlants, "large")
       @initCannons()
-      @movingText = new TextView(player1Things, @floor, [400, 400], [2400, -3000])
+      @movingText = new TextView(thisPlayer, @floor, [400, 400], [2400, -3000])
       @items.push @movingText
 
     initPlants: (x, y, n, type) ->
@@ -52,18 +47,6 @@ define [
       @items.push @cannon1
       @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
       @items.push @cannon2
-
-    setPlayer: ->
-      if @currentPlayer is 1
-        @$player2.removeClass("@currentPlayer")
-        @$player1.addClass("@currentPlayer")
-        @currentPlayer = 2
-      else if @currentPlayer is 2
-        @$player1.removeClass("@currentPlayer")
-        @$player2.addClass("@currentPlayer")
-        @currentPlayer = 1
-
-      # @$playerHeader.text(@currentPlayer)
 
     startAnimation: ->
       @ms = 0

@@ -2,7 +2,8 @@ define [
   "marionette",
   "vent",
   "views/inputView",
-  "views/membattle"],
+  "views/membattle"
+],
 (Marionette, vent, InputView, Membattle) ->
 
   class GameLayout extends Marionette.Layout
@@ -15,34 +16,34 @@ define [
       input: "#inputArea"
 
     regions:
-      player1: "#player1"
-      player2: "#player2"
+      thisPlayer: "#thisPlayer"
+      thatPlayer: "#thatPlayer"
       input:   "#inputArea"
       game:    "#game"
 
     initialize: ->
       @numberOfPlayers = 2
 
-      @player1.on "show", (view) =>
+      @thisPlayer.on "show", (view) =>
         @listenTo view, "ready", () =>
-          @player1Ready = if @player1Ready then false else true
+          @thisPlayerReady = if @thisPlayerReady then false else true
           @trigger("ready")
         vent.on "things:fetched", (things) =>
-          @player1Things = things
+          @thisPlayerThings = things
 
-      @player2.on "show", (view) =>
+      @thatPlayer.on "show", (view) =>
         @listenTo view, "ready", () =>
-          @player2Ready = if @player2Ready then false else true
+          @thatPlayerReady = if @thatPlayerReady then false else true
           @trigger("ready")
         vent.on "things:fetched", (things) =>
-          @player2Things = things
+          @thatPlayerThings = things
 
       @on "ready", () =>
-        if @player1Ready and @player2Ready
-          @player1.currentView.removeRegion("courses")
-          @player2.currentView.removeRegion("courses")
-          @player1.currentView.ui.btn.remove()
-          @player2.currentView.ui.btn.remove()
+        if @thisPlayerReady and @thatPlayerReady
+          @thisPlayer.currentView.removeRegion("courses")
+          @thatPlayer.currentView.removeRegion("courses")
+          @thisPlayer.currentView.ui.btn.remove()
+          @thatPlayer.currentView.ui.btn.remove()
           vent.trigger("game:starting")
 
       i = 0
@@ -62,7 +63,7 @@ define [
       # ), 2000
       # setTimeout (() =>
       #   @ui.input.children("h2").remove()
-      membattle = new Membattle(@player1Things, @player2Things)
+      membattle = new Membattle(@thisPlayerThings, @thatPlayerThings)
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000

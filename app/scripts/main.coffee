@@ -10,20 +10,19 @@ require.config
     'bootstrap.button': "../components/bootstrap/js/bootstrap-button"
 
   shim:
-    jquery: 
+    jquery:
       exports: "jQuery"
-    underscore: 
+    underscore:
       exports: "_"
-    backbone: 
+    backbone:
       deps: ["jquery", "underscore"]
       exports: "Backbone"
-    marionette: 
+    marionette:
       deps: ["jquery", "underscore", "backbone"]
       exports: "Marionette"
     "bootstrap.button":
       deps: ["jquery"]
 
 require ["app", "backbone"], (App, Backbone) ->
-
   App.start()
   Backbone.history.start()
