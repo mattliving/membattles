@@ -7,28 +7,42 @@ define ["items/item"],
 
       @collection.map (model) =>
         model.set("position", startPosition)
-        model.set("force", startForce)
+        model.applyForce(startForce[0], startForce[1])
         model.set("floor", @floor)
+        return model
 
-      @collection.on 'next', =>
+      @on 'next', =>
         @model = @collection.getNext()
+        if @model?
+          @model.activate()
+        else
+          @active = false
+          @trigger 'done'
+      # temporary way to get the cannon to keep firing
+      @on 'inactive', ->
+        @expFrames = 0
         @trigger 'next'
+        # @expFrames = 0
+        # @active = false
 
-      @on "inactive", -> @expFrames = 0
-
-      @activate()
+      @trigger "next"
+      @active = true
 
     draw: (ctx) ->
-      if @model.get("collided")
-        @explode(ctx)
-        @expFrames ?= 0
-        @expFrames++
-        if @expFrames > 50
-          @model.trigger("inactive")
-          @trigger("inactive")
-      else
-        [x, y] = @model.get("position")
-        ctx.fillText(@model.get("text"), x, y)
+      if @model.get("active")
+        ctx.font = "15pt 'Comic Sans MS'"
+        ctx.fillStyle = "black"
+        if @model.get("collided")
+          @explode(ctx)
+          @expFrames ?= 0
+          @expFrames++
+          if @expFrames > 50
+            console.log "inactive"
+            @model.trigger("inactive")
+            @trigger("inactive")
+        else
+          [x, y] = @model.get("position")
+          ctx.fillText(@model.get("text"), x, y)
 
     explode: (ctx) ->
       ctx.beginPath()
@@ -39,7 +53,3 @@ define ["items/item"],
       ctx.fillStyle = "black"
 
     update: -> @model.update()
-
-    activate: ->
-      @collection.trigger "next"
-      @active = true

@@ -37,10 +37,5 @@ define ["app"], (App) ->
       text.on "inactive", =>
         @trigger "inactive"
 
-      # @on "nextText", ->
-      #   if @currentText < @text.length
-      #     console.log "activating next" + (+@mirrored + 1)
-      #     @text[@currentText++].activate()
-
     ready: ->
       @set("ready", !@get("ready"))
