@@ -23,7 +23,10 @@
       </div>
       
       <script id="playerTemplate" type="text/template" class="template">
-        <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="<%= photo_small %>">
+        <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="<%= photo_small %>" height="60" width="60">
+        <div class="circle <%= position === 'left' ? 'pull-right' : 'pull-left' %>">
+          <h3 id="points"><%= points %></h3>
+        </div>
         <div class="media-body">
           <h4 class="media-heading"><%= username %>
           </h4>
@@ -44,13 +47,13 @@
 
       <script id="gameTemplate" type="text/template" class="template">
           <div class="span4">
-            <div id="player1" class="span9"></div>
-            <div class="span3"></div>
+            <div id="player1" class="span10"></div>
+            <div class="span2"></div>
           </div>
           <div id="inputArea" class="span4"></div>
           <div class="span4">
-            <div class="span3"></div>
-            <div id="player2" class="span9"></div>
+            <div class="span2"></div>
+            <div id="player2" class="span10"></div>
           </div>
           <div id="game"></div>
       </script>

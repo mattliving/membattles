@@ -1,4 +1,4 @@
-define ["marionette"], (Marionette) ->
+ define ["marionette"], (Marionette) ->
 
   class Thing extends Backbone.Model
 
