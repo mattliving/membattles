@@ -35,7 +35,6 @@ define [
       @initCannons()
       @movingText = new TextView(player1Things, @floor, [400, 400], [2400, -3000])
       @items.push @movingText
-      #@initMovingText()
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
