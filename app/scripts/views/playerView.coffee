@@ -1,23 +1,22 @@
 define [
-  "marionette", 
+  "marionette",
   "vent",
-  "collections/things", 
-  "bootstrap.button"], 
+  "collections/things",
+  "bootstrap.button"],
 (Marionette, vent, Things) ->
 
   class PlayerView extends Marionette.Layout
 
     className: "media well"
-        
+
     template: "#playerTemplate"
 
-    ui: 
-      btn: ".btn"
-  
-    events: 
+    ui: btn: ".btn"
+
+    events:
       "click .btn" : "toggleReady"
 
-    regions: 
+    regions:
       courses: "#courses"
 
     initialize: ->
@@ -33,12 +32,13 @@ define [
         @selectedCourse.model.fetch(
           success: (model) ->
             vent.trigger("course:fetched")
-        ).done () =>
+        ).done =>
           @things = new Things()
           @things.url += @selectedCourse.model.get("levels")[0].id
           @things.fetch(
-            success: (collection) ->
-              vent.trigger("things:fetched", collection)
+            success: (collection) =>
+              console.log @
+              @trigger("things:fetched", collection)
             )
 
     onDomRefresh: ->

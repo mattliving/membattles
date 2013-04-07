@@ -22,23 +22,20 @@ define [
       game:    "#game"
 
     initialize: ->
-      @numberOfPlayers = 2
-
       @thisPlayer.on "show", (view) =>
-        @listenTo view, "ready", () =>
-          @thisPlayerReady = if @thisPlayerReady then false else true
+        view.on "ready", =>
+          # because !undefined in js is true
+          @thisPlayerReady = not @thisPlayerReady
           @trigger("ready")
-        vent.on "things:fetched", (things) =>
-          @thisPlayerThings = things
+        view.on "things:fetched", (@thisPlayerThings) => @trigger("data:ready")
 
       @thatPlayer.on "show", (view) =>
-        @listenTo view, "ready", () =>
-          @thatPlayerReady = if @thatPlayerReady then false else true
+        view.on "ready", =>
+          @thatPlayerReady = not @thatPlayerReady
           @trigger("ready")
-        vent.on "things:fetched", (things) =>
-          @thatPlayerThings = things
+        view.on "things:fetched", (@thatPlayerThings) => @trigger("data:ready")
 
-      @on "ready", () =>
+      @on "ready", =>
         if @thisPlayerReady and @thatPlayerReady
           @thisPlayer.currentView.removeRegion("courses")
           @thatPlayer.currentView.removeRegion("courses")
@@ -46,14 +43,12 @@ define [
           @thatPlayer.currentView.ui.btn.remove()
           vent.trigger("game:starting")
 
-      i = 0
-      vent.on "things:fetched", =>
-        i++
-        if i is @numberOfPlayers
+      @on "data:ready", =>
+        if @thisPlayerThings and @thatPlayerThings
           @startGame()
 
-    startGame: () ->
-      @input.show(new InputView())
+    startGame: ->
+      @input.show new InputView()
       # @ui.input.append("<h2>Game starting in 3 seconds!</h2>")
       # setTimeout (() =>
       #   @ui.input.children("h2").text("Game starting in 2 seconds!")

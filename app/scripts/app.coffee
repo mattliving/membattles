@@ -20,7 +20,7 @@ define [
   app.addRegions
     main: "#main"
 
-  app.addInitializer () ->
+  app.addInitializer ->
     app.main.show(gameLayout)
     thisPlayer.on 'model:fetched', ->
       gameLayout.thisPlayer.show(@playerView)
