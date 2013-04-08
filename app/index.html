@@ -21,7 +21,7 @@
         <div id="main" class="row-fluid">
         </div>
       </div>
-      
+
       <script id="playerTemplate" type="text/template" class="template">
         <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="<%= photo_small %>" height="60" width="60">
         <div class="circle <%= position === 'left' ? 'pull-right' : 'pull-left' %>">
@@ -47,13 +47,13 @@
 
       <script id="gameTemplate" type="text/template" class="template">
           <div class="span4">
-            <div id="player1" class="span10"></div>
-            <div class="span2"></div>
+            <div id="thisPlayer" class="span9"></div>
+            <div class="span3"></div>
           </div>
           <div id="inputArea" class="span4"></div>
           <div class="span4">
-            <div class="span2"></div>
-            <div id="player2" class="span10"></div>
+            <div class="span3"></div>
+            <div id="thatPlayer" class="span9"></div>
           </div>
           <div id="game"></div>
       </script>

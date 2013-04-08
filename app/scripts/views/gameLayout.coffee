@@ -2,7 +2,8 @@ define [
   "marionette",
   "vent",
   "views/inputView",
-  "views/membattle"],
+  "views/membattle"
+],
 (Marionette, vent, InputView, Membattle) ->
 
   class GameLayout extends Marionette.Layout
@@ -15,44 +16,39 @@ define [
       input: "#inputArea"
 
     regions:
-      player1: "#player1"
-      player2: "#player2"
+      thisPlayer: "#thisPlayer"
+      thatPlayer: "#thatPlayer"
       input:   "#inputArea"
       game:    "#game"
 
     initialize: ->
-      @numberOfPlayers = 2
-
-      @player1.on "show", (view) =>
-        @listenTo view, "ready", () =>
-          @player1Ready = if @player1Ready then false else true
+      @thisPlayer.on "show", (view) =>
+        view.on "ready", =>
+          # because !undefined in js is true
+          @thisPlayerReady = not @thisPlayerReady
           @trigger("ready")
-        vent.on "things:fetched", (things) =>
-          @player1Things = things
+        view.on "things:fetched", (@thisPlayerThings) => @trigger("data:ready")
 
-      @player2.on "show", (view) =>
-        @listenTo view, "ready", () =>
-          @player2Ready = if @player2Ready then false else true
+      @thatPlayer.on "show", (view) =>
+        view.on "ready", =>
+          @thatPlayerReady = not @thatPlayerReady
           @trigger("ready")
-        vent.on "things:fetched", (things) =>
-          @player2Things = things
+        view.on "things:fetched", (@thatPlayerThings) => @trigger("data:ready")
 
-      @on "ready", () =>
-        if @player1Ready and @player2Ready
-          @player1.currentView.removeRegion("courses")
-          @player2.currentView.removeRegion("courses")
-          @player1.currentView.ui.btn.remove()
-          @player2.currentView.ui.btn.remove()
+      @on "ready", =>
+        if @thisPlayerReady and @thatPlayerReady
+          @thisPlayer.currentView.removeRegion("courses")
+          @thatPlayer.currentView.removeRegion("courses")
+          @thisPlayer.currentView.ui.btn.remove()
+          @thatPlayer.currentView.ui.btn.remove()
           vent.trigger("game:starting")
 
-      i = 0
-      vent.on "things:fetched", =>
-        i++
-        if i is @numberOfPlayers
+      @on "data:ready", =>
+        if @thisPlayerThings and @thatPlayerThings
           @startGame()
 
-    startGame: () ->
-      @input.show(new InputView())
+    startGame: ->
+      @input.show new InputView()
       # @ui.input.append("<h2>Game starting in 3 seconds!</h2>")
       # setTimeout (() =>
       #   @ui.input.children("h2").text("Game starting in 2 seconds!")
@@ -62,7 +58,7 @@ define [
       # ), 2000
       # setTimeout (() =>
       #   @ui.input.children("h2").remove()
-      membattle = new Membattle(@player1Things, @player2Things)
+      membattle = new Membattle(@thisPlayerThings, @thatPlayerThings)
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000

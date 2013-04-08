@@ -4,6 +4,7 @@ define ["items/item"],
   class TextView extends Item
 
     constructor: (@collection, @floor, startPosition, startForce = [0, 0]) ->
+      super()
 
       @collection.map (model) =>
         model.set("position", startPosition)
@@ -27,6 +28,7 @@ define ["items/item"],
 
       @trigger "next"
       @active = true
+
 
     draw: (ctx) ->
       if @model.get("active")

@@ -4,12 +4,7 @@ define ["app", "items/imageItem"], (App, ImageItem) ->
 
     src: "/images/cannon.png"
 
-    constructor: (@x, @y, @offset, @scale, @mirrored, @active = false) ->
-      @loaded  = false
-      @type    = "image"
-      @img     = new Image()
-      @img.src = @src
-      @img.onload = => @loaded = true
+    mirrored: false
 
     draw: (ctx) ->
       if @loaded
