@@ -2,10 +2,12 @@ define ["app", "items/imageItem"], (App, ImageItem) ->
 
   class Cannon extends ImageItem
 
-    constructor: (@x, @y, @src, @offset, @scale, @mirrored, @active = false) ->
-      @loaded = false
-      @type = "image"
-      @img = new Image()
+    src: "/images/cannon.png"
+
+    constructor: (@x, @y, @offset, @scale, @mirrored, @active = false) ->
+      @loaded  = false
+      @type    = "image"
+      @img     = new Image()
       @img.src = @src
       @img.onload = => @loaded = true
 

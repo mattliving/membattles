@@ -17,24 +17,32 @@ define [
     attributes:
       height : "800px"
 
+    ui: 
+      thisPlayer: "#thisPlayer"
+      thatPlayer: "#thatPlayer"
+
+    factory: {}
+    items: []
+
     initialize: (player1Things, player2Things) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
-      @$playerHeader = $("#inputArea h2")
-      @$player1      = $("#player1")
-      @$player2      = $("#player2")
-      @items = []
-      @currentPlayer = 1
       @input = new InputHandler()
+      @currentPlayer = 1
       @mediumPlants = 3
       @largePlants  = 2
-      @floor = new Floor(0, @el.height/2, "/images/floor.png", 0, 1, true)
+      @floor = new Floor(0, @el.height/2, 0, 1, true)
       @items.push @floor
-      @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
-      @initPlants(0, @el.height/2-4, @largePlants, "large")
+      # @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
+      # @initPlants(0, @el.height/2-4, @largePlants, "large")
       @initCannons()
       @movingText = new TextView(player1Things, @floor, [400, 400], [2400, -3000])
       @items.push @movingText
+
+    spawnItem: (type) ->
+      item = new (@factory[typename])()
+      @items.push item
+      return item
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -48,9 +56,9 @@ define [
         @items.push plant
 
     initCannons: ->
-      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, @el.height/2-4, "/images/cannon.png", 50, 1.2, false, true)
+      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, @el.height/2-4, 50, 1.2, false, true)
       @items.push @cannon1
-      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, "/images/cannon.png", 50, 1.2, true, true)
+      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, 50, 1.2, true, true)
       @items.push @cannon2
 
     setPlayer: ->
@@ -63,14 +71,12 @@ define [
         @$player2.addClass("@currentPlayer")
         @currentPlayer = 1
 
-      # @$playerHeader.text(@currentPlayer)
-
     startAnimation: ->
       @ms = 0
       @cannon1.trigger("nextText")
-      @animate(Date.now())
+      @update(Date.now())
 
-    animate: (lastTime) ->
+    update: (lastTime) ->
       time = Date.now()
       dx = time - lastTime
       @ms += dx
@@ -80,6 +86,9 @@ define [
           if item? and item.active
             item.draw(@ctx)
             item.update()
+        for item, i in @items
+          unless item.active
+            @items.splice(i, 1)
         @ms -= 10
       requestAnimFrame =>
-        @animate(time)
+        @update(time)

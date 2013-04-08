@@ -2,10 +2,10 @@ define ["app", "items/item"], (App, Item) ->
 
   class ImageItem extends Item
 
-    constructor: (@x, @y, @src, @offset, @scale, @active = false) ->
-      @loaded = false
-      @type = "image"
-      @img = new Image()
+    constructor: (@x, @y, @offset, @scale, @active = false) ->
+      @loaded  = false
+      @type    = "image"
+      @img     = new Image()
       @img.src = @src
       @img.onload = =>
         @loaded = true

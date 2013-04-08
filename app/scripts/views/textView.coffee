@@ -31,13 +31,12 @@ define ["items/item"],
     draw: (ctx) ->
       if @model.get("active")
         ctx.font = "15pt 'Comic Sans MS'"
-        ctx.fillStyle = "black"
+        ctx.fillStyle = "#222"
         if @model.get("collided")
           @explode(ctx)
           @expFrames ?= 0
           @expFrames++
           if @expFrames > 50
-            console.log "inactive"
             @model.trigger("inactive")
             @trigger("inactive")
         else
