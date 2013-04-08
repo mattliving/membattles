@@ -13,6 +13,7 @@ define ["items/item"],
         return model
 
       @on 'next', =>
+        @expFrames = 0
         @model = @collection.getNext()
         if @model?
           @model.activate()
@@ -20,14 +21,7 @@ define ["items/item"],
         else
           @active = false
           @trigger 'done'
-      # temporary way to get the cannon to keep firing
-      # @on 'inactive', ->
-      #   @expFrames = 0
-      #   @trigger 'next'
-        # @expFrames = 0
-        # @active = false
 
-      # @trigger "next"
       @active = false
 
     draw: (ctx) ->
@@ -43,7 +37,7 @@ define ["items/item"],
             @trigger("inactive", @model.get("success"))
         else
           [x, y] = @model.get("position")
-          ctx.fillText(@model.get("text"), x, y)
+          ctx.fillText(@model.get("translation"), x, y)
 
     explode: (ctx) ->
       ctx.beginPath()

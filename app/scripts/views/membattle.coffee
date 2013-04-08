@@ -6,10 +6,9 @@ define [
   "items/floor",
   "items/plant",
   "items/cannon",
-  "views/textView",
-  "inputHandler"
+  "views/textView"
 ],
-(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextView, InputHandler) ->
+(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextView) ->
   class Membattle extends Marionette.View
 
     tagName: "canvas"
@@ -34,14 +33,9 @@ define [
       @floor = new Floor(0, @el.height/2, 1, true)
       @thisPlayerManager.initialize(@floor)
       @thatPlayerManager.initialize(@floor)
-      # @input = new InputHandler()
-      # @currentPlayer = 1
-      # @mediumPlants  = 3
-      # @largePlants   = 2
-      # # @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
-      # # @initPlants(0, @el.height/2-4, @largePlants, "large")
-      # @initCannons()
-      # @movingText = new TextView(player1Things, @floor, [400, 400], [2400, -3000])
+
+      vent.on 'input:guess', (guess) =>
+        @thisPlayerManager.trigger 'guess', guess
 
     spawnItem: (type) ->
       item = new (@factory[typename])()

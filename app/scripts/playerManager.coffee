@@ -50,9 +50,17 @@ define [
 
       # shh I'm listening for events
       @on 'next', ->
+        console.log 'triggering next', @local
         @textView.trigger('next')
+
+      @on 'guess', (guess) ->
+        if @textView.model.get("active")
+          correct = @textView.model.get("text") is guess
+          console.log 'triggering endTurn with guess', guess, @local
+          @textView.model.set "collided", true
+          @textView.model.set "success", correct
 
       # firing ma events pew pew
       @listenTo @textView, 'inactive', (success) ->
-        console.log @
-        @trigger('endTurn', success)
+        console.log 'triggering endTurn', @local
+        @trigger 'endTurn', success

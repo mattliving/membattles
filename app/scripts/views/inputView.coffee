@@ -17,4 +17,5 @@ define ["marionette", "vent"],
     inputChanged: (e) ->
       guess = @ui.input.val()
       @ui.input.val("")
+      console.log "guessed " + guess
       vent.trigger("input:guess", guess)

@@ -24,9 +24,6 @@
 
     initialize: ->
       @on "loaded", -> @set "loaded", true
-      @on "collided", (success) ->
-        @set "collided", true
-        @set "success", success
 
     activate: ->
       @set("active", true)
@@ -56,4 +53,6 @@
         dx = x - floor.x
         dy = y - floor.y
         if  0 < dx < floor.img.width and 0 < dy < floor.img.height
-          @trigger("collided", false)
+          # @trigger("collided", false)
+          @set "collided", true
+          @set "success", false
