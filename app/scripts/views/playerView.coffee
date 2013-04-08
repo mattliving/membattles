@@ -19,7 +19,7 @@ define [
     regions:
       courses: "#courses"
 
-    initialize: ->
+    initialize: ({@disabled = false}) ->
       @courses.on "show", (view) =>
         @listenTo view, "itemview:selected", (childView) =>
           @selectedCourse = childView
@@ -44,7 +44,7 @@ define [
       @ui.btn.button()
 
     toggleReady: ->
-      if @selectedCourse
+      if @selectedCourse and not @disabled
         @ui.btn.button("toggle")
         @model.ready()
         if @model.get("ready")

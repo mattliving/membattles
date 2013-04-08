@@ -4,6 +4,7 @@ require.config
     underscore: "../components/underscore/underscore-min"
     jquery: "../components/jquery/jquery.min"
     marionette: "../components/marionette/lib/backbone.marionette.min"
+    "socket.io": "../socket.io/socket.io"
     text: "../components/requirejs-text/text"
     tpl: "../components/requirejs-tpl/tpl"
     'backbone.wreqr': "../components/backbone.wreqr/lib/amd/backbone.wreqr.min"
@@ -20,6 +21,8 @@ require.config
     marionette:
       deps: ["jquery", "underscore", "backbone"]
       exports: "Marionette"
+    "socket.io":
+      exports: "io"
     "bootstrap.button":
       deps: ["jquery"]
 

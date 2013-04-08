@@ -16,8 +16,7 @@ define [
     constructor: (username, @local) ->
       pos                 = if @local then "left" else "right"
       @playerModel        = new Player username: username, position: pos
-      # the things array should be moved from this guy into player manager
-      @playerView         = new PlayerView model: @playerModel
+      @playerView         = new PlayerView model: @playerModel, disabled: not @local
       @playerCourses      = new Courses
       @playerCourses.url += @playerModel.get("username")
 
@@ -42,7 +41,7 @@ define [
 
       textPos = [@cannon.x+@cannon.img.width, @cannon.y]
       if @cannon.mirrored
-        textPos[0] = 600 + textPos[0]
+        textPos[0] += 600 # probably just chance that this is the right num
 
       fx = if @local then 2400 else -2400
       console.log fx
