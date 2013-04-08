@@ -11,11 +11,11 @@ define [
   )
 
   app = new Marionette.Application()
-  # loginView  = new LoginView()
-  gameLayout = new GameLayout()
 
   thisPlayer = new PlayerManager "matthew.livingston", true
   thatPlayer = new PlayerManager "alxhill", false
+
+  gameLayout = new GameLayout(thisPlayerManager: thisPlayer, thatPlayerManager: thatPlayer)
 
   app.addRegions
     main: "#main"

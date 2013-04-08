@@ -6,4 +6,4 @@ define ["app", "items/imageItem"], (App, ImageItem) ->
       if @loaded
         @width  = @img.width*@scale
         @height = @img.height*@scale
-        ctx.drawImage(@img, @x*@width*@offset, @y, @width, @height)
+        ctx.drawImage(@img, @x*@width, @y, @width, @height)

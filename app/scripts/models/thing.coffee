@@ -30,11 +30,9 @@
 
     activate: ->
       @set("active", true)
-      @trigger("active")
 
     deactivate: ->
       @set("active", false)
-      @trigger("inactive")
 
     applyForce: (fx, fy) -> @set("force", [fx*0.0005, fy*0.0005])
 

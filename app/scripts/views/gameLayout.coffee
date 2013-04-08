@@ -21,7 +21,9 @@ define [
       input:   "#inputArea"
       game:    "#game"
 
-    initialize: ->
+    # only the first argument is being sent for some awful reason.
+    # This is the quickest (and ugliest) workaround...
+    initialize: ({@thisPlayerManager, @thatPlayerManager}) ->
       @thisPlayer.on "show", (view) =>
         view.on "ready", =>
           # because !undefined in js is true
@@ -58,7 +60,7 @@ define [
       # ), 2000
       # setTimeout (() =>
       #   @ui.input.children("h2").remove()
-      membattle = new Membattle(@thisPlayerThings, @thatPlayerThings)
+      membattle = new Membattle(@thisPlayerManager, @thatPlayerManager)
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000

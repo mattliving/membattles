@@ -37,14 +37,13 @@ define [
           @things.url += @selectedCourse.model.get("levels")[0].id
           @things.fetch(
             success: (collection) =>
-              console.log @
               @trigger("things:fetched", collection)
             )
 
     onDomRefresh: ->
       @ui.btn.button()
 
-    toggleReady: () ->
+    toggleReady: ->
       if @selectedCourse
         @ui.btn.button("toggle")
         @model.ready()

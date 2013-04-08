@@ -16,19 +16,19 @@ define ["items/item"],
         @model = @collection.getNext()
         if @model?
           @model.activate()
+          @active = true
         else
           @active = false
           @trigger 'done'
       # temporary way to get the cannon to keep firing
-      @on 'inactive', ->
-        @expFrames = 0
-        @trigger 'next'
+      # @on 'inactive', ->
+      #   @expFrames = 0
+      #   @trigger 'next'
         # @expFrames = 0
         # @active = false
 
-      @trigger "next"
-      @active = true
-
+      # @trigger "next"
+      @active = false
 
     draw: (ctx) ->
       if @model.get("active")
@@ -39,8 +39,8 @@ define ["items/item"],
           @expFrames ?= 0
           @expFrames++
           if @expFrames > 50
-            @model.trigger("inactive")
-            @trigger("inactive")
+            @model.deactivate()
+            @trigger("inactive", @model.get("success"))
         else
           [x, y] = @model.get("position")
           ctx.fillText(@model.get("text"), x, y)

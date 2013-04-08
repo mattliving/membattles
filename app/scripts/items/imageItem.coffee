@@ -2,7 +2,7 @@ define ["app", "items/item"], (App, Item) ->
 
   class ImageItem extends Item
 
-    constructor: (@x, @y, @offset, @scale, @active = false) ->
+    constructor: (@x, @y, @scale, @active = false) ->
       super()
       @loaded = false
       @img = new Image()
@@ -11,4 +11,4 @@ define ["app", "items/item"], (App, Item) ->
 
     draw: (ctx) ->
       if @loaded
-        ctx.drawImage(@img, @x*@offset, @y, @img.width*@scale, @img.height*@scale)
+        ctx.drawImage(@img, @x, @y, @img.width*@scale, @img.height*@scale)

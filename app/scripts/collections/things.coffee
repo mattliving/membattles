@@ -1,14 +1,14 @@
 define ["app", "models/thing"],
 (App, Thing) ->
-  
+
   class Things extends Backbone.Collection
 
-    url: "http://www.memrise.com/api/level/get/?level_id="
+    url: "http://www.memrise.com/api/level/get/?with_content=true&level_id="
 
     model: Thing
 
     current: 0
-    
+
     parse: (response) ->
       response.level.things
 

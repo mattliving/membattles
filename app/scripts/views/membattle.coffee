@@ -17,25 +17,31 @@ define [
     attributes:
       height : "800px"
 
-    ui: 
+    ui:
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
     factory: {}
     items: []
 
-    initialize: (player1Things, player2Things) ->
+    # this class is responsible for:
+    # * connecting one player to the user input
+    # * connecting the other player up to the server
+    # * linking together the events of the two players
+    initialize: (@thisPlayerManager, @thatPlayerManager) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
-      @input = new InputHandler()
-      @currentPlayer = 1
-      @mediumPlants  = 3
-      @largePlants   = 2
-      @floor = new Floor(0, @el.height/2, 0, 1, true)
-      # @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
-      # @initPlants(0, @el.height/2-4, @largePlants, "large")
-      @initCannons()
-      @movingText = new TextView(player1Things, @floor, [400, 400], [2400, -3000])
+      @floor = new Floor(0, @el.height/2, 1, true)
+      @thisPlayerManager.initialize(@floor)
+      @thatPlayerManager.initialize(@floor)
+      # @input = new InputHandler()
+      # @currentPlayer = 1
+      # @mediumPlants  = 3
+      # @largePlants   = 2
+      # # @initPlants(0, @el.height/2-4, @mediumPlants, "medium")
+      # # @initPlants(0, @el.height/2-4, @largePlants, "large")
+      # @initCannons()
+      # @movingText = new TextView(player1Things, @floor, [400, 400], [2400, -3000])
 
     spawnItem: (type) ->
       item = new (@factory[typename])()
@@ -70,7 +76,11 @@ define [
 
     startAnimation: ->
       @ms = 0
-      @cannon1.trigger("nextText")
+      @thisPlayerManager.trigger("next")
+
+      @thisPlayerManager.on 'endTurn', => @thatPlayerManager.trigger('next')
+      @thatPlayerManager.on 'endTurn', => @thisPlayerManager.trigger('next')
+
       @update(Date.now())
 
     update: (lastTime) ->
