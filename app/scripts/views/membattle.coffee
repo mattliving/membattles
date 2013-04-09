@@ -27,7 +27,7 @@ define [
     # * connecting one player to the user input
     # * connecting the other player up to the server
     # * linking together the events of the two players
-    initialize: (@socket, @thisPlayerManager, @thatPlayerManager) ->
+    initialize: (@socket, @thisPlayerManager, @thatPlayerManager, @thisStarts) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
       @floor = new Floor(0, @el.height/2, 1, true)
@@ -35,10 +35,12 @@ define [
       @thatPlayerManager.initialize(@floor)
 
       vent.on 'input:guess', (guess) =>
+        console.log "guessed:", guess
         @thisPlayerManager.trigger 'guess', guess
         @socket.emit 'guess', guess
 
       @socket.on 'guess', (guess) =>
+        console.log  "recieved guess", guess
         @thatPlayerManager.trigger 'guess', guess
 
     spawnItem: (type) ->
@@ -69,7 +71,10 @@ define [
 
     startAnimation: ->
       @ms = 0
-      @thisPlayerManager.trigger("next")
+      if @thisStarts
+        @thisPlayerManager.trigger("next")
+      else
+        @thatPlayerManager.trigger("next")
 
       @thisPlayerManager.on 'endTurn', => @thatPlayerManager.trigger('next')
       @thatPlayerManager.on 'endTurn', => @thisPlayerManager.trigger('next')
