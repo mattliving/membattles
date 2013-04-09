@@ -1,5 +1,5 @@
 define [
-  "Marionette",
+  "marionette",
   "vent",
   "items/plant",
   "items/cannon",
