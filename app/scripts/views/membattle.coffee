@@ -35,12 +35,10 @@ define [
       @thatPlayerManager.initialize(@floor)
 
       vent.on 'input:guess', (guess) =>
-        console.log "guessed:", guess
         @thisPlayerManager.trigger 'guess', guess
         @socket.emit 'guess', guess
 
       @socket.on 'guess', (guess) =>
-        console.log  "recieved guess", guess
         @thatPlayerManager.trigger 'guess', guess
 
     spawnItem: (type) ->

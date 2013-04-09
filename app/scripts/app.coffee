@@ -36,7 +36,6 @@ define [
     socket.emit 'register', user: username
 
     socket.on 'registered', ->
-      console.log "registered"
       socket.emit 'getid', {}
       socket.on 'otherid', ({id, user, first}) ->
 
