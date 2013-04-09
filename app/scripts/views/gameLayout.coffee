@@ -19,8 +19,8 @@ define [
     regions:
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
-      input:   "#inputArea"
-      game:    "#game"
+      input:      "#inputArea"
+      game:       "#game"
 
     # only the first argument is being sent for some awful reason.
     # This is the quickest (and ugliest) workaround...
@@ -31,8 +31,6 @@ define [
           @trigger("ready")
           @socket.emit 'ready', {}
         view.on "things:fetched", (@thisPlayerThings) =>
-          # window.things = @thisPlayerThings
-          console.log "emiting"
           @thisPlayerController.things = @thisPlayerThings
           @socket.emit 'things', @thisPlayerThings.toJSON()
           @trigger("data:fetched")
@@ -42,7 +40,6 @@ define [
         @trigger("ready")
 
       @socket.on 'things', (things) =>
-        console.log things
         @thatPlayerThings = new Things(things)
         @thatPlayerController.things = @thatPlayerThings
         @trigger("data:fetched")
@@ -54,7 +51,6 @@ define [
           @thisPlayer.currentView.ui.btn.remove()
           @thatPlayer.currentView.ui.btn.remove()
           @thisPlayer.currentView.trigger("fetch:data")
-
 
       @on "data:fetched", =>
         if @thisPlayerThings and @thatPlayerThings

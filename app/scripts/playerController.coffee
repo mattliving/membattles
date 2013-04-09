@@ -51,16 +51,24 @@ define [
         @playerView.toggleReady()
 
       @on 'next', ->
-        console.log 'triggering next', @local
         @textView.trigger('next')
 
       @on 'guess', (guess) ->
         if @textView.model.get("active")
           correct = @textView.model.get("text") is guess
-          console.log 'triggering endTurn with guess', guess, @local
           @textView.model.set "collided", true
           @textView.model.set "success", correct
 
-      @listenTo @textView, 'inactive', (success) ->
-        console.log 'triggering endTurn', @local
-        @trigger 'endTurn', success
+      @listenTo @textView, 'inactive', ->
+        @trigger 'endTurn'
+
+      @on 'endTurn', ->
+        model = @playerView.model
+        unless model.get('success')
+          lives = model.get('lives')
+          @playerView.model.set('lives', lives-1)
+          unless lives > 0
+            vent.trigger 'game:ending'
+        else
+          model.set('points', model.get('points')+45)
+

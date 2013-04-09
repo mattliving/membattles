@@ -35,13 +35,12 @@ define [
       @thatPlayerController.initialize(@floor)
 
       vent.on 'input:guess', (guess) =>
-        console.log "guessed:", guess
         @thisPlayerController.trigger 'guess', guess
         @socket.emit 'guess', guess
 
       @socket.on 'guess', (guess) =>
-        console.log  "recieved guess", guess
         @thatPlayerController.trigger 'guess', guess
+
 
     spawnItem: (type) ->
       item = new (@factory[typename])()
