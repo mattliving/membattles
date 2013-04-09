@@ -54,7 +54,23 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'guess', ({guess}) ->
     socket.get 'otherid', (err, otherid) ->
       unless err
-        clients[otherid].emit 'event', event: event
+        clients[otherid].emit 'guess', event: guess
+      else
+        socket.emit 'error', msg: "invalid client id #{otherid}"
+
+  socket.on 'ready', ->
+    console.log 'ready'
+    socket.get 'otherid', (err, otherid) ->
+      unless err
+        clients[otherid].emit 'ready', {}
+      else
+        socket.emit 'error', msg: "invalid client id #{otherid}"
+
+  socket.on 'things', (data) ->
+    console.log 'things', data
+    socket.get 'otherid', (err, otherid) ->
+      unless err
+        clients[otherid].emit 'things', data
       else
         socket.emit 'error', msg: "invalid client id #{otherid}"
 

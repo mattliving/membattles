@@ -1,7 +1,7 @@
 define [
-	"marionette", 
-	"views/emptyView", 
-	"views/courseView"], 
+	"marionette",
+	"views/emptyView",
+	"views/courseView"],
 (Marionette, EmptyView, CourseView) ->
 
   class CoursesView extends Marionette.CollectionView
@@ -12,7 +12,3 @@ define [
 
     # emptyView: EmptyView
     itemView: CourseView
-
-    initialize: ->
-
-  CoursesView

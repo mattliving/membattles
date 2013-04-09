@@ -29,9 +29,8 @@ define [
           @playerCoursesView = new CoursesView(collection: @playerCourses)
           @playerView.courses.show(@playerCoursesView)
 
-      @playerView.on "things:fetched", (@things) =>
-
     initialize: (@floor) ->
+      # more permanent solution to this is needed.
       if @local
         cPos = [40, @floor.y-4]
       else
@@ -44,10 +43,13 @@ define [
         textPos[0] += 600 # probably just chance that this is the right num
 
       fx = if @local then 2400 else -2400
-      console.log fx
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
 
-      # shh I'm listening for events
+      # only used by the socket connection
+      @on 'ready', ->
+        @playerView.courses.close()
+        @playerView.toggleReady()
+
       @on 'next', ->
         console.log 'triggering next', @local
         @textView.trigger('next')
@@ -59,7 +61,6 @@ define [
           @textView.model.set "collided", true
           @textView.model.set "success", correct
 
-      # firing ma events pew pew
       @listenTo @textView, 'inactive', (success) ->
         console.log 'triggering endTurn', @local
         @trigger 'endTurn', success

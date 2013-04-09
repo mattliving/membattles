@@ -27,7 +27,7 @@ define [
     # * connecting one player to the user input
     # * connecting the other player up to the server
     # * linking together the events of the two players
-    initialize: (@thisPlayerManager, @thatPlayerManager) ->
+    initialize: (@socket, @thisPlayerManager, @thatPlayerManager) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
       @floor = new Floor(0, @el.height/2, 1, true)
@@ -36,6 +36,10 @@ define [
 
       vent.on 'input:guess', (guess) =>
         @thisPlayerManager.trigger 'guess', guess
+        @socket.emit 'guess', guess
+
+      @socket.on 'guess', (guess) =>
+        @thatPlayerManager.trigger 'guess', guess
 
     spawnItem: (type) ->
       item = new (@factory[typename])()
@@ -62,11 +66,6 @@ define [
         @$player1.removeClass("currentPlayer")
         @$player2.addClass("currentPlayer")
         @currentPlayer = 1
-
-    initCannons: ->
-      @cannon1 = new Cannon(@mediumPlants+@largePlants+1, @el.height/2-4, 50, 1.2, true)
-      @cannon2 = new Cannon(@mediumPlants+@largePlants+5, @el.height/2-4, 50, 1.2, true)
-      @cannon2.mirrored = true
 
     startAnimation: ->
       @ms = 0

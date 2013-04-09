@@ -25,7 +25,7 @@ define [
 
   loginView.on 'submit', (username) =>
     thisPlayer = new PlayerManager username, true
-    gameLayout = new GameLayout args: [thisPlayer]
+    gameLayout = new GameLayout socket: socket, thisPlayerManager: thisPlayer
 
     app.main.show(gameLayout)
 
@@ -40,10 +40,9 @@ define [
       socket.emit 'getid', {}
       socket.on 'otherid', ({id, user, first}) ->
 
-        console.log id, user, first
-
         thatPlayer = new PlayerManager user, false
-        gameLayout.args.push thatPlayer, socket
+        gameLayout.thatPlayerManager = thatPlayer
+        gameLayout.thisStarts = not first
 
         thatPlayer.on 'model:fetched', ->
           gameLayout.thatPlayer.show(@playerView)

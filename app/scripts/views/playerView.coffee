@@ -14,38 +14,44 @@ define [
     ui: btn: ".btn"
 
     events:
-      "click .btn" : "toggleReady"
+      "click .btn" : "readyClick"
 
     regions:
       courses: "#courses"
 
-    initialize: ({@disabled = false}) ->
+    initialize: ({@disabled}) ->
       @courses.on "show", (view) =>
         @listenTo view, "itemview:selected", (childView) =>
           @selectedCourse = childView
 
-      vent.on "game:starting", =>
-        @selectedCourse.model.url = @selectedCourse.model.urlRoot + @selectedCourse.model.get("id")
-        @selectedCourse.model.parse = (response) ->
-          response.course
-
-        @selectedCourse.model.fetch(
-          success: (model) ->
-            vent.trigger("course:fetched")
-        ).done =>
-          @things = new Things()
-          @things.url += @selectedCourse.model.get("levels")[0].id
-          @things.fetch(
-            success: (collection) =>
-              @trigger("things:fetched", collection)
-            )
+      @on 'fetch:data', @getCourseModel, @
 
     onDomRefresh: ->
       @ui.btn.button()
 
-    toggleReady: ->
+    readyClick: (e) ->
+      e.preventDefault()
       if @selectedCourse and not @disabled
-        @ui.btn.button("toggle")
-        @model.ready()
-        if @model.get("ready")
-          @trigger("ready")
+        @toggleReady()
+
+    toggleReady: ->
+      @ui.btn.button("toggle")
+      @model.ready()
+      if @model.get("ready")
+        @trigger("ready")
+
+    getCourseModel: ->
+      @selectedCourse.model.url = @selectedCourse.model.urlRoot + @selectedCourse.model.get("id")
+      @selectedCourse.model.parse = (response) ->
+        response.course
+
+      @selectedCourse.model.fetch(
+        success: (model) =>
+          @trigger("course:fetched", (model))
+      ).done =>
+        @things = new Things()
+        @things.url += @selectedCourse.model.get("levels")[0].id
+        @things.fetch(
+          success: (collection) =>
+            @trigger("things:fetched", collection)
+          )

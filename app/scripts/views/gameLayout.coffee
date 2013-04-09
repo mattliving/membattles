@@ -2,9 +2,10 @@ define [
   "marionette",
   "vent",
   "views/inputView",
-  "views/membattle"
+  "views/membattle",
+  "collections/things"
 ],
-(Marionette, vent, InputView, Membattle) ->
+(Marionette, vent, InputView, Membattle, Things) ->
 
   class GameLayout extends Marionette.Layout
 
@@ -23,20 +24,28 @@ define [
 
     # only the first argument is being sent for some awful reason.
     # This is the quickest (and ugliest) workaround...
-    initialize: ({@args}) ->
-      console.log @thisPlayer, @thatPlayer
+    initialize: ({@socket, @thisPlayerManager}) ->
       @thisPlayer.on "show", (view) =>
         view.on "ready", =>
-          # because !undefined in js is true
           @thisPlayerReady = not @thisPlayerReady
           @trigger("ready")
-        view.on "things:fetched", (@thisPlayerThings) => @trigger("data:ready")
+          @socket.emit 'ready', {}
+        view.on "things:fetched", (@thisPlayerThings) =>
+          # window.things = @thisPlayerThings
+          console.log "emiting"
+          @thisPlayerManager.things = @thisPlayerThings
+          @socket.emit 'things', @thisPlayerThings.toJSON()
+          @trigger("data:fetched")
 
-      @thatPlayer.on "show", (view) =>
-        view.on "ready", =>
-          @thatPlayerReady = not @thatPlayerReady
-          @trigger("ready")
-        view.on "things:fetched", (@thatPlayerThings) => @trigger("data:ready")
+      @socket.on "ready", =>
+        @thatPlayerReady = not @thatPlayerReady
+        @trigger("ready")
+
+      @socket.on 'things', (things) =>
+        console.log things
+        @thatPlayerThings = new Things(things)
+        @thatPlayerManager.things = @thatPlayerThings
+        @trigger("data:fetched")
 
       @on "ready", =>
         if @thisPlayerReady and @thatPlayerReady
@@ -44,9 +53,10 @@ define [
           @thatPlayer.currentView.removeRegion("courses")
           @thisPlayer.currentView.ui.btn.remove()
           @thatPlayer.currentView.ui.btn.remove()
-          vent.trigger("game:starting")
+          @thisPlayer.currentView.trigger("fetch:data")
 
-      @on "data:ready", =>
+
+      @on "data:fetched", =>
         if @thisPlayerThings and @thatPlayerThings
           @startGame()
 
@@ -61,7 +71,7 @@ define [
       # ), 2000
       # setTimeout (() =>
       #   @ui.input.children("h2").remove()
-      membattle = new Membattle(@args...)
+      membattle = new Membattle(@socket, @thisPlayerManager, @thatPlayerManager)
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000
