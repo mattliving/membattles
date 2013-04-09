@@ -51,13 +51,6 @@ io.sockets.on 'connection', (socket) ->
       console.log "waiting for another connection"
       looking.push socket.id
 
-  socket.on 'guess', ({guess}) ->
-    socket.get 'otherid', (err, otherid) ->
-      unless err
-        clients[otherid].emit 'guess', event: guess
-      else
-        socket.emit 'error', msg: "invalid client id #{otherid}"
-
   socket.on 'ready', ->
     console.log 'ready'
     socket.get 'otherid', (err, otherid) ->
@@ -66,8 +59,14 @@ io.sockets.on 'connection', (socket) ->
       else
         socket.emit 'error', msg: "invalid client id #{otherid}"
 
+  socket.on 'guess', (guess) ->
+    socket.get 'otherid', (err, otherid) ->
+      unless err
+        clients[otherid].emit 'guess', guess
+      else
+        socket.emit 'error', msg: "invalid client id #{otherid}"
+
   socket.on 'things', (data) ->
-    console.log 'things', data
     socket.get 'otherid', (err, otherid) ->
       unless err
         clients[otherid].emit 'things', data

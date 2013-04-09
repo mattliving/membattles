@@ -27,21 +27,21 @@ define [
     # * connecting one player to the user input
     # * connecting the other player up to the server
     # * linking together the events of the two players
-    initialize: (@socket, @thisPlayerManager, @thatPlayerManager, @thisStarts) ->
+    initialize: (@socket, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
       @floor = new Floor(0, @el.height/2, 1, true)
-      @thisPlayerManager.initialize(@floor)
-      @thatPlayerManager.initialize(@floor)
+      @thisPlayerController.initialize(@floor)
+      @thatPlayerController.initialize(@floor)
 
       vent.on 'input:guess', (guess) =>
         console.log "guessed:", guess
-        @thisPlayerManager.trigger 'guess', guess
+        @thisPlayerController.trigger 'guess', guess
         @socket.emit 'guess', guess
 
       @socket.on 'guess', (guess) =>
         console.log  "recieved guess", guess
-        @thatPlayerManager.trigger 'guess', guess
+        @thatPlayerController.trigger 'guess', guess
 
     spawnItem: (type) ->
       item = new (@factory[typename])()
@@ -72,12 +72,12 @@ define [
     startAnimation: ->
       @ms = 0
       if @thisStarts
-        @thisPlayerManager.trigger("next")
+        @thisPlayerController.trigger("next")
       else
-        @thatPlayerManager.trigger("next")
+        @thatPlayerController.trigger("next")
 
-      @thisPlayerManager.on 'endTurn', => @thatPlayerManager.trigger('next')
-      @thatPlayerManager.on 'endTurn', => @thisPlayerManager.trigger('next')
+      @thisPlayerController.on 'endTurn', => @thatPlayerController.trigger('next')
+      @thatPlayerController.on 'endTurn', => @thisPlayerController.trigger('next')
 
       @update(Date.now())
 
@@ -95,5 +95,6 @@ define [
           unless item.active
             @items.splice(i, 1)
         @ms -= 10
-      requestAnimFrame =>
+      requestAnimFrame (=>
         @update(time)
+      ), @ctx

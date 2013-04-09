@@ -1,4 +1,5 @@
 define [
+  "Marionette",
   "vent",
   "items/plant",
   "items/cannon",
@@ -8,10 +9,9 @@ define [
   "collections/courses",
   "views/coursesView"
 ],
-(vent, Plant, Cannon, TextView, Player, PlayerView, Courses, CoursesView) ->
+(Marionette, vent, Plant, Cannon, TextView, Player, PlayerView, Courses, CoursesView) ->
 
-  class PlayerManager
-    _.extend(PlayerManager::, Backbone.Events)
+  class PlayerController extends Marionette.Controller
 
     constructor: (username, @local) ->
       pos                 = if @local then "left" else "right"
@@ -32,11 +32,11 @@ define [
     initialize: (@floor) ->
       # more permanent solution to this is needed.
       if @local
-        cPos = [40, @floor.y-4]
-      else
         cPos = [600, @floor.y-4]
+      else
+        cPos = [40, @floor.y-4]
       @cannon = new Cannon(cPos[0], cPos[1], 1.2, true)
-      @cannon.mirrored = not @local
+      @cannon.mirrored = @local
 
       textPos = [@cannon.x+@cannon.img.width, @cannon.y]
       if @cannon.mirrored

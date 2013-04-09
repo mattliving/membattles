@@ -24,7 +24,7 @@ define [
 
     # only the first argument is being sent for some awful reason.
     # This is the quickest (and ugliest) workaround...
-    initialize: ({@socket, @thisPlayerManager}) ->
+    initialize: ({@socket, @thisPlayerController}) ->
       @thisPlayer.on "show", (view) =>
         view.on "ready", =>
           @thisPlayerReady = not @thisPlayerReady
@@ -33,7 +33,7 @@ define [
         view.on "things:fetched", (@thisPlayerThings) =>
           # window.things = @thisPlayerThings
           console.log "emiting"
-          @thisPlayerManager.things = @thisPlayerThings
+          @thisPlayerController.things = @thisPlayerThings
           @socket.emit 'things', @thisPlayerThings.toJSON()
           @trigger("data:fetched")
 
@@ -44,7 +44,7 @@ define [
       @socket.on 'things', (things) =>
         console.log things
         @thatPlayerThings = new Things(things)
-        @thatPlayerManager.things = @thatPlayerThings
+        @thatPlayerController.things = @thatPlayerThings
         @trigger("data:fetched")
 
       @on "ready", =>
@@ -71,7 +71,7 @@ define [
       # ), 2000
       # setTimeout (() =>
       #   @ui.input.children("h2").remove()
-      membattle = new Membattle(@socket, @thisPlayerManager, @thatPlayerManager, @thisStarts)
+      membattle = new Membattle(@socket, @thisPlayerController, @thatPlayerController, @thisStarts)
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000

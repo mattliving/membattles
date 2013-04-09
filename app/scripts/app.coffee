@@ -2,13 +2,18 @@ define [
   "marionette",
   "views/gameLayout",
   "views/loginView",
-  "playerManager",
+  "playerController",
   "socket.io"
 ],
-(Marionette, GameLayout, LoginView, PlayerManager, io) ->
+(Marionette, GameLayout, LoginView, PlayerController, io) ->
 
   window.requestAnimFrame = do ((callback) ->
-    window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame || (callback) -> window.setTimeout(callback, 1000 / 60)
+    window.requestAnimationFrame ||
+    window.webkitRequestAnimationFrame ||
+    window.mozRequestAnimationFrame ||
+    window.oRequestAnimationFrame ||
+    window.msRequestAnimationFrame ||
+    (callback) -> window.setTimeout(callback, 1000 / 60)
   )
 
   app = new Marionette.Application()
@@ -24,8 +29,8 @@ define [
   socket = io.connect(window.location.origin)
 
   loginView.on 'submit', (username) =>
-    thisPlayer = new PlayerManager username, true
-    gameLayout = new GameLayout socket: socket, thisPlayerManager: thisPlayer
+    thisPlayer = new PlayerController username, true
+    gameLayout = new GameLayout socket: socket, thisPlayerController: thisPlayer
 
     app.main.show(gameLayout)
 
@@ -40,8 +45,8 @@ define [
       socket.emit 'getid', {}
       socket.on 'otherid', ({id, user, first}) ->
 
-        thatPlayer = new PlayerManager user, false
-        gameLayout.thatPlayerManager = thatPlayer
+        thatPlayer = new PlayerController user, false
+        gameLayout.thatPlayerController = thatPlayer
         gameLayout.thisStarts = not first
 
         thatPlayer.on 'model:fetched', ->
