@@ -52,7 +52,10 @@ io.sockets.on 'connection', (socket) ->
         other.set 'otherid', socket.id
         other.emit 'otherid', id: socket.id, user: user, first: true
 
-        other.get 'ready', (err, ready) -> if ready then socket.emit 'ready'
+        other.get 'ready', (err, ready) ->
+          if ready
+            socket.emit 'ready'
+            # other.emit 'ready'
 
     else
       console.log "waiting for another connection"

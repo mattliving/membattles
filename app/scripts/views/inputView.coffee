@@ -15,6 +15,7 @@ define ["marionette", "vent"],
       click: "toggleSelected"
       change: "inputChanged"
       keyup: "keyPressed"
+      keydown: "testKey"
 
     initialize: ->
       @on 'keypress', (input) =>
@@ -30,6 +31,12 @@ define ["marionette", "vent"],
 
     keyPressed: (e) ->
       @trigger("keyup", @ui.input.val())
+
+    # stop the backspace key from ruining everything
+    testKey: (e) ->
+      if e.which is 8
+        e.preventDefault()
+        e.stopPropagation()
 
     enable: ->
       @ui.input.prop("disabled", false)
