@@ -25,8 +25,6 @@ define [
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
-    items: []
-
     stopped: false
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
@@ -59,9 +57,13 @@ define [
       vent.on 'other:disconnect', =>
         @stopAnimation()
         @input.disable()
-        @ctx.fillStyle = "rbga(1, 1, 1, 0.5)"
+        @input.off('keyup')
+        @input.off('guess')
+        @ctx.fillStyle = "black"
+        @ctx.globalAlpha = 0.5
         @ctx.font = "30pt 'Comic Sans MS'"
         @ctx.fillRect(0, 0, @el.width, @el.height)
+        @ctx.globalAlpha = 1
         @ctx.fillStyle = "white"
         @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
         # setTimeout((=> @ctx.clearRect(0, 0, @el.height, @el.width)), 2000)
@@ -125,9 +127,6 @@ define [
             if item? and item.active
               item.draw(@ctx)
               item.update()
-          for item, i in @items
-            unless item.active
-              @items.splice(i, 1)
           @ms -= 10
         requestAnimFrame (=>
           @update(time)

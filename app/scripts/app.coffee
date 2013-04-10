@@ -44,6 +44,8 @@ define [
     socket.on 'registered', ->
       socket.emit 'getid', {}
 
+      socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
+
       socket.on 'disconnect', -> vent.trigger 'other:disconnect'
 
       socket.on 'otherid', ({id, user, first}) ->
