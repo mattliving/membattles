@@ -30,7 +30,6 @@ define ["items/item"],
         ctx.fillStyle = "#222"
         if @model.get("collided")
           @explode(ctx)
-          @expFrames ?= 0
           @expFrames++
           if @expFrames > 50
             @model.deactivate()

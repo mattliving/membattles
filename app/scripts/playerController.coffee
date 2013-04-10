@@ -42,7 +42,7 @@ define [
       if @cannon.mirrored
         textPos[0] += 600 # probably just chance that this is the right num
 
-      fx = if @local then 2400 else -2400
+      fx = if @local then -2400 else 2400
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
 
       # only used by the socket connection
@@ -54,6 +54,7 @@ define [
         @textView.trigger('next')
 
       @on 'guess', (guess) ->
+        console.log @textView
         if @textView.model.get("active")
           correct = @textView.model.get("text") is guess
           @textView.model.set "collided", true

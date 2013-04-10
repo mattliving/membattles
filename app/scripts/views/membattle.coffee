@@ -27,25 +27,42 @@ define [
     # * connecting one player to the user input
     # * connecting the other player up to the server
     # * linking together the events of the two players
-    initialize: (@socket, @thisPlayerController, @thatPlayerController, @thisStarts) ->
+    # * starting and rendering animations
+    initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
+      console.log @input
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
       @floor = new Floor(0, @el.height/2, 1, true)
       @thisPlayerController.initialize(@floor)
       @thatPlayerController.initialize(@floor)
 
-      vent.on 'input:guess', (guess) =>
+      @input.listenTo @thatPlayerController, 'next', ->
+        @ui.input.prop('disabled', true)
+        @ui.input.css('color', 'grey')
+      @input.listenTo @thisPlayerController, 'next', ->
+        @ui.input.prop('disabled', false)
+        @ui.input.removeAttr('style')
+
+      @input.on 'guess', (guess) =>
         @thisPlayerController.trigger 'guess', guess
         @socket.emit 'guess', guess
+
+      @input.on 'keyup', (input) =>
+        console.log 'emiting keypress event'
+        @socket.emit 'keypress', input
+
+      @socket.on 'keypress', (input) =>
+        @input.trigger 'keypress', input
 
       @socket.on 'guess', (guess) =>
         @thatPlayerController.trigger 'guess', guess
 
+      # show the other person's answer under the input box
+      @thatPlayerController.on 'next', =>
+        @input.ui.otheranswer.html("Their answer:" + @thatPlayerController.textView.model.get("text"))
 
-    spawnItem: (type) ->
-      item = new (@factory[typename])()
-      @items.push item
-      return item
+      @thisPlayerController.on 'next', =>
+        @input.ui.otheranswer.html('')
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]
@@ -75,8 +92,12 @@ define [
       else
         @thatPlayerController.trigger("next")
 
-      @thisPlayerController.on 'endTurn', => @thatPlayerController.trigger('next')
-      @thatPlayerController.on 'endTurn', => @thisPlayerController.trigger('next')
+      @thisPlayerController.on 'endTurn', =>
+        @input.disable()
+        @thatPlayerController.trigger('next')
+      @thatPlayerController.on 'endTurn', =>
+        @input.enable()
+        @thisPlayerController.trigger('next')
 
       @update(Date.now())
 

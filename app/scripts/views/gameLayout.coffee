@@ -67,7 +67,7 @@ define [
       # ), 2000
       # setTimeout (() =>
       #   @ui.input.children("h2").remove()
-      membattle = new Membattle(@socket, @thisPlayerController, @thatPlayerController, @thisStarts)
+      membattle = new Membattle(@socket, @input.currentView, @thisPlayerController, @thatPlayerController, @thisStarts)
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000
