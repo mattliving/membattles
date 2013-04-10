@@ -19,6 +19,7 @@ io = socket.listen(server.listen(9000))
 
 io.sockets.on 'connection', (socket) ->
 
+  # register the user into the clients array
   socket.on 'register', ({user}) ->
     console.log "registering " + socket.id
     socket.set 'user', user
@@ -26,6 +27,7 @@ io.sockets.on 'connection', (socket) ->
     console.log "#{++clientCount} clients connected"
     socket.emit 'registered', {}
 
+  # assign this user another player and send them the username
   socket.on 'getid', ->
     if looking.length > 0
       console.log 'assigning otherid to socket'
@@ -51,27 +53,21 @@ io.sockets.on 'connection', (socket) ->
       console.log "waiting for another connection"
       looking.push socket.id
 
-  socket.on 'ready', ->
-    console.log 'ready'
-    socket.get 'otherid', (err, otherid) ->
+  # helper function emit events to the other user
+  socket.toOther = (event, data) ->
+    @get 'otherid', (err, otherid) ->
       unless err
-        clients[otherid].emit 'ready', {}
+        clients[otherid].emit event, data
       else
-        socket.emit 'error', msg: "invalid client id #{otherid}"
+        @emit 'error', msg: "invalid client id #{otherid}"
 
-  socket.on 'guess', (guess) ->
-    socket.get 'otherid', (err, otherid) ->
-      unless err
-        clients[otherid].emit 'guess', guess
-      else
-        socket.emit 'error', msg: "invalid client id #{otherid}"
+  socket.on 'ready', -> @toOther 'ready', {}
 
-  socket.on 'things', (data) ->
-    socket.get 'otherid', (err, otherid) ->
-      unless err
-        clients[otherid].emit 'things', data
-      else
-        socket.emit 'error', msg: "invalid client id #{otherid}"
+  socket.on 'guess', (guess) -> @toOther 'guess', guess
+
+  socket.on 'things', (data) -> @toOther 'things', data
+
+  socket.on 'keypress', (input) -> @toOther 'keypress', input
 
   socket.on 'disconnect', ->
     socket.get 'otherid', (err, otherid) ->
