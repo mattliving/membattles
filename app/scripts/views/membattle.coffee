@@ -27,13 +27,7 @@ define [
 
     items: []
 
-    # This class is responsible for:
-    #   Connecting one player to the user input
-    #   Connecting the other player up to the server
-    #   Linking together the events of the two players
-    #   Starting and rendering animations
-
-    stopped: false
+    stopped: true
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @$el.attr("width", $(".span12").css("width"))
@@ -119,6 +113,7 @@ define [
       else
         @thatPlayerController.trigger("next")
 
+      @stopped = false
       @update(Date.now())
 
     stopAnimation: -> @stopped = true

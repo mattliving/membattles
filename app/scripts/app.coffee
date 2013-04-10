@@ -29,6 +29,10 @@ define [
 
   socket = io.connect(window.location.origin)
 
+  socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
+
+  window.socket = socket
+
   loginView.on 'submit', (username) =>
     thisPlayer = new PlayerController username, true
     gameLayout = new GameLayout socket: socket, thisPlayerController: thisPlayer
@@ -44,7 +48,6 @@ define [
     socket.on 'registered', ->
       socket.emit 'getid', {}
 
-      socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
 
       socket.on 'disconnect', -> vent.trigger 'other:disconnect'
 

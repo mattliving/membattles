@@ -29,7 +29,7 @@ define [
         view.on "ready", =>
           @thisPlayerReady = not @thisPlayerReady
           @trigger("ready")
-          @socket.emit 'ready', {}
+          @socket.emit 'ready'
         view.on "things:fetched", (@thisPlayerThings) =>
           @thisPlayerController.things = @thisPlayerThings
           @socket.emit 'things', @thisPlayerThings.toJSON()

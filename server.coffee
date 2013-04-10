@@ -24,6 +24,7 @@ io.sockets.on 'connection', (socket) ->
   socket.on 'register', ({user}) ->
     console.log "registering " + socket.id
     socket.set 'user', user
+    socket.set 'ready', false
     clients[socket.id] = socket
     console.log "#{++clientCount} clients connected"
     socket.emit 'registered', {}
@@ -50,9 +51,12 @@ io.sockets.on 'connection', (socket) ->
           return
         other.set 'otherid', socket.id
         other.emit 'otherid', id: socket.id, user: user, first: true
+
+        other.get 'ready', (err, ready) -> if ready then socket.emit 'ready'
+
     else
       console.log "waiting for another connection"
-      looking.push socket.id
+      looking.push(socket.id)
 
   # helper function emit events to the other user
   socket.toOther = (eventName, data) ->
@@ -63,7 +67,14 @@ io.sockets.on 'connection', (socket) ->
       else
         @emit 'error', msg: "invalid client id #{otherid} or client disconnected"
 
-  socket.on 'ready', -> @toOther 'ready', {}
+  socket.on 'ready', ->
+    socket.get 'otherid', (err, otherid) ->
+      if err
+        socket.emit 'error', msg: "an error has occured: #{err}"
+      if clients[otherid]?
+        clients[otherid].emit 'ready'
+      else if otherid is null
+          socket.set 'ready', true
 
   socket.on 'guess', (guess) -> @toOther 'guess', guess
 
