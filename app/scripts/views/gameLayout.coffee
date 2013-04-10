@@ -46,8 +46,7 @@ define [
 
       @on "ready", =>
         if @thisPlayerReady and @thatPlayerReady
-          @thisPlayer.currentView.removeRegion("courses")
-          @thatPlayer.currentView.removeRegion("courses")
+          @thisPlayerController.trigger("ready")
           @thisPlayer.currentView.model.set("ready", true)
           @thatPlayer.currentView.model.set("ready", true)
           @thisPlayer.currentView.trigger("fetch:data")
@@ -78,4 +77,4 @@ define [
     endGame: (username) ->
       @input.currentView.close()
       @game.currentView.close()
-      @input.$el.append("<h1>#{username} Wins!</h1>")
+      @input.$el.append("<h1>#{username} wins!</h1>")

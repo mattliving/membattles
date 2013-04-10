@@ -45,10 +45,9 @@ define [
       fx = if @local then -2400 else 2400
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
 
-      # only used by the socket connection
       @on 'ready', ->
-        @playerView.courses.close()
-        @playerView.toggleReady()
+        @playerCourses.collection.reset(@playerView.selectedCourse)
+        console.log @playerCourses
 
       @on 'next', ->
         @playerView.model.setCurrentPlayer()
@@ -67,8 +66,7 @@ define [
         model = @playerView.model
         @playerView.model.setCurrentPlayer()
         unless success
-          lives = model.get('lives')
-          model.set('lives', lives-1)
+          model.decLives()
           if model.get('lives') <= 0
             vent.trigger 'game:ending', model.get('username')
         else

@@ -48,7 +48,6 @@ define [
     socket.on 'registered', ->
       socket.emit 'getid', {}
 
-
       socket.on 'disconnect', -> vent.trigger 'other:disconnect'
 
       socket.on 'otherid', ({id, user, first}) ->

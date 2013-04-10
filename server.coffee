@@ -74,7 +74,7 @@ io.sockets.on 'connection', (socket) ->
       if clients[otherid]?
         clients[otherid].emit 'ready'
       else if otherid is null
-          socket.set 'ready', true
+        socket.set 'ready', true
 
   socket.on 'guess', (guess) -> @toOther 'guess', guess
 
