@@ -53,6 +53,5 @@
         dx = x - floor.x
         dy = y - floor.y
         if  0 < dx < floor.img.width and 0 < dy < floor.img.height
-          # @trigger("collided", false)
           @set "collided", true
           @set "success", false

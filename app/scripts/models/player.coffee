@@ -25,9 +25,13 @@ define ["app"], (App) ->
       lives: 3
       position: "left"
       ready: false
+      currentPlayer: false
 
     incPoints: () ->
       @set("points", @get("points")+45)
+
+    ready: ->
+      @set("ready", !@get("ready"))
 
     addCannon: (cannon) ->
       @set("cannon", cannon)
@@ -39,6 +43,3 @@ define ["app"], (App) ->
       if cannon.mirrored then text.x = canvas.width - text.x
       text.on "inactive", =>
         @trigger "inactive"
-
-    ready: ->
-      @set("ready", !@get("ready"))

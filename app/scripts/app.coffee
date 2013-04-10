@@ -9,11 +9,11 @@ define [
 (Marionette, vent, GameLayout, LoginView, PlayerController, io) ->
 
   window.requestAnimFrame = do ((callback) ->
-    window.requestAnimationFrame ||
+    window.requestAnimationFrame       ||
     window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
+    window.mozRequestAnimationFrame    ||
+    window.oRequestAnimationFrame      ||
+    window.msRequestAnimationFrame     ||
     (callback) -> window.setTimeout(callback, 1000 / 60)
   )
 

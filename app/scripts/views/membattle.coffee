@@ -25,7 +25,6 @@ define [
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
-    factory: {}
     items: []
 
     stopped: false
@@ -49,7 +48,6 @@ define [
         @socket.emit 'guess', guess
 
       @input.on 'keyup', (input) =>
-        console.log 'emiting keypress event'
         @socket.emit 'keypress', input
 
       @socket.on 'keypress', (input) =>

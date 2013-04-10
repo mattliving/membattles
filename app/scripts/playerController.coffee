@@ -54,20 +54,20 @@ define [
         @textView.trigger('next')
 
       @on 'guess', (guess) ->
-        console.log @textView
         if @textView.model.get("active")
           correct = @textView.model.get("text") is guess
           @textView.model.set "collided", true
           @textView.model.set "success", correct
 
-      @listenTo @textView, 'inactive', ->
-        @trigger 'endTurn'
+      @listenTo @textView, 'inactive', (success) ->
+        @trigger 'endTurn', success
 
-      @on 'endTurn', ->
+      @on 'endTurn', (success) ->
         model = @playerView.model
-        unless model.get('success')
+        model.set("currentPlayer", false)
+        unless success
           lives = model.get('lives')
-          @playerView.model.set('lives', lives-1)
+          model.set('lives', lives-1)
           unless lives > 0
             vent.trigger 'game:ending'
         else

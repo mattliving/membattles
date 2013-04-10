@@ -33,7 +33,7 @@ define ["items/item"],
           @expFrames++
           if @expFrames > 50
             @model.deactivate()
-            @trigger "inactive"
+            @trigger "inactive", @model.get("success")
         else
           [x, y] = @model.get("position")
           ctx.fillText(@model.get("translation"), x, y)
