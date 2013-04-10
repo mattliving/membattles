@@ -48,8 +48,8 @@ define [
         if @thisPlayerReady and @thatPlayerReady
           @thisPlayer.currentView.removeRegion("courses")
           @thatPlayer.currentView.removeRegion("courses")
-          @thisPlayer.currentView.ui.btn.remove()
-          @thatPlayer.currentView.ui.btn.remove()
+          @thisPlayer.currentView.model.set("ready", true)
+          @thatPlayer.currentView.model.set("ready", true)
           @thisPlayer.currentView.trigger("fetch:data")
 
       @on "data:fetched", =>

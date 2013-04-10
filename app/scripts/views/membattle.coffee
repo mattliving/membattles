@@ -20,7 +20,6 @@ define [
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
-    factory: {}
     items: []
 
     # this class is responsible for:
@@ -29,7 +28,6 @@ define [
     # * linking together the events of the two players
     # * starting and rendering animations
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
-      console.log @input
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
       @floor = new Floor(0, @el.height/2, 1, true)
@@ -48,7 +46,6 @@ define [
         @socket.emit 'guess', guess
 
       @input.on 'keyup', (input) =>
-        console.log 'emiting keypress event'
         @socket.emit 'keypress', input
 
       @socket.on 'keypress', (input) =>

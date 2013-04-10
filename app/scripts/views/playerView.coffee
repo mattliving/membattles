@@ -11,16 +11,19 @@ define [
 
     template: "#playerTemplate"
 
-    ui: btn: ".btn"
+    ui: 
+      btn: ".btn"
 
     events:
       "click .btn" : "readyClick"
+
+    modelEvents:
+      "change" : "render"
 
     regions:
       courses: "#courses"
 
     initialize: ({@disabled}) ->
-      @model.on 'change', @render, @
       @courses.on "show", (view) =>
         @listenTo view, "itemview:selected", (childView) =>
           @selectedCourse = childView
@@ -29,6 +32,14 @@ define [
 
     onDomRefresh: ->
       @ui.btn.button()
+
+    onRender: ->
+      if @model.get("ready")
+        @ui.btn.remove()
+      if @model.get("currentPlayer")
+        @$el.addClass("currentPlayer")
+      else 
+        @$el.removeClass("currentPlayer")
 
     readyClick: (e) ->
       e.preventDefault()

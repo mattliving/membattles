@@ -33,7 +33,7 @@ define ["items/item"],
           @expFrames++
           if @expFrames > 50
             @model.deactivate()
-            @trigger "inactive"
+            @trigger "inactive", @model.get("success")
         else
           [x, y] = @model.get("position")
           ctx.fillText(@model.get("translation"), x, y)
@@ -45,6 +45,5 @@ define ["items/item"],
       ctx.fillStyle = if @model.get("success") then "green" else "red"
       ctx.fill()
       ctx.fillStyle = "black"
-      @trigger('explode')
 
     update: -> @model.update()
