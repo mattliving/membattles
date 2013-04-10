@@ -51,6 +51,7 @@ define [
         @playerView.toggleReady()
 
       @on 'next', ->
+        @playerView.model.setCurrentPlayer()
         @textView.trigger('next')
 
       @on 'guess', (guess) ->
@@ -64,7 +65,7 @@ define [
 
       @on 'endTurn', (success) ->
         model = @playerView.model
-        model.set("currentPlayer", false)
+        @playerView.model.setCurrentPlayer()
         unless success
           lives = model.get('lives')
           model.set('lives', lives-1)

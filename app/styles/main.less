@@ -52,7 +52,7 @@ body {
 
 #inputArea {
 	margin-top: 2%;
-	h2 {
+	h2, h3, h4 {
 		text-align: center;
 	}
 }
@@ -67,23 +67,12 @@ body {
 	}
 	#courses {
 		margin-top: 5%;
-		li {
-			a {
-				padding: 5px;
-			}
-			&.active a {
-				.box-shadow(0px, 0px, 14px, 0px, inset);
-			}
+		li a {
+			padding: 5px;
 		}
 	}
 	&.currentPlayer {
 		.box-shadow;
-	}
-}
-
-#thisPlayer, #thatPlayer {
-	#courses li a {
-		padding: 5px;
 	}
 }
 

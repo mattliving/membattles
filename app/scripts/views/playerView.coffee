@@ -11,11 +11,8 @@ define [
 
     template: "#playerTemplate"
 
-    ui: 
-      btn: ".btn"
-
     events:
-      "click .btn" : "readyClick"
+      "click .btn" : "toggleReady"
 
     modelEvents:
       "change" : "render"
@@ -30,27 +27,28 @@ define [
 
       @on 'fetch:data', @getCourseModel, @
 
+      @ui.btn = @addReadyButton()
+
     onDomRefresh: ->
       @ui.btn.button()
 
     onRender: ->
-      if @model.get("ready")
-        @ui.btn.remove()
       if @model.get("currentPlayer")
-        @$el.addClass("currentPlayer")
+        @$el.parent().addClass("currentPlayer")
       else 
-        @$el.removeClass("currentPlayer")
+        @$el.parent().removeClass("currentPlayer")
 
-    readyClick: (e) ->
+    addReadyButton: ->
+      $btn = @$el.children(".media-body").after("<button class='btn btn-block' type='button'>Ready!</button>")
+
+    toggleReady: (e) ->
       e.preventDefault()
       if @selectedCourse and not @disabled
-        @toggleReady()
-
-    toggleReady: ->
-      @ui.btn.button("toggle")
-      @model.ready()
-      if @model.get("ready")
-        @trigger("ready")
+        @ui.btn.button("toggle")
+        @model.ready()
+        if @model.get("ready")
+          @trigger("ready")
+          @ui.btn.remove()
 
     getCourseModel: ->
       @selectedCourse.model.url = @selectedCourse.model.urlRoot + @selectedCourse.model.get("id")

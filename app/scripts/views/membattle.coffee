@@ -22,11 +22,11 @@ define [
 
     items: []
 
-    # this class is responsible for:
-    # * connecting one player to the user input
-    # * connecting the other player up to the server
-    # * linking together the events of the two players
-    # * starting and rendering animations
+    # This class is responsible for:
+    #   Connecting one player to the user input
+    #   Connecting the other player up to the server
+    #   Linking together the events of the two players
+    #   Starting and rendering animations
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
@@ -54,12 +54,12 @@ define [
       @socket.on 'guess', (guess) =>
         @thatPlayerController.trigger 'guess', guess
 
-      # show the other person's answer under the input box
+      # Show the other person's answer under the input box
       @thatPlayerController.on 'next', =>
-        @input.ui.otheranswer.html("Their answer:" + @thatPlayerController.textView.model.get("text"))
+        @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.textView.model.get("text"))
 
       @thisPlayerController.on 'next', =>
-        @input.ui.otheranswer.html('')
+        @input.ui.otheranswer.text('')
 
     initPlants: (x, y, n, type) ->
       for i in [1..n]

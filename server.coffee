@@ -32,7 +32,7 @@ io.sockets.on 'connection', (socket) ->
     if looking.length > 0
       console.log 'assigning otherid to socket'
       otherid = looking.shift()
-      other = clients[otherid]
+      other   = clients[otherid]
 
       # tell the request that a match has been found
       other.get 'user', (err, user) ->
