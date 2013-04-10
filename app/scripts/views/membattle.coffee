@@ -64,9 +64,6 @@ define [
 
       vent.on 'other:disconnect', =>
         @stopAnimation()
-        @input.disable()
-        @input.off('keyup')
-        @input.off('guess')
         @ctx.fillStyle = "black"
         @ctx.globalAlpha = 0.5
         @ctx.font = "30pt 'Comic Sans MS'"
@@ -74,6 +71,13 @@ define [
         @ctx.globalAlpha = 1
         @ctx.fillStyle = "white"
         @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
+
+      vent.on 'game:ending', (username) =>
+        @stopAnimation()
+        if username is @thisPlayerController.playerView.model.get('uesrname')
+          vent.trigger 'game:ended', username
+        else
+          vent.trigger 'game:ended', @thatPlayerController.playerView.model.get('username')
 
       # Show the other person's answer under the input box
       @thatPlayerController.on 'next', =>
@@ -102,16 +106,6 @@ define [
           plant.x = i
         @items.push plant
 
-    setPlayer: ->
-      if @currentPlayer is 1
-        @$player2.removeClass("currentPlayer")
-        @$player1.addClass("currentPlayer")
-        @currentPlayer = 2
-      else if @currentPlayer is 2
-        @$player1.removeClass("currentPlayer")
-        @$player2.addClass("currentPlayer")
-        @currentPlayer = 1
-
     startAnimation: ->
       @ms = 0
       if @thisStarts
@@ -121,7 +115,11 @@ define [
 
       @update(Date.now())
 
-    stopAnimation: -> @stopped = true
+    stopAnimation: -> 
+      @stopped = true
+      @input.disable()
+      @input.off('keyup')
+      @input.off('guess')
 
     update: (lastTime) ->
       unless @stopped

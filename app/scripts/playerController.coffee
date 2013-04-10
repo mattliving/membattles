@@ -69,8 +69,8 @@ define [
         unless success
           lives = model.get('lives')
           model.set('lives', lives-1)
-          unless lives > 0
-            vent.trigger 'game:ending'
+          if model.get('lives') <= 0
+            vent.trigger 'game:ending', model.get('username')
         else
           model.incPoints()
 

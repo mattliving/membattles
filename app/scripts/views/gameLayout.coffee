@@ -56,6 +56,9 @@ define [
         if @thisPlayerThings and @thatPlayerThings
           @startGame()
 
+      vent.on "game:ended", (username) =>
+        @endGame(username)
+
     startGame: ->
       @input.show new InputView()
       # @ui.input.append("<h2>Game starting in 3 seconds!</h2>")
@@ -71,3 +74,8 @@ define [
       @game.show(membattle)
       membattle.startAnimation()
       # ), 3000
+
+    endGame: (username) ->
+      @input.currentView.close()
+      @game.currentView.close()
+      @input.$el.append("<h1>#{username} Wins!</h1>")
