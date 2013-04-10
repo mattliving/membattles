@@ -34,8 +34,8 @@ define ["marionette", "vent"],
     enable: ->
       @ui.input.prop("disabled", false)
       @ui.input.val('')
+      @ui.input.focus()
 
     disable: ->
       @ui.input.prop("disabled", true)
       @ui.input.val('')
-      @ui.input.focus()

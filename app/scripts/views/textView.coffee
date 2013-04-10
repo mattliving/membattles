@@ -39,12 +39,12 @@ define ["items/item"],
           ctx.fillText(@model.get("translation"), x, y)
 
     explode: (ctx) ->
-      ctx.beginPath()
       [x, y] = @model.get("position")
+      lastFill = ctx.fillStyle
+      ctx.beginPath()
       ctx.arc(x, y, 40, 2*Math.PI, false)
       ctx.fillStyle = if @model.get("success") then "green" else "red"
       ctx.fill()
-      ctx.fillStyle = "black"
-      @trigger('explode')
+      ctx.fillStyle = lastFill
 
     update: -> @model.update()

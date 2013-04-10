@@ -1,11 +1,12 @@
 define [
   "marionette",
+  "vent",
   "views/gameLayout",
   "views/loginView",
   "playerController",
   "socket.io"
 ],
-(Marionette, GameLayout, LoginView, PlayerController, io) ->
+(Marionette, vent, GameLayout, LoginView, PlayerController, io) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame ||
@@ -42,6 +43,9 @@ define [
 
     socket.on 'registered', ->
       socket.emit 'getid', {}
+
+      socket.on 'disconnect', -> vent.trigger 'other:disconnect'
+
       socket.on 'otherid', ({id, user, first}) ->
 
         thatPlayer = new PlayerController user, false

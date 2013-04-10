@@ -12,6 +12,7 @@ clientCount = 0
 # ids of clients that have requested another user to connect to
 looking = []
 
+# this is for dealing with the way grunt watch moves compiled files
 app.get "/scripts/*", (req, res) -> res.sendfile ".tmp/"+req.url
 app.get "/styles/*", (req, res) -> res.sendfile ".tmp/"+req.url
 
