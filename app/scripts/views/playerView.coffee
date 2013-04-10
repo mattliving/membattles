@@ -21,16 +21,17 @@ define [
       courses: "#courses"
 
     initialize: ({@disabled}) ->
+      @on "show", ->
+        @$btn = @addReadyButton()
+
       @courses.on "show", (view) =>
         @listenTo view, "itemview:selected", (childView) =>
           @selectedCourse = childView
 
       @on 'fetch:data', @getCourseModel, @
 
-      @ui.btn = @addReadyButton()
-
     onDomRefresh: ->
-      @ui.btn.button()
+      @$btn.button()
 
     onRender: ->
       if @model.get("currentPlayer")
@@ -39,16 +40,18 @@ define [
         @$el.parent().removeClass("currentPlayer")
 
     addReadyButton: ->
-      $btn = @$el.children(".media-body").after("<button class='btn btn-block' type='button'>Ready!</button>")
+      $btn = $("<button class='btn btn-block' type='button'><strong>Ready!</strong></button>") 
+      @$el.children(".media-body").after($btn)
+      return $btn
 
     toggleReady: (e) ->
       e.preventDefault()
       if @selectedCourse and not @disabled
-        @ui.btn.button("toggle")
+        @$btn.button("toggle")
         @model.ready()
         if @model.get("ready")
           @trigger("ready")
-          @ui.btn.remove()
+          @$btn.remove()
 
     getCourseModel: ->
       @selectedCourse.model.url = @selectedCourse.model.urlRoot + @selectedCourse.model.get("id")
