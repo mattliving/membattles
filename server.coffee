@@ -55,12 +55,13 @@ io.sockets.on 'connection', (socket) ->
       looking.push socket.id
 
   # helper function emit events to the other user
-  socket.toOther = (event, data) ->
-    @get 'otherid', (err, otherid) ->
-      unless err
-        clients[otherid].emit event, data
+  socket.toOther = (eventName, data) ->
+    console.log "sending event #{eventName} to other user"
+    @get 'otherid', (err, otherid) =>
+      unless err or not clients[otherid]?
+        clients[otherid].emit eventName, data
       else
-        @emit 'error', msg: "invalid client id #{otherid}"
+        @emit 'error', msg: "invalid client id #{otherid} or client disconnected"
 
   socket.on 'ready', -> @toOther 'ready', {}
 
