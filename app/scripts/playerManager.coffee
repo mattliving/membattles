@@ -1,5 +1,4 @@
 define [
-  "Marionette",
   "vent",
   "items/plant",
   "items/cannon",
@@ -9,9 +8,10 @@ define [
   "collections/courses",
   "views/coursesView"
 ],
-(Marionette, vent, Plant, Cannon, TextView, Player, PlayerView, Courses, CoursesView) ->
+(vent, Plant, Cannon, TextView, Player, PlayerView, Courses, CoursesView) ->
 
-  class PlayerController extends Marionette.Controller
+  class PlayerManager
+    _.extend(PlayerManager::, Backbone.Events)
 
     constructor: (username, @local) ->
       pos                 = if @local then "left" else "right"
@@ -32,11 +32,11 @@ define [
     initialize: (@floor) ->
       # more permanent solution to this is needed.
       if @local
-        cPos = [600, @floor.y-4]
-      else
         cPos = [40, @floor.y-4]
+      else
+        cPos = [600, @floor.y-4]
       @cannon = new Cannon(cPos[0], cPos[1], 1.2, true)
-      @cannon.mirrored = @local
+      @cannon.mirrored = not @local
 
       textPos = [@cannon.x+@cannon.img.width, @cannon.y]
       if @cannon.mirrored
@@ -66,7 +66,7 @@ define [
         model = @playerView.model
         unless model.get('success')
           lives = model.get('lives')
-          @playerView.model.set('lives', lives-1)
+          model.set('lives', lives-1)
           unless lives > 0
             vent.trigger 'game:ending'
         else

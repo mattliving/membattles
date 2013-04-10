@@ -26,6 +26,9 @@ define ["app"], (App) ->
       position: "left"
       ready: false
 
+    incPoints: () ->
+      @set("points", @get("points")+45)
+
     addCannon: (cannon) ->
       @set("cannon", cannon)
 

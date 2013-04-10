@@ -20,7 +20,7 @@ define [
       courses: "#courses"
 
     initialize: ({@disabled}) ->
-      @model.on 'changed', @render, @
+      @model.on 'change', @render, @
       @courses.on "show", (view) =>
         @listenTo view, "itemview:selected", (childView) =>
           @selectedCourse = childView
