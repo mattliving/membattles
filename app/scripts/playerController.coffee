@@ -3,31 +3,37 @@ define [
   "vent",
   "items/plant",
   "items/cannon",
-  "views/textView",
   "models/player",
-  "views/playerView",
   "collections/courses",
-  "views/coursesView"
+  "views/playerLayout",
+  "views/playerView",
+  "views/coursesView",
+  "views/textView"
 ],
-(Marionette, vent, Plant, Cannon, TextView, Player, PlayerView, Courses, CoursesView) ->
+(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextView) ->
 
   class PlayerController extends Marionette.Controller
 
     constructor: (username, @local) ->
-      pos                 = if @local then "left" else "right"
-      @playerModel        = new Player username: username, position: pos
-      @playerView         = new PlayerView model: @playerModel, disabled: not @local
-      @playerCourses      = new Courses
-      @playerCourses.url += @playerModel.get("username")
+      pos                = if @local then "left" else "right"
+      @playerModel       = new Player username: username, position: pos
+      @playerLayout      = new PlayerLayout()
+      @playerView        = new PlayerView model: @playerModel, disabled: not @local
+      @playerCoursesView = new CoursesView(collection: new Courses())
+      @playerCoursesView.collection.url += @playerModel.get("username")
 
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
         @trigger("model:fetched")
+        @playerLayout.player.show(@playerView)
 
       @on 'view:rendered', ->
-        @playerCourses.fetch success: (model) =>
-          @playerCoursesView = new CoursesView(collection: @playerCourses)
-          @playerView.courses.show(@playerCoursesView)
+        @playerCoursesView.collection.fetch success: (model) =>
+          @playerLayout.courses.show(@playerCoursesView)
+
+      @on 'ready', ->
+        @playerView.model.set("ready", true)
+        @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->
       # more permanent solution to this is needed.
@@ -46,11 +52,6 @@ define [
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
       window.t = @textView
 
-      # only used by the socket connection
-      @on 'ready', ->
-        @playerView.courses.close()
-        @playerView.toggleReady()
-
       @on 'next', ->
         @playerView.model.setCurrentPlayer()
         @textView.trigger('next')
@@ -67,8 +68,7 @@ define [
         model = @playerView.model
         @playerView.model.setCurrentPlayer()
         unless success
-          lives = model.get('lives')
-          model.set('lives', lives-1)
+          model.decLives()
           if model.get('lives') <= 0
             vent.trigger 'game:ending', model.get('username')
         else

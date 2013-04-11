@@ -40,14 +40,13 @@ define [
     app.main.show(gameLayout)
 
     thisPlayer.on 'model:fetched', ->
-      gameLayout.thisPlayer.show(@playerView)
+      gameLayout.thisPlayer.show(@playerLayout)
       @trigger("view:rendered")
 
     socket.emit 'register', user: username
 
     socket.on 'registered', ->
       socket.emit 'getid', {}
-
 
       socket.on 'disconnect', -> vent.trigger 'other:disconnect'
 
@@ -58,7 +57,7 @@ define [
         gameLayout.thisStarts = not first
 
         thatPlayer.on 'model:fetched', ->
-          gameLayout.thatPlayer.show(@playerView)
+          gameLayout.thatPlayer.show(@playerLayout)
           @trigger("view:rendered")
 
   return app

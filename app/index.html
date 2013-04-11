@@ -22,19 +22,25 @@
         </div>
       </div>
 
+      <script id="playerLayout" type="text/template" class="template">
+        <div id="player"></div>
+        <div id="courses"></div>
+      </script>
+
       <script id="playerTemplate" type="text/template" class="template">
-        <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="<%= photo_small %>" height="60" width="60">
+        <img class="img-polaroid <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="<%= photo_small %>" height="70" width="70">
         <div class="circle <%= position === 'left' ? 'pull-right' : 'pull-left' %>">
           <h3 id="points"><%= points %></h3>
         </div>
         <div class="media-body">
-          <h4 class="media-heading"><%= username %>
-          </h4>
+          <h4 class="media-heading"><%= username %></h4>
           <% for (var i = 0; i < lives; i++) { %>
             <img class="media-object <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="/images/small_plant.png">
           <% } %>
+          <% for (var i = 0; i < 3-lives; i++) { %>
+            <img class="media-object <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="/images/small_plant_trans.png">
+          <% } %>
         </div>
-        <div id="courses"></div>
       </script>
 
       <script id="courseTemplate" type="text/template" class="template">

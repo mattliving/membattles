@@ -12,21 +12,10 @@ body {
 	font-size: 14px;
 	line-height: 20px;
 	font-family: "Helvetica Neue","Helvetica","Arial","Kai","KaiTi",Sans-Serif;
-	color: #3e3e3e;
 }
 
-.container-fluid, .row-fluid, .hero-unit {
-	padding: 0;
-	margin: 0;
-}
-
-// .row-fluid [class*="span"] {
-// 	margin-left: 0;
-// 	margin-right: 0;
-// }
-
-.well {
-	margin: 0;
+#main {
+	margin-top: 2.127659574468085%;
 }
 
 .box-shadow (@x: 10px, @y: 10px, @blur: 10px, @spread: -4px, @inset...) {
@@ -74,18 +63,24 @@ body {
 			padding: 5px;
 		}
 	}
-	&.currentPlayer {
-		.box-shadow;
+	.currentPlayer {
+		.box-shadow(0, 0, 12px, 4px);
 	}
 }
 
 #thatPlayer h4 {
-	width: 100%;
+	margin-right: 2%;
 	text-align: right;
 }
 
-.media-body .media-object {
-	display: inline;
+.media-body {
+	.media-heading {
+		margin-left: 2%;
+	}
+	.media-object {
+		padding: 2%;
+		display: inline;
+	}
 }
 
 canvas {

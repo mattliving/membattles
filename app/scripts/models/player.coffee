@@ -30,6 +30,9 @@ define ["app"], (App) ->
     incPoints: () ->
       @set("points", @get("points")+45)
 
+    decLives: () ->
+      @set("lives", @get("lives")-1)
+
     setCurrentPlayer: ->
       @set("currentPlayer", !@get("currentPlayer"))
 
