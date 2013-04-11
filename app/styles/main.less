@@ -74,18 +74,24 @@ body {
 			padding: 5px;
 		}
 	}
-	&.currentPlayer {
-		.box-shadow;
+	.currentPlayer {
+		.box-shadow(0, 0, 10px, -4px);
 	}
 }
 
 #thatPlayer h4 {
-	width: 100%;
+	margin-right: 2%;
 	text-align: right;
 }
 
-.media-body .media-object {
-	display: inline;
+.media-body {
+	.media-heading {
+		margin-left: 2%;
+	}
+	.media-object {
+		padding: 2%;
+		display: inline;
+	}
 }
 
 canvas {

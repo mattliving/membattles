@@ -5,9 +5,7 @@ define [
   "bootstrap.button"],
 (Marionette, vent, Things) ->
 
-  class PlayerView extends Marionette.Layout
-
-    className: "media well"
+  class PlayerView extends Marionette.ItemView
 
     template: "#playerTemplate"
 
@@ -17,16 +15,9 @@ define [
     modelEvents:
       "change" : "render"
 
-    regions:
-      courses: "#courses"
-
-    initialize: ({@disabled}) ->
+    initialize: ({@disabled})->
       @on "show", ->
-        @$btn = @addReadyButton()
-
-      @courses.on "show", (view) =>
-        @listenTo view, "itemview:selected", (childView) =>
-          @selectedCourse = childView
+        @addReadyButton()
 
       @on 'fetch:data', @getCourseModel, @
 
@@ -35,14 +26,13 @@ define [
 
     onRender: ->
       if @model.get("currentPlayer")
-        @$el.parent().addClass("currentPlayer")
+        @$el.parent().parent().addClass("currentPlayer")
       else 
-        @$el.parent().removeClass("currentPlayer")
+        @$el.parent().parent().removeClass("currentPlayer")
 
     addReadyButton: ->
-      $btn = $("<button class='btn btn-block' type='button'><strong>Ready!</strong></button>") 
-      @$el.children(".media-body").after($btn)
-      return $btn
+      @$btn = $("<button class='btn btn-block' type='button'><strong>Ready!</strong></button>") 
+      @$el.children(".media-body").after(@$btn)
 
     toggleReady: (e) ->
       e.preventDefault()
@@ -51,19 +41,18 @@ define [
         @model.ready()
         if @model.get("ready")
           @trigger("ready")
-          @$btn.remove()
 
     getCourseModel: ->
-      @selectedCourse.model.url = @selectedCourse.model.urlRoot + @selectedCourse.model.get("id")
-      @selectedCourse.model.parse = (response) ->
+      @selectedCourse.url = @selectedCourse.urlRoot + @selectedCourse.get("id")
+      @selectedCourse.parse = (response) ->
         response.course
 
-      @selectedCourse.model.fetch(
+      @selectedCourse.fetch(
         success: (model) =>
           @trigger("course:fetched", (model))
       ).done =>
         @things = new Things()
-        @things.url += @selectedCourse.model.get("levels")[0].id
+        @things.url += @selectedCourse.get("levels")[0].id
         @things.fetch(
           success: (collection) =>
             @trigger("things:fetched", collection)

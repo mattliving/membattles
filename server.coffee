@@ -67,12 +67,12 @@ io.sockets.on 'connection', (socket) ->
       else
         @emit 'error', msg: "invalid client id #{otherid} or client disconnected"
 
-  socket.on 'ready', ->
+  socket.on 'ready', (selectedCourse) ->
     socket.get 'otherid', (err, otherid) ->
       if err
         socket.emit 'error', msg: "an error has occured: #{err}"
       if clients[otherid]?
-        clients[otherid].emit 'ready'
+        clients[otherid].emit 'ready', selectedCourse
       else if otherid is null
         socket.set 'ready', true
 

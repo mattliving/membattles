@@ -3,31 +3,37 @@ define [
   "vent",
   "items/plant",
   "items/cannon",
-  "views/textView",
   "models/player",
-  "views/playerView",
   "collections/courses",
-  "views/coursesView"
+  "views/playerLayout",
+  "views/playerView",
+  "views/coursesView",
+  "views/textView"
 ],
-(Marionette, vent, Plant, Cannon, TextView, Player, PlayerView, Courses, CoursesView) ->
+(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextView) ->
 
   class PlayerController extends Marionette.Controller
 
     constructor: (username, @local) ->
-      pos                 = if @local then "left" else "right"
-      @playerModel        = new Player username: username, position: pos
-      @playerView         = new PlayerView model: @playerModel, disabled: not @local
-      @playerCourses      = new Courses
-      @playerCourses.url += @playerModel.get("username")
+      pos                = if @local then "left" else "right"
+      @playerModel       = new Player username: username, position: pos
+      @playerLayout      = new PlayerLayout()
+      @playerView        = new PlayerView model: @playerModel, disabled: not @local
+      @playerCoursesView = new CoursesView(collection: new Courses())
+      @playerCoursesView.collection.url += @playerModel.get("username")
 
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
         @trigger("model:fetched")
+        @playerLayout.player.show(@playerView)
 
       @on 'view:rendered', ->
-        @playerCourses.fetch success: (model) =>
-          @playerCoursesView = new CoursesView(collection: @playerCourses)
-          @playerView.courses.show(@playerCoursesView)
+        @playerCoursesView.collection.fetch success: (model) =>
+          @playerLayout.courses.show(@playerCoursesView)
+
+      @on 'ready', ->
+        @playerView.model.set("ready", true)
+        @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->
       # more permanent solution to this is needed.
@@ -44,10 +50,6 @@ define [
 
       fx = if @local then -2400 else 2400
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
-
-      @on 'ready', ->
-        @playerCourses.collection.reset(@playerView.selectedCourse)
-        console.log @playerCourses
 
       @on 'next', ->
         @playerView.model.setCurrentPlayer()

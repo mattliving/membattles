@@ -10,8 +10,5 @@ define [
 
     className: "nav nav-tabs nav-stacked"
 
-    collectionEvents:
-      "change" : "render"
-
     # emptyView: EmptyView
     itemView: CourseView
