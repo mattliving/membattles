@@ -18,7 +18,6 @@
       success:  false
 
     parse: (thing) ->
-      console.log "before column", thing.columns[thing.a]
       accept = thing.columns[thing.a].accepted
       for alt in thing.columns[thing.a].alts
         accept.push alt.val
@@ -27,8 +26,6 @@
         text: thing.columns[thing.a].val
         translation: thing.columns[thing.b].val
         accept: accept
-      console.log "after", thing
-      return thing
 
     initialize: ->
       @on "loaded", -> @set "loaded", true

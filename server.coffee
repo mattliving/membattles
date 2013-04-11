@@ -25,6 +25,7 @@ io.sockets.on 'connection', (socket) ->
     console.log "registering " + socket.id
     socket.set 'user', user
     socket.set 'ready', false
+    socket.set 'cached', []
     clients[socket.id] = socket
     console.log "#{++clientCount} clients connected"
     socket.emit 'registered', {}
@@ -53,9 +54,12 @@ io.sockets.on 'connection', (socket) ->
         other.emit 'otherid', id: socket.id, user: user, first: true
 
         other.get 'ready', (err, ready) ->
-          if ready
-            socket.emit 'ready'
-            # other.emit 'ready'
+          if ready isnt false
+            other.get 'cached', (err, cached) ->
+              for cachedEvent in cached
+                console.log "emiting cached event #{cachedEvent}"
+                other.get cachedEvent, (err, data) ->
+                  socket.emit cachedEvent, data
 
     else
       console.log "waiting for another connection"
@@ -70,18 +74,25 @@ io.sockets.on 'connection', (socket) ->
       else
         @emit 'error', msg: "invalid client id #{otherid} or client disconnected"
 
-  socket.on 'ready', (selectedCourse) ->
-    socket.get 'otherid', (err, otherid) ->
+  # emit events to the other user, but save the data if they're not connected yet
+  socket.toOtherCached = (eventName, data)->
+    console.log "caching or sending event #{eventName} to other user"
+    @get 'otherid', (err, otherid) =>
       if err
-        socket.emit 'error', msg: "an error has occured: #{err}"
+        @emit 'error', msg: "an error has occured: #{err}"
       if clients[otherid]?
-        clients[otherid].emit 'ready', selectedCourse
+        clients[otherid].emit eventName, data
       else if otherid is null
-        socket.set 'ready', true
+        @get 'cached', (err, cached) =>
+          cached.push eventName
+          @set 'cached', cached
+          @set eventName, data
+
+  socket.on 'ready', (selectedCourse) -> @toOtherCached 'ready', selectedCourse
+
+  socket.on 'things', (things) -> @toOtherCached 'things', things
 
   socket.on 'guess', (guess) -> @toOther 'guess', guess
-
-  socket.on 'things', (data) -> @toOther 'things', data
 
   socket.on 'keypress', (input) -> @toOther 'keypress', input
 
@@ -96,6 +107,6 @@ io.sockets.on 'connection', (socket) ->
           clients[otherid].emit 'disconnect'
       else
         console.log "ERROR: #{err}"
-    if socket.id in clients
+    if socket.id of clients
       delete clients[socket.id]
       console.log "#{--clientCount} clients connected"

@@ -10,7 +10,6 @@ define ["app", "models/thing"],
     current: 0
 
     parse: ({level}) ->
-      console.log level
       things = level.things
       for thing in things
         thing.a = level.column_a
