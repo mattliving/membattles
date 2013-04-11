@@ -5,7 +5,7 @@ define [
 
   class PlayerLayout extends Marionette.Layout
 
-    className: "media well"
+    className: "well"
 
     template: "#playerLayout"
 

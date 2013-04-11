@@ -77,9 +77,9 @@ define [
       vent.on 'game:ending', (username) =>
         @stopAnimation()
         if username is @thisPlayerController.playerView.model.get('username')
-          vent.trigger 'game:ended', @thatPlayerController.playerView.model.get('username')
+          vent.trigger 'game:ended', "You Lose!"
         else
-          vent.trigger 'game:ended', username
+          vent.trigger 'game:ended', "You Win!"
 
       # Show the other person's answer under the input box
       @thatPlayerController.on 'next', =>

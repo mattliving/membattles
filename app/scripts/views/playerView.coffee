@@ -7,6 +7,8 @@ define [
 
   class PlayerView extends Marionette.ItemView
 
+    className: "media"
+
     template: "#playerTemplate"
 
     events:
@@ -24,7 +26,7 @@ define [
     onDomRefresh: ->
       @$btn.button()
 
-    onRender: ->
+    onBeforeRender: ->
       if @model.get("currentPlayer")
         @$el.parent().parent().addClass("currentPlayer")
       else
@@ -38,7 +40,9 @@ define [
       e.preventDefault()
       if @selectedCourse and not @disabled
         @$btn.button("toggle")
-        @model.ready()
+        @model.set 
+          "ready": true
+          "silent": true
         if @model.get("ready")
           @trigger("ready")
 

@@ -40,7 +40,7 @@ body {
 }
 
 #inputArea {
-	margin-top: 2%;
+	margin-top: 3%;
 	h1, h2, h3, h4 {
 		text-align: center;
 	}
@@ -65,6 +65,9 @@ body {
 	}
 	.currentPlayer {
 		.box-shadow(0, 0, 12px, 4px);
+	}
+	.nav {
+		margin-bottom: 0;
 	}
 }
 
@@ -108,12 +111,13 @@ canvas {
 .shiny-box, input[type="text"] {
 	padding: 0;
 	margin: 0;
-	color: #6d6e70;
 	color: #3e3e3e;
-	border: 1px solid #e6e6e6;
+	background-color: #fff;
+	background-repeat: repeat-x;
+	background-size: 100% 100%;
 	text-shadow: 0 1px 0 #aaa,0 1px 0 #e6e6e6 #aaa;
 	text-shadow: 0 1px 0 #e6e6e6 #aaa,0 1px 0 #e6e6e6 #aaa;
-	background-color: #fff;
+	border: 1px solid #e6e6e6;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	-ms-border-radius: 10px;
@@ -122,16 +126,9 @@ canvas {
 	-webkit-box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
 	-moz-box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
 	box-shadow: inset 0 0 1px rgba(255,255,255,0.5);
-	background-repeat: repeat-x;
-	background-size: 100% 100%;
-	border: 1px solid #e6e6e6;
 	font-family: "Times New Roman","Times","Kai","KaiTi",Serif;
 	font-size: 26px;
 	line-height: 36px;
-	-webkit-transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
-	-moz-transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
-	-o-transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
-	transition: background-color 0.1s linear,opacity 0.1s linear,border-color 0.1s linear;
 }
 
 .shiny-box.incorrect {

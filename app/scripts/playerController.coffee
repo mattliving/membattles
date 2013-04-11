@@ -32,7 +32,6 @@ define [
           @playerLayout.courses.show(@playerCoursesView)
 
       @on 'ready', ->
-        @playerView.model.set("ready", true)
         @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->

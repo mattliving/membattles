@@ -36,7 +36,7 @@ define ["app"], (App) ->
     setCurrentPlayer: ->
       @set("currentPlayer", !@get("currentPlayer"))
 
-    ready: ->
+    setReady: ->
       @set("ready", !@get("ready"))
 
     addCannon: (cannon) ->
