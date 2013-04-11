@@ -56,6 +56,14 @@ define [
       @socket.on 'guess', (guess) =>
         @thatPlayerController.trigger 'guess', guess
 
+      @thisPlayerController.textView.on 'exploded', (text, success) =>
+        unless success or @stopped
+          @input.ui.thisanswer.html("Correct answer: #{text}")
+
+      @thatPlayerController.on 'endTurn', =>
+        unless @stopped
+          @input.ui.thisanswer.html('')
+
       vent.on 'other:disconnect', =>
         @stopAnimation()
         @ctx.fillStyle = "black"
@@ -110,7 +118,7 @@ define [
       @stopped = false
       @update(Date.now())
 
-    stopAnimation: -> 
+    stopAnimation: ->
       @stopped = true
       @input.disable()
       @input.off('keyup')

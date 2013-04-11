@@ -44,6 +44,7 @@ define [
 
       fx = if @local then -2400 else 2400
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
+      window.t = @textView
 
       # only used by the socket connection
       @on 'ready', ->
@@ -56,9 +57,8 @@ define [
 
       @on 'guess', (guess) ->
         if @textView.model.get("active")
-          correct = @textView.model.get("text") is guess
+          @textView.model.set "success", @textView.model.checkAnswer(guess)
           @textView.model.set "collided", true
-          @textView.model.set "success", correct
 
       @listenTo @textView, 'inactive', (success) ->
         @trigger 'endTurn', success

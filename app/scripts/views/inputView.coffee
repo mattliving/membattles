@@ -10,6 +10,7 @@ define ["marionette", "vent"],
     ui:
       input: "#guess"
       otheranswer: "#otheranswer"
+      thisanswer: "#thisanswer"
 
     events:
       click: "toggleSelected"
@@ -34,15 +35,18 @@ define ["marionette", "vent"],
 
     # stop the backspace key from ruining everything
     testKey: (e) ->
-      if e.which is 8
+      if e.which is 8 and @ui.input.prop("disabled")
         e.preventDefault()
         e.stopPropagation()
 
     enable: ->
-      @ui.input.prop("disabled", false)
-      @ui.input.val('')
-      @ui.input.focus()
+      # simple test if it's an input box
+      if @ui.input.prop
+        @ui.input.prop("disabled", false)
+        @ui.input.val('')
+        @ui.input.focus()
 
     disable: ->
-      @ui.input.prop("disabled", true)
-      @ui.input.val('')
+      if @ui.input.prop
+        @ui.input.prop("disabled", true)
+        @ui.input.val('')

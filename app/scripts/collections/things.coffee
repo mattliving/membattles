@@ -9,8 +9,13 @@ define ["app", "models/thing"],
 
     current: 0
 
-    parse: (response) ->
-      response.level.things
+    parse: ({level}) ->
+      console.log level
+      things = level.things
+      for thing in things
+        thing.a = level.column_a
+        thing.b = level.column_b
+      return things
 
     getNext: -> @at(@current++)
 

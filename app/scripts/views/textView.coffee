@@ -24,6 +24,9 @@ define ["items/item"],
 
       @active = false
 
+      @listenTo @collection, 'change:collided', (model) ->
+        @trigger("exploded", model.get('text'), model.get('success'))
+
     draw: (ctx) ->
       if @model.get("active")
         ctx.font = "15pt 'Comic Sans MS'"

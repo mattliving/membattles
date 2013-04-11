@@ -96,5 +96,6 @@ io.sockets.on 'connection', (socket) ->
           clients[otherid].emit 'disconnect'
       else
         console.log "ERROR: #{err}"
-    delete clients[socket.id]
-    console.log "#{--clientCount} clients connected"
+    if socket.id in clients
+      delete clients[socket.id]
+      console.log "#{--clientCount} clients connected"
