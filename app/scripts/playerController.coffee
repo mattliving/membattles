@@ -22,16 +22,30 @@ define [
       @playerCoursesView = new CoursesView(collection: new Courses())
       @playerCoursesView.collection.url += @playerModel.get("username")
 
+      unless @local
+       @playerCoursesView.collection.on 'change', -> console.log "changed to #{JSON.stringify(@toJSON())}"
+
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
         @trigger("model:fetched")
+        # hacky way of not showing the ready button if the other user is ready on load
+        if @ready then @playerView.off("show")
         @playerLayout.player.show(@playerView)
 
       @on 'view:rendered', ->
-        @playerCoursesView.collection.fetch success: (model) =>
+        if not @local then console.log 'rendered playerview'
+        unless @ready
+          @playerCoursesView.collection.fetch success: (model) =>
+            @playerLayout.courses.show(@playerCoursesView)
+        else
           @playerLayout.courses.show(@playerCoursesView)
 
+      console.log 'setting events'
       @on 'ready', ->
+        @ready = true
+        if not @local
+          console.log 'controller ready'
+          console.log @playerCoursesView
         @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->

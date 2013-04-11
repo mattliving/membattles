@@ -40,11 +40,13 @@ define [
             @trigger 'ready'
 
       @socket.on 'ready', (selectedCourse) =>
+        console.log 'socket ready'
         @thatPlayerController.playerView.selectedCourse = new Course(selectedCourse)
         @thatPlayerReady = not @thatPlayerReady
         @thatPlayerController.trigger 'ready'
 
       @socket.on 'things', (things) =>
+        console.log 'things received'
         @thatPlayerThings = new Things(things)
         @thatPlayerController.things = @thatPlayerThings
         @trigger 'ready'

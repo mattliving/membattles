@@ -3,11 +3,10 @@
   class Thing extends Backbone.Model
 
     defaults:
-      absolute_url: "/home/",
-      pool_id: null,
-      creator_id: null,
-      attributes: {},
-      id: null,
+      absolute_url: "/home/"
+      pool_id: null
+      creator_id: null
+      attributes: {}
       columns: {}
       position: [0, 0]
       force:    [0, 0]
