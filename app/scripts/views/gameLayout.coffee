@@ -53,8 +53,8 @@ define [
         if @thisPlayerThings and @thatPlayerThings
           @startGame()
 
-      vent.on 'game:ended', (username) =>
-        @endGame(username)
+      vent.on 'game:ended', (endMsg) =>
+        @endGame(endMsg)
 
     startGame: ->
       @input.show new InputView()
@@ -72,7 +72,7 @@ define [
       membattle.startAnimation()
       # ), 3000
 
-    endGame: (username) ->
+    endGame: (endMsg) ->
       @input.currentView.close()
       @game.currentView.close()
-      @input.$el.append("<h1>#{username} wins!</h1>")
+      @input.$el.append("<h1>#{endMsg}</h1>")
