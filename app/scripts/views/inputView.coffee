@@ -20,7 +20,6 @@ define ["marionette", "vent"],
 
     initialize: ->
       @on 'keypress', (input) =>
-        console.log 'vent keypress'
         if @ui.input.prop("disabled")
           @ui.input.val(input)
 
@@ -38,6 +37,9 @@ define ["marionette", "vent"],
       if e.which is 8 and @ui.input.prop("disabled")
         e.preventDefault()
         e.stopPropagation()
+
+      unless @ui.input.prop("disabled")
+        console.log String.fromCharCode(e.charCode)
 
     enable: ->
       # simple test if it's an input box
