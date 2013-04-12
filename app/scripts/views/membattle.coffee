@@ -6,14 +6,10 @@ define [
   "items/floor",
   "items/plant",
   "items/cannon",
-  "views/textView"
+  "items/textItem"
 ],
-(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextView) ->
-  # this class is responsible for:
-  # * connecting one player to the user input
-  # * connecting the other player up to the server
-  # * linking together the events of the two players
-  # * starting animations and rendering the list of Elements
+(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextItem) ->
+
   class Membattle extends Marionette.View
 
     tagName: "canvas"
@@ -25,14 +21,18 @@ define [
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
-    items: []
-
     stopped: true
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
-      @floor = new Floor(0, @el.height/2, 1, true)
+      @floor = new Floor
+        pos:
+          x: @el.width/2
+          y: @el.height/2
+        scale: 1
+        active: true
+
       @thisPlayerController.initialize(@floor)
       @thatPlayerController.initialize(@floor)
 
@@ -56,7 +56,7 @@ define [
       @socket.on 'guess', (guess) =>
         @thatPlayerController.trigger 'guess', guess
 
-      @thisPlayerController.textView.on 'exploded', (text, success) =>
+      @thisPlayerController.on 'exploded', (text, success) =>
         unless success or @stopped
           @input.ui.thisanswer.html("Correct answer: #{text}")
 
@@ -82,9 +82,9 @@ define [
           vent.trigger 'game:ended', "You Win!"
 
       # Show the other person's answer under the input box
-      @thatPlayerController.on 'next', =>
-        if @thatPlayerController.textView.model?
-          @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.textView.model.get("text"))
+      # @thatPlayerController.on 'next', =>
+      #   if @thatPlayerController.textView.model?
+      #     @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.textView.model.get("text"))
 
       @thisPlayerController.on 'next', =>
         @input.ui.otheranswer.text('')

@@ -13,8 +13,8 @@ clientCount = 0
 looking = []
 
 # this is for dealing with the way grunt watch moves compiled files
-app.get "/scripts/*", (req, res) -> res.sendfile ".tmp/"+req.url
-app.get "/styles/*", (req, res) -> res.sendfile ".tmp/"+req.url
+app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
+app.get "/styles/*", (req, res) -> res.sendfile ".tmp"+req.url
 
 io = socket.listen(server.listen(9000))
 
@@ -53,6 +53,7 @@ io.sockets.on 'connection', (socket) ->
         other.set 'otherid', socket.id
         other.emit 'otherid', id: socket.id, user: user, first: true
 
+        # if other is ready, send over the cached events
         other.get 'ready', (err, ready) ->
           if ready isnt false
             other.get 'cached', (err, cached) ->
@@ -65,7 +66,7 @@ io.sockets.on 'connection', (socket) ->
       console.log "waiting for another connection"
       looking.push(socket.id)
 
-  # helper function emit events to the other user
+  # emit an event to the other user
   socket.toOther = (eventName, data) ->
     console.log "sending event #{eventName} to other user"
     @get 'otherid', (err, otherid) =>
@@ -74,7 +75,7 @@ io.sockets.on 'connection', (socket) ->
       else
         @emit 'error', msg: "invalid client id #{otherid} or client disconnected"
 
-  # emit events to the other user, but save the data if they're not connected yet
+  # emit an event to the other user, but cache the data if they're not connected
   socket.toOtherCached = (eventName, data)->
     console.log "caching or sending event #{eventName} to other user"
     @get 'otherid', (err, otherid) =>
@@ -100,9 +101,7 @@ io.sockets.on 'connection', (socket) ->
     socket.get 'otherid', (err, otherid) ->
       unless err
         if socket.id in looking
-          i = 0
-          while looking[i] isnt socket.id then i++
-          looking.splice i, 1
+          looking.splice looking.indexOf(socket.id), 1
         if clients[otherid]?
           clients[otherid].emit 'disconnect'
       else

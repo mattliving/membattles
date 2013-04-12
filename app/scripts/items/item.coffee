@@ -1,4 +1,4 @@
-define [], () ->
+define ["backbone"], (Backbone) ->
 
   class Item
     _.extend(Item::, Backbone.Events)
