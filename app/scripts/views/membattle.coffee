@@ -60,7 +60,7 @@ define [
         @stopAnimation()
         @ctx.fillStyle = "black"
         @ctx.globalAlpha = 0.5
-        @ctx.font = "30pt 'Comic Sans MS'"
+        @ctx.font = "28pt 'Merriweather Sans'"
         @ctx.fillRect(0, 0, @el.width, @el.height)
         @ctx.globalAlpha = 1
         @ctx.fillStyle = "white"

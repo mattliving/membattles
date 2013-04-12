@@ -239,6 +239,7 @@ module.exports = function (grunt) {
     });
 
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-lib-phantomjs');
 
     grunt.renameTask('regarde', 'watch');
 

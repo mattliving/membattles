@@ -18,7 +18,6 @@ define ["marionette", "vent"],
 
     initialize: ->
       @on 'keypress', (input) =>
-        console.log 'vent keypress'
         if @ui.input.prop("disabled")
           @ui.input.val(input)
 

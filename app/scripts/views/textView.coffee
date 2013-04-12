@@ -26,7 +26,7 @@ define ["items/item"],
 
     draw: (ctx) ->
       if @model.get("active")
-        ctx.font = "15pt 'Comic Sans MS'"
+        ctx.font = "24pt 'Merriweather Sans'"
         ctx.fillStyle = "#222"
         if @model.get("collided")
           @explode(ctx)
