@@ -1,0 +1,2744 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"paddin",
+				"padding-top"
+			],
+			[
+				"thisPlayer",
+				"thisPlayerController"
+			],
+			[
+				"tpm",
+				"thatPlayerManager"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"selected",
+				"selectedCourse"
+			],
+			[
+				"set",
+				"setTimeout"
+			],
+			[
+				"true",
+				"true"
+			],
+			[
+				"selec",
+				"selectedCourse"
+			],
+			[
+				"toggle",
+				"toggleSelected"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"row",
+				"row-fluid"
+			],
+			[
+				"thing",
+				"thingusers"
+			],
+			[
+				"init",
+				"initialize"
+			],
+			[
+				"view",
+				"viewOptions"
+			],
+			[
+				"add",
+				"addInitializer"
+			],
+			[
+				"tr",
+				"true"
+			],
+			[
+				"box",
+				"box-shadow"
+			],
+			[
+				"min",
+				"min-height"
+			],
+			[
+				"LOCAL",
+				"local_density"
+			],
+			[
+				"print",
+				"print_cells"
+			],
+			[
+				"MPI",
+				"MPI_Sendrecv"
+			],
+			[
+				"cells",
+				"cells0"
+			],
+			[
+				"Local",
+				"local_density"
+			],
+			[
+				"E",
+				"EXIT_SUCCESS"
+			],
+			[
+				"av_",
+				"av_velocity"
+			],
+			[
+				"tot",
+				"tot_cells"
+			],
+			[
+				"cell",
+				"cells_ptr0"
+			],
+			[
+				"File",
+				"FILE"
+			],
+			[
+				"MPI_I",
+				"MPI_INT"
+			],
+			[
+				"MPI_File",
+				"MPI_File_close"
+			],
+			[
+				"MPI_IN",
+				"MPI_INFO_NULL"
+			],
+			[
+				"MPI_F",
+				"MPI_File"
+			],
+			[
+				"MPI_S",
+				"MPI_Send"
+			],
+			[
+				"EX",
+				"EXIT_FAILURE"
+			],
+			[
+				"grid",
+				"gridsize"
+			],
+			[
+				"C",
+				"CELLSLENGTH"
+			],
+			[
+				"chunk",
+				"CHUNKSIZE"
+			],
+			[
+				"tot_",
+				"tot_u_x"
+			],
+			[
+				"t_",
+				"t_speed"
+			],
+			[
+				"CACHE",
+				"CACHE_ALIGN"
+			],
+			[
+				"local",
+				"local_density"
+			],
+			[
+				"first",
+				"firstprivate"
+			],
+			[
+				"base",
+				"baseFontSize"
+			],
+			[
+				"cent",
+				"centerX"
+			],
+			[
+				"BaseView",
+				"BaseView"
+			],
+			[
+				"mainNav",
+				"mainNavTemplate"
+			],
+			[
+				"off",
+				"offsetTop"
+			],
+			[
+				"to",
+				"toggledViews"
+			],
+			[
+				"center",
+				"centerOnArea"
+			],
+			[
+				"nav",
+				"navbar-inner"
+			],
+			[
+				"render",
+				"renderRoutes"
+			],
+			[
+				"icon",
+				"icon-chevron-right"
+			],
+			[
+				"area",
+				"areaTemplate"
+			],
+			[
+				"Are",
+				"AreaTemplate"
+			],
+			[
+				"trigger",
+				"triggerSearch"
+			],
+			[
+				"mar",
+				"margin-right"
+			],
+			[
+				"close",
+				"closestHandle"
+			],
+			[
+				"app",
+				"appView"
+			],
+			[
+				"main",
+				"mainnavTemplate"
+			],
+			[
+				"google",
+				"googlemaps"
+			],
+			[
+				"pad",
+				"padding"
+			],
+			[
+				"v",
+				"vertical-align"
+			],
+			[
+				"padding",
+				"padding"
+			],
+			[
+				"dropdow",
+				"dropdown-menu"
+			],
+			[
+				"padd",
+				"padding-left"
+			],
+			[
+				"search",
+				"searchField"
+			],
+			[
+				"tabl",
+				"tableView"
+			],
+			[
+				"has",
+				"hasClass"
+			],
+			[
+				"cur",
+				"currentTarget"
+			],
+			[
+				"sear",
+				"searchValue"
+			],
+			[
+				"cam",
+				"campaign"
+			],
+			[
+				"clear",
+				"clearSearchField"
+			],
+			[
+				"acc",
+				"accountId"
+			],
+			[
+				"preview",
+				"previewObjects"
+			],
+			[
+				"fil",
+				"filtered"
+			],
+			[
+				"searc",
+				"searchValue"
+			],
+			[
+				"pr",
+				"pre-wrap"
+			],
+			[
+				"objec",
+				"objectName"
+			],
+			[
+				"ac",
+				"accountName"
+			],
+			[
+				"prev",
+				"previewObject"
+			],
+			[
+				"ob",
+				"objectName"
+			],
+			[
+				"mo",
+				"ModifiedBy"
+			],
+			[
+				"obj",
+				"ObjectId"
+			],
+			[
+				"filter",
+				"filterType"
+			],
+			[
+				"previ",
+				"previewObjects"
+			],
+			[
+				"prevewTable",
+				"previewObjectTable"
+			],
+			[
+				"togg",
+				"togglePublish"
+			],
+			[
+				"un",
+				"unpublishedItems"
+			],
+			[
+				"sort",
+				"sortState"
+			],
+			[
+				"show",
+				"showCampaigns"
+			],
+			[
+				"pre",
+				"previewObject"
+			],
+			[
+				"preve",
+				"previewObject"
+			],
+			[
+				"publ",
+				"publishedItems"
+			],
+			[
+				"publi",
+				"publishedView"
+			],
+			[
+				"prevew",
+				"previewObjects"
+			],
+			[
+				"accoun",
+				"accountName"
+			],
+			[
+				"rend",
+				"renderPreviewObject"
+			],
+			[
+				"Pre",
+				"previewObjectView"
+			],
+			[
+				"red",
+				"renderPreviewObject"
+			],
+			[
+				"bin",
+				"bindAll"
+			],
+			[
+				"publis",
+				"published"
+			],
+			[
+				"published",
+				"togglePublished"
+			],
+			[
+				"g",
+				"getPreviewLink"
+			],
+			[
+				"fb",
+				"fbLink"
+			],
+			[
+				"sor",
+				"sortByAccountName"
+			],
+			[
+				"acco",
+				"accountName"
+			],
+			[
+				"re",
+				"render"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"sortByO",
+				"sortByObjectName"
+			],
+			[
+				"sortBy",
+				"sortById"
+			],
+			[
+				"account",
+				"accountId"
+			],
+			[
+				"marin",
+				"margin-right"
+			],
+			[
+				"con",
+				"container"
+			],
+			[
+				"r",
+				"rgb()"
+			],
+			[
+				"i",
+				"iframe	Tag"
+			],
+			[
+				"sp",
+				"span2"
+			],
+			[
+				"inline",
+				"inline-block"
+			],
+			[
+				"esca",
+				"escape_html"
+			],
+			[
+				"s",
+				"substring"
+			],
+			[
+				"recip",
+				"recipientid"
+			],
+			[
+				"USER",
+				"Users"
+			],
+			[
+				"me",
+				"messageid"
+			],
+			[
+				"COL",
+				"COLLECTION"
+			],
+			[
+				"label",
+				"labeln1"
+			],
+			[
+				"e1",
+				"e1Reg"
+			],
+			[
+				"get",
+				"getSub"
+			],
+			[
+				"getchi",
+				"getChildCount"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Users/niflhel/projects/membattles/app/index.html",
+			"settings":
+			{
+				"buffer_size": 5286,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/app.coffee",
+			"settings":
+			{
+				"buffer_size": 1610,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/playerController.coffee",
+			"settings":
+			{
+				"buffer_size": 2772,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/views/gameLayout.coffee",
+			"settings":
+			{
+				"buffer_size": 2498,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/views/membattle.coffee",
+			"settings":
+			{
+				"buffer_size": 4232,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/items/item.coffee",
+			"settings":
+			{
+				"buffer_size": 354,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/items/imageItem.coffee",
+			"settings":
+			{
+				"buffer_size": 365,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/views/playerView.coffee",
+			"settings":
+			{
+				"buffer_size": 1588,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/scripts/views/loginView.coffee",
+			"settings":
+			{
+				"buffer_size": 330,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/niflhel/projects/membattles/app/styles/main.less",
+			"settings":
+			{
+				"buffer_size": 2900,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"coffe",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"indne",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"coffee",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"coffeescrip",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"lint",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"json",
+				"Set Syntax: JSON"
+			],
+			[
+				"indent",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"syntax coffe",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"sft",
+				"SFTP: Edit Server…"
+			],
+			[
+				"sftp",
+				"SFTP: Browse Server…"
+			],
+			[
+				"remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"package remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"css",
+				"Set Syntax: CSS"
+			],
+			[
+				"lin",
+				"SublimeLinter: Show Error List"
+			],
+			[
+				"syntax javas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"syn less",
+				"Set Syntax: LESS"
+			],
+			[
+				"syn css",
+				"Set Syntax: CSS"
+			],
+			[
+				"browse",
+				"Preferences: Browse Packages"
+			],
+			[
+				"sql",
+				"Set Syntax: SQL"
+			],
+			[
+				"inde",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"cof",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"syn jas",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"javasc",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"coff",
+				"Set Syntax: CoffeeScript"
+			],
+			[
+				"javascr",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"pack",
+				"Package Control: Discover Packages"
+			],
+			[
+				"javascript",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"html",
+				"Set Syntax: HTML"
+			],
+			[
+				"diffs",
+				"FileDiffs: Menu"
+			],
+			[
+				"packa int",
+				"Package Control: Install Package"
+			],
+			[
+				"diff",
+				"Git: Diff Current File"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"syn jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"syn c",
+				"Set Syntax: C"
+			],
+			[
+				"packge crea",
+				"Package Control: Create Package File"
+			],
+			[
+				"package instal",
+				"Package Control: Install Package"
+			],
+			[
+				"package ",
+				"Package Control: Add Channel"
+			],
+			[
+				"syn js",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sy html",
+				"Set Syntax: HTML"
+			],
+			[
+				"jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"javascrip",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"sf",
+				"SFTP: Browse Server…"
+			],
+			[
+				"set syn jav",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"snip html",
+				"Snippet: html"
+			],
+			[
+				"snipp",
+				"Snippet: html"
+			],
+			[
+				"syn java",
+				"Set Syntax: JavaScript"
+			],
+			[
+				"djago",
+				"Django DocsSearch"
+			],
+			[
+				"djg",
+				"Django DocsSearch"
+			],
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"python",
+				"Set Syntax: Python"
+			],
+			[
+				"syn html",
+				"Set Syntax: HTML"
+			],
+			[
+				"syn SQL",
+				"Set Syntax: SQL"
+			],
+			[
+				"syntax ru",
+				"Set Syntax: Ruby"
+			],
+			[
+				"syn py",
+				"Set Syntax: Python"
+			],
+			[
+				"syn ",
+				"Set Syntax: C"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"caml",
+				"Set Syntax: OCaml"
+			],
+			[
+				"syntax cam",
+				"Set Syntax: OCaml"
+			],
+			[
+				"install pack",
+				"Package Control: Install Package"
+			],
+			[
+				"regu",
+				"Set Syntax: Regular Expression"
+			],
+			[
+				"syntax ass",
+				"Set Syntax: Regular Expression"
+			],
+			[
+				"bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"synt bash",
+				"Set Syntax: Shell Script (Bash)"
+			],
+			[
+				"synta html",
+				"Set Syntax: HTML"
+			],
+			[
+				"synt pla",
+				"Set Syntax: Plain Text"
+			],
+			[
+				"syntax html",
+				"Set Syntax: HTML"
+			],
+			[
+				"syntax htm",
+				"Set Syntax: HTML"
+			],
+			[
+				"syntax m",
+				"Set Syntax: Makefile"
+			],
+			[
+				"",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"align",
+				"Preferences: Alignment Key Bindings – Default"
+			],
+			[
+				"syntax c",
+				"Set Syntax: C"
+			],
+			[
+				"synta",
+				"Set Syntax: C"
+			],
+			[
+				"syntax",
+				"Set Syntax: C"
+			],
+			[
+				"syntac",
+				"Set Syntax: C"
+			],
+			[
+				"syn",
+				"Set Syntax: C"
+			],
+			[
+				"syntac c",
+				"Set Syntax: Objective-C"
+			],
+			[
+				"else",
+				"Snippet: else"
+			]
+		],
+		"width": 588.0
+	},
+	"console":
+	{
+		"height": 87.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/niflhel/projects/membattles/.tmp/scripts/items/imageItem.js",
+		"/Users/niflhel/projects/membattles/app/scripts/main.coffee",
+		"/Users/niflhel/projects/membattles/.tmp/scripts/views/loginView.js",
+		"/Users/niflhel/projects/membattles/.git/MERGE_MSG",
+		"/Users/niflhel/projects/membattles/app/scripts/models/player.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/views/inputView.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/views/membattle.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/views/textView.coffee",
+		"/Users/niflhel/projects/membattles/Gruntfile.js",
+		"/Users/niflhel/Projects/membattles/app/scripts/views/playerLayout.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/app.coffee",
+		"/Users/niflhel/projects/membattles/app/styles/main.less",
+		"/Users/niflhel/projects/membattles/app/scripts/views/coursesView.coffee",
+		"/Users/niflhel/projects/membattles/server.coffee",
+		"/Users/niflhel/Projects/membattles/app/scripts/views/playerView.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/collections/courses.coffee",
+		"/Users/niflhel/projects/membattles/.tmp/scripts/playerManager.js",
+		"/Users/niflhel/projects/membattles/app/scripts/models/thing.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/playerManager.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/items/item.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/items/imageItem.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/items/cannon.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/views/loginView.coffee",
+		"/Users/niflhel/.bash_profile",
+		"/Users/niflhel/projects/membattles/app/scripts/items/floor.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/items/plant.coffee",
+		"/Applications/wxWidgets-2.9.4/build-cocoa-debug/demos/Makefile",
+		"/Users/niflhel/projects/membattles/app/scripts/views/courseView.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/collections/things.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/collections/texts.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/models/text.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/models/course.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/item.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/membattle.coffee",
+		"/Users/niflhel/Projects/membattles/app/scripts/views/membattle.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/collections/thingusers.coffee",
+		"/Users/niflhel/Projects/membattles/app/scripts/views/gameLayout.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/models/thinguser.coffee",
+		"/Users/niflhel/Projects/membattles/app/scripts/collections/thingusers.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/cannon.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/templates.coffee",
+		"/Users/niflhel/projects/membattles/app/scripts/templates/player.tpl",
+		"/Users/niflhel/projects/membattles/app/scripts/vent.coffee",
+		"/Users/niflhel/projects/membattles/app/components/bootstrap/less/variables.less",
+		"/Users/niflhel/Library/Application Support/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
+		"/Users/niflhel/projects/path/app/scripts/vent.coffee",
+		"/Users/niflhel/projects/path/app/scripts/ResourcesView.coffee",
+		"/Users/niflhel/projects/path/app/scripts/resources.coffee",
+		"/Users/niflhel/projects/path/app/scripts/resourceView.coffee",
+		"/Users/niflhel/projects/path/app/scripts/emptyView.coffee",
+		"/Users/niflhel/projects/path/app/scripts/resource.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/emptyView.coffee",
+		"/Users/niflhel/projects/path/app/scripts/resourcesView*",
+		"/Users/niflhel/Projects/path/app/scripts/resource.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/resources.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/resourceView.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/resourcesView.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/vent.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/config.coffee",
+		"/Users/niflhel/Projects/path/Gruntfile.js",
+		"/Users/niflhel/Projects/path/app/scripts/resource.html",
+		"/Users/niflhel/Projects/path/app/scripts/network.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/webdev.coffee",
+		"/Users/niflhel/Projects/path/app/scripts/resourceData.coffee",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/hero-unit.less",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/mixins.less",
+		"/Users/niflhel/Projects/path/app/components/jquery/jquery.js",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/wells.less",
+		"/Users/niflhel/Projects/path/app/styles/main.less",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/grid.less",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/layouts.less",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/scaffolding.less",
+		"/Users/niflhel/Projects/path/app/components/bootstrap/less/bootstrap.less",
+		"/Users/niflhel/Projects/path/app/scripts/network.js",
+		"/Users/niflhel/Projects/path/app/scripts/main.js",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/d2q5-bgk.c",
+		"/Users/niflhel/Documents/CS/HPC/code/example3 2/Makefile",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/d2q5-bgk-parallel.c",
+		"/Users/niflhel/Documents/CS/HPC/code/example3 2/Makefile~",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example7/MPI-file-view.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example7/MPI-file-iwrite.c",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/buffer-arrays-parallel.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example7/Makefile",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example2/send_recv.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example1/hello_world.c",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/Makefile",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example6/README",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example6/derived-type.c",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/openmp_sub",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/parallel.c",
+		"/Users/niflhel/Library/Application Support/Sublime Text 2/Packages/User/sftp_servers/bc",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example6/pack-unpack.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example5/README",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example5/scatter_gather.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example5/reduce_trapezoid.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example5/broadcast.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example4/bugged-non-blocking.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example4/non-blocking.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example4/blocking.c",
+		"/Users/niflhel/Documents/CS/HPC/code/week3/example4/README",
+		"/Users/niflhel/Documents/CS/HPC/code/cw1/write-obstacles.py",
+		"/Users/niflhel/Projects/development/app/scripts/webdev.js",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/cw1/Makefile",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/input.params",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example3/schedule.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/Makefile",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/d2q5-bgk.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/parallel.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/openmp_sub",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/parallelcopy.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example2/reduction_pi.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/debugging.r485/openmp/README",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/debugging.r485/openmp/simple.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example3/simple.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/README",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/valgrinddata",
+		"/Users/niflhel/Library/Application Support/Sublime Text 2/Packages/User/SFTP.errors.log",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/D2Q5-BGK.r472 2/write-obstacles.py",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example4/README",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example5/README",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example4/serial_naive_mm.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example4/serial_heat.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example4/serial_blas_mm.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example4/omp_naive_mm.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example5/quicksort_sections.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example5/quicksort.c",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example3/README",
+		"/Users/niflhel/Documents/Computer Science/HPC/code/week2/openmp.r484/examples/example2/README"
+	],
+	"find":
+	{
+		"height": 33.0
+	},
+	"find_in_files":
+	{
+		"height": 96.0,
+		"where_history":
+		[
+			"*.coffee",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"Comic Sans",
+			"username",
+			"currentPlayer",
+			"selectedCourse",
+			"\"",
+			"ready",
+			"layout.player.currentView",
+			"view",
+			"thisPlayer",
+			"playerView",
+			"@playerView",
+			"currentView.close",
+			"collection",
+			".close()",
+			"removeRegion",
+			"close()",
+			".close()",
+			"points",
+			"        @input.disable()\n        @input.off('keyup')\n        @input.off('guess')",
+			"@ui.btn",
+			"\"",
+			"toggleReady",
+			"@playerView.model.get('lives')",
+			"guess",
+			"this",
+			"currentPlayer",
+			"\"/images/cannon.png\"",
+			"this",
+			"thisPlayer",
+			"100px",
+			"translation",
+			"$inputArea",
+			"thingusers",
+			"currentPlayer",
+			"items",
+			"canvas",
+			"ctx",
+			"fluidGridGutterWidth",
+			"span",
+			"GameLayout",
+			"CourseData",
+			"request",
+			"ResourceCollection",
+			"rating",
+			"clicked",
+			"link",
+			"description",
+			"type",
+			"title",
+			"id",
+			"@radius",
+			"@h",
+			"@w",
+			"@svg",
+			"@force",
+			"@nodes",
+			"nodes",
+			"@links",
+			"curLinksData",
+			"curNodesData",
+			"allData",
+			"@",
+			"allData",
+			"w",
+			"nodesG",
+			"linksG",
+			"links",
+			"Links",
+			"links",
+			"Links",
+			"links",
+			"curLinksData",
+			"curNodesData",
+			"@",
+			"allData",
+			"@",
+			"curNodesData",
+			"curLinksData",
+			"curNodesData",
+			"@",
+			"links",
+			"curLinksData",
+			"curNodesData",
+			"allData",
+			"@",
+			"=",
+			"App",
+			".border",
+			"-5px",
+			"mainview",
+			"fluid",
+			"#svg",
+			"0 0 0 0",
+			".",
+			"tag",
+			"MPI_Ssend",
+			"0",
+			"params.ny/2",
+			"2",
+			"59",
+			"60",
+			"300",
+			"ROWLEN",
+			"SIZE-ROWLEN*2",
+			"ROWLEN",
+			"cells[1]",
+			"cells[ll]",
+			"cells[30299]",
+			"29999",
+			"30599",
+			"cells[30599]",
+			"cells[1]",
+			"cells[0]",
+			"cells[ll]",
+			"ll",
+			"4",
+			"+0",
+			"+3",
+			"+2",
+			"+1",
+			"SIZE-ROWLEN*2",
+			"4",
+			"Sending",
+			"SIZE-ROWLEN*2",
+			"SIZE-ROWLEN",
+			"ROWLEN",
+			"0",
+			"SIZE-ROWLEN"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"'",
+			"@currentPlayer",
+			"@items",
+			"@el",
+			"el",
+			"@ctx",
+			"%zu",
+			"%u",
+			"theDropboxDiet",
+			"stdout",
+			"m0",
+			"rows",
+			"cols",
+			"rows",
+			"6",
+			"j"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 6,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Users/niflhel/projects/membattles/app/index.html",
+					"settings":
+					{
+						"buffer_size": 5286,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1033,
+								934
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 445.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/app.coffee",
+					"settings":
+					{
+						"buffer_size": 1610,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1264,
+								1264
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 324.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/playerController.coffee",
+					"settings":
+					{
+						"buffer_size": 2772,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1196,
+								1196
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 664.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/views/gameLayout.coffee",
+					"settings":
+					{
+						"buffer_size": 2498,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2308,
+								2308
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 784.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/views/membattle.coffee",
+					"settings":
+					{
+						"buffer_size": 4232,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4142,
+								4142
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2044.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/items/item.coffee",
+					"settings":
+					{
+						"buffer_size": 354,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								319,
+								319
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/items/imageItem.coffee",
+					"settings":
+					{
+						"buffer_size": 365,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 7,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/views/playerView.coffee",
+					"settings":
+					{
+						"buffer_size": 1588,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1084,
+								1084
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 484.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/views/gameLayout.coffee",
+					"settings":
+					{
+						"buffer_size": 2498,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1417,
+								1417
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/niflhel/projects/membattles/app/scripts/views/loginView.coffee",
+					"settings":
+					{
+						"buffer_size": 330,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								299,
+								299
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/CoffeeScript/CoffeeScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Users/niflhel/projects/membattles/app/styles/main.less",
+					"settings":
+					{
+						"buffer_size": 2900,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2506,
+								2506
+							]
+						],
+						"settings":
+						{
+							"annotations":
+							[
+								"TODO",
+								"README",
+								"FIXME"
+							],
+							"csslint_options":
+							{
+								"adjoining-classes": "warning",
+								"box-model": true,
+								"box-sizing": "warning",
+								"compatible-vendor-prefixes": "warning",
+								"display-property-grouping": true,
+								"duplicate-background-images": "warning",
+								"duplicate-properties": true,
+								"empty-rules": true,
+								"errors": true,
+								"fallback-colors": "warning",
+								"floats": "warning",
+								"font-faces": "warning",
+								"font-sizes": "warning",
+								"gradients": "warning",
+								"ids": "warning",
+								"import": "warning",
+								"important": "warning",
+								"known-properties": true,
+								"outline-none": "warning",
+								"overqualified-elements": "warning",
+								"qualified-headings": "warning",
+								"regex-selectors": "warning",
+								"rules-count": "warning",
+								"shorthand": "warning",
+								"star-property-hack": "warning",
+								"text-indent": "warning",
+								"underscore-property-hack": "warning",
+								"unique-headings": "warning",
+								"universal-selector": "warning",
+								"vendor-prefix": true,
+								"zero-units": "warning"
+							},
+							"gjslint_ignore":
+							[
+								110.0
+							],
+							"gjslint_options":
+							[
+							],
+							"incomplete_sync": null,
+							"javascript_linter": "jshint",
+							"jshint_options":
+							{
+								"browser": true,
+								"evil": true,
+								"regexdash": true,
+								"sub": true,
+								"trailing": true,
+								"wsh": true
+							},
+							"pep8": true,
+							"pep8_ignore":
+							[
+								"E501"
+							],
+							"perl_linter": "perlcritic",
+							"pyflakes_ignore":
+							[
+							],
+							"pyflakes_ignore_import_*": true,
+							"remote_loading": false,
+							"sublimelinter": true,
+							"sublimelinter_delay": 2.0,
+							"sublimelinter_disable":
+							[
+							],
+							"sublimelinter_executable_map":
+							{
+							},
+							"sublimelinter_fill_outlines": false,
+							"sublimelinter_gutter_marks": false,
+							"sublimelinter_mark_style": "outline",
+							"sublimelinter_notes": false,
+							"sublimelinter_objj_check_ascii": false,
+							"sublimelinter_popup_errors_on_save": false,
+							"sublimelinter_syntax_map":
+							{
+								"C++": "c",
+								"Python Django": "python",
+								"Ruby on Rails": "ruby"
+							},
+							"sublimelinter_wrap_find": true,
+							"synced": false,
+							"syntax": "Packages/LESS/LESS.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			0.629144504483,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 130.0
+	},
+	"output.git":
+	{
+		"height": 100.0
+	},
+	"output.sftp":
+	{
+		"height": 130.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"imageit",
+				"app/scripts/items/imageItem.coffee"
+			],
+			[
+				"imageitem",
+				".tmp/scripts/items/imageItem.js"
+			],
+			[
+				"itemcoff",
+				"app/scripts/items/item.coffee"
+			],
+			[
+				"membcoff",
+				"app/scripts/views/membattle.coffee"
+			],
+			[
+				"game",
+				"app/scripts/views/gameLayout.coffee"
+			],
+			[
+				"main",
+				"app/scripts/main.coffee"
+			],
+			[
+				"loginview",
+				"app/scripts/views/loginView.coffee"
+			],
+			[
+				"main.less",
+				"app/styles/main.less"
+			],
+			[
+				"player",
+				"app/scripts/models/player.coffee"
+			],
+			[
+				"playerview",
+				"app/scripts/views/playerView.coffee"
+			],
+			[
+				"server",
+				"server.coffee"
+			],
+			[
+				"coursesv",
+				"app/scripts/views/coursesView.coffee"
+			],
+			[
+				"courses",
+				"app/scripts/views/coursesView.coffee"
+			],
+			[
+				"coursesview",
+				"app/scripts/views/coursesView.coffee"
+			],
+			[
+				"inputview",
+				"app/scripts/views/inputView.coffee"
+			],
+			[
+				"cann",
+				"app/scripts/items/cannon.coffee"
+			],
+			[
+				"item",
+				"app/scripts/items/item.coffee"
+			],
+			[
+				"login",
+				"app/scripts/views/loginView.coffee"
+			],
+			[
+				"membat",
+				"app/scripts/views/membattle.coffee"
+			],
+			[
+				"things",
+				"app/scripts/collections/things.coffee"
+			],
+			[
+				"60",
+				"/var/folders/p0/dphgqtmj33ng8r557g5qkd_80000gn/T/sublime-sftp-browse-1335453601/snowy/home/ugrads/coms2010/ml9357/linux/camle/Irt.java"
+			],
+			[
+				"mak",
+				"/Users/niflhel/Documents/C/DSA2/source/Makefile"
+			],
+			[
+				"coo",
+				"/Users/niflhel/Documents/C/DSA2/source/coo.c"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": false,
+	"side_bar_width": 143.0,
+	"status_bar_visible": true
+}

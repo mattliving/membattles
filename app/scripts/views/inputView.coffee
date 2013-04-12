@@ -1,4 +1,4 @@
-define ["marionette", "vent"],
+define ["marionette", "helpers/vent"],
 (Marionette, vent) ->
 
   class InputView extends Marionette.ItemView
@@ -8,14 +8,14 @@ define ["marionette", "vent"],
     template: "#inputTemplate"
 
     ui:
-      input: "#guess"
+      input:       "#guess"
       otheranswer: "#otheranswer"
-      thisanswer: "#thisanswer"
+      thisanswer:  "#thisanswer"
 
     events:
-      click: "toggleSelected"
-      change: "inputChanged"
-      keyup: "keyPressed"
+      click:   "toggleSelected"
+      change:  "inputChanged"
+      keyup:   "keyPressed"
       keydown: "testKey"
 
     initialize: ->

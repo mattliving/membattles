@@ -1,4 +1,4 @@
-define ["marionette", "vent", "collections/things"],
+define ["marionette", "helpers/vent", "collections/things"],
 (Marionette, vent, Thingusers) ->
 
   class CourseView extends Marionette.ItemView

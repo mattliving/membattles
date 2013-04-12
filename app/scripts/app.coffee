@@ -1,6 +1,6 @@
 define [
   "marionette",
-  "vent",
+  "helpers/vent",
   "views/gameLayout",
   "views/loginView",
   "playerController",
@@ -30,8 +30,6 @@ define [
   socket = io.connect(window.location.origin)
 
   socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
-
-  window.socket = socket
 
   loginView.on 'submit', (username) =>
     thisPlayer = new PlayerController username, true

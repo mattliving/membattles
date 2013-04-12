@@ -1,4 +1,4 @@
-define ["items/item"], (App, Item) ->
+define ["items/item"], (Item) ->
 
   class ImageItem extends Item
 
@@ -12,9 +12,7 @@ define ["items/item"], (App, Item) ->
 
     draw: (ctx) ->
       if @loaded
-        @drawSpriteCentered(ctx)
-
-    drawSpriteCentered: (ctx) ->
-      x = @pos.x - @img.width/2
-      y = @pos.y - @img.height/2
-      ctx.drawImage(@img, x, y, @img.width*@scale, @img.height*@scale)
+        x = @pos.x - @img.width/2
+        y = @pos.y - @img.height/2
+        ctx.drawImage(@img, x, y, @img.width*@scale, @img.height*@scale)
+      

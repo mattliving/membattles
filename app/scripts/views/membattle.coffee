@@ -1,6 +1,7 @@
 define [
   "marionette",
-  "vent",
+  "helpers/vent",
+  "helpers/timer",
   "items/item",
   "items/imageItem",
   "items/floor",
@@ -8,7 +9,7 @@ define [
   "items/cannon",
   "views/textView"
 ],
-(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextView) ->
+(Marionette, vent, Timer, Item, ImageItem, Floor, Plant, Cannon, TextView) ->
   # this class is responsible for:
   # * connecting one player to the user input
   # * connecting the other player up to the server
@@ -19,20 +20,28 @@ define [
     tagName: "canvas"
 
     attributes:
+      width: "1080px"
       height : "800px"
 
     ui:
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
-    items: []
+    factory: {}
+    entities: []
 
     stopped: true
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
-      @floor = new Floor(0, @el.height/2, 1, true)
+      @timer = new Timer()
+      @floor = new Floor
+        pos:
+          x: @el.width/2
+          y: @el.height/2
+        scale: 1
+        active: true
       @thisPlayerController.initialize(@floor)
       @thatPlayerController.initialize(@floor)
 
@@ -65,7 +74,7 @@ define [
           @input.ui.thisanswer.html('')
 
       vent.on 'other:disconnect', =>
-        @stopAnimation()
+        @stop()
         @ctx.fillStyle = "black"
         @ctx.globalAlpha = 0.5
         @ctx.font = "28pt 'Merriweather Sans'"
@@ -75,7 +84,7 @@ define [
         @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
 
       vent.on 'game:ending', (username) =>
-        @stopAnimation()
+        @stop()
         if username is @thisPlayerController.playerView.model.get('username')
           vent.trigger 'game:ended', "You Lose!"
         else
@@ -97,6 +106,11 @@ define [
         @input.enable()
         @thisPlayerController.trigger('next')
 
+    spawnEntity = (typename) ->
+      entity = new (factory[typename])()
+      @entities.push entity
+      return entity
+
     initPlants: (x, y, n, type) ->
       for i in [1..n]
         if type is "medium"
@@ -108,34 +122,55 @@ define [
           plant.x = i
         @items.push plant
 
-    startAnimation: ->
-      @ms = 0
+    start: ->
       if @thisStarts
         @thisPlayerController.trigger("next")
       else
         @thatPlayerController.trigger("next")
 
       @stopped = false
-      @update(Date.now())
+      @lastUpdateTimestamp = Date.now()
+      (gameLoop = =>
+        @loop()
+        requestAnimFrame gameLoop, @ctx.canvas
+      )()
 
-    stopAnimation: ->
+    stop: ->
       @stopped = true
       @input.disable()
       @input.off('keyup')
       @input.off('guess')
 
-    update: (lastTime) ->
+    # loop through entities, calling their update method
+    update: ->
+      for entity in Item.items
+        if entity?.active is true
+          entity.update()
+
+      for entity, i in Item.items
+        if entity?.active is false
+          Item.items.splice(i, 1)
+
+    # loop through entities, calling their draw method
+    draw: ->
+      @ctx.clearRect(0, 0, @el.width, @el.height)
+      for entity in Item.items
+        entity.draw(@ctx)
+
+    # main game loop
+    loop: ->
       unless @stopped
-        time = Date.now()
-        dx = time - lastTime
-        @ms += dx
-        while @ms > 10
-          @ctx.clearRect(0, 0, @el.width, @el.height)
-          for item in Item.items
-            if item? and item.active
-              item.draw(@ctx)
-              item.update()
-          @ms -= 10
-        requestAnimFrame (=>
-          @update(time)
-        ), @ctx
+        # now = Date.now()
+        # deltaTime = now - @lastUpdateTimestamp
+        @clockTick = @timer.tick()
+        @update()
+        @draw()
+
+        # for item in Item.items
+        #   if item? and item.active
+        #     item.draw(@ctx)
+        #     item.update()
+
+        # requestAnimFrame (=>
+        #   @loop()
+        # ), @ctx

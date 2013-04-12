@@ -29,7 +29,7 @@ define [
       @thisPlayer.on 'show', (layout) =>
         layout.player.on 'show', (view) =>
           view.on 'ready', =>
-            @thisPlayerReady = not @thisPlayerReady
+            @thisPlayerReady = true
             view.trigger 'fetch:data'
           view.on 'course:fetched', (model) =>
             @thisPlayerController.trigger 'ready'
@@ -41,7 +41,7 @@ define [
 
       @socket.on 'ready', (selectedCourse) =>
         @thatPlayerController.playerView.selectedCourse = new Course(selectedCourse)
-        @thatPlayerReady = not @thatPlayerReady
+        @thatPlayerReady = true
         @thatPlayerController.trigger 'ready'
 
       @socket.on 'things', (things) =>
@@ -69,7 +69,7 @@ define [
       #   @ui.input.children('h2').remove()
       membattle = new Membattle(@socket, @input.currentView, @thisPlayerController, @thatPlayerController, @thisStarts)
       @game.show(membattle)
-      membattle.startAnimation()
+      membattle.start()
       # ), 3000
 
     endGame: (endMsg) ->
