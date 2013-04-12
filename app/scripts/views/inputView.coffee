@@ -10,11 +10,13 @@ define ["marionette", "vent"],
     ui:
       input: "#guess"
       otheranswer: "#otheranswer"
+      thisanswer: "#thisanswer"
 
     events:
       click: "toggleSelected"
       change: "inputChanged"
       keyup: "keyPressed"
+      keydown: "testKey"
 
     initialize: ->
       @on 'keypress', (input) =>
@@ -30,11 +32,23 @@ define ["marionette", "vent"],
     keyPressed: (e) ->
       @trigger("keyup", @ui.input.val())
 
+    # stop the backspace key from ruining everything
+    testKey: (e) ->
+      if e.which is 8 and @ui.input.prop("disabled")
+        e.preventDefault()
+        e.stopPropagation()
+
+      unless @ui.input.prop("disabled")
+        console.log String.fromCharCode(e.charCode)
+
     enable: ->
-      @ui.input.prop("disabled", false)
-      @ui.input.val('')
-      @ui.input.focus()
+      # simple test if it's an input box
+      if @ui.input.prop
+        @ui.input.prop("disabled", false)
+        @ui.input.val('')
+        @ui.input.focus()
 
     disable: ->
-      @ui.input.prop("disabled", true)
-      @ui.input.val('')
+      if @ui.input.prop
+        @ui.input.prop("disabled", true)
+        @ui.input.val('')

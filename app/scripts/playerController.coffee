@@ -22,16 +22,23 @@ define [
       @playerCoursesView = new CoursesView(collection: new Courses())
       @playerCoursesView.collection.url += @playerModel.get("username")
 
+
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
         @trigger("model:fetched")
+        # hacky way of not showing the ready button if the other user is ready on load
+        if @ready then @playerView.off("show")
         @playerLayout.player.show(@playerView)
 
       @on 'view:rendered', ->
-        @playerCoursesView.collection.fetch success: (model) =>
+        unless @ready
+          @playerCoursesView.collection.fetch success: (model) =>
+            @playerLayout.courses.show(@playerCoursesView)
+        else
           @playerLayout.courses.show(@playerCoursesView)
 
       @on 'ready', ->
+        @ready = true
         @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->
@@ -49,6 +56,7 @@ define [
 
       fx = if @local then -2400 else 2400
       @textView = new TextView(@things, @floor, textPos, [fx, -3000])
+      window.t = @textView
 
       @on 'next', ->
         @playerView.model.setCurrentPlayer()
@@ -56,9 +64,8 @@ define [
 
       @on 'guess', (guess) ->
         if @textView.model.get("active")
-          correct = @textView.model.get("text") is guess
+          @textView.model.set "success", @textView.model.checkAnswer(guess)
           @textView.model.set "collided", true
-          @textView.model.set "success", correct
 
       @listenTo @textView, 'inactive', (success) ->
         @trigger 'endTurn', success

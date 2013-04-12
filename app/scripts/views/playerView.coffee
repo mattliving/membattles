@@ -29,11 +29,11 @@ define [
     onBeforeRender: ->
       if @model.get("currentPlayer")
         @$el.parent().parent().addClass("currentPlayer")
-      else 
+      else
         @$el.parent().parent().removeClass("currentPlayer")
 
     addReadyButton: ->
-      @$btn = $("<button class='btn btn-block' type='button'><strong>Ready!</strong></button>") 
+      @$btn = $("<button class='btn btn-block' type='button'><strong>Ready!</strong></button>")
       @$el.children(".media-body").after(@$btn)
 
     toggleReady: (e) ->
