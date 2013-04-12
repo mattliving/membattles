@@ -4,18 +4,21 @@ define ["app", "items/imageItem"], (App, ImageItem) ->
 
     src: "/images/cannon.png"
 
-    mirrored: false
+    constructor: (options) ->
+      super(options)
+      {@mirrored} = options
+      @mirrored ?= false
 
     draw: (ctx) ->
       if @loaded
-        mirrorAxis = Math.round(@x + @img.width/2)
+        mirrorAxis = Math.round(@pos.x + @img.width/2)
         ctx.save()
         if @mirrored
-          ctx.translate(mirrorAxis, @y+@img.height)
+          ctx.translate(mirrorAxis, @pos.y+@img.height)
           ctx.scale(-1, 1)
           ctx.translate(-mirrorAxis, 0)
         else
-          ctx.translate(@x, @y+@img.height)
+          ctx.translate(@pos.x, @pos.y+@img.height)
         ctx.rotate(@convertToRadians(-45))
         ctx.drawImage(@img, 0, 0, @img.width*@scale, @img.height*@scale)
         ctx.restore()

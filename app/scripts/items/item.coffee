@@ -1,9 +1,10 @@
-define ["app"], (App) ->
+define [], () ->
 
   class Item
     _.extend(Item::, Backbone.Events)
 
-    constructor: ->
+    constructor: (options) ->
+      {@pos, @active} = options
       # Item.items is a 'static' array attached to the class object.
       # By putting this into the constructor, all Items are added to it
       # on creation.

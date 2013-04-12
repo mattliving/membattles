@@ -1,14 +1,20 @@
-define ["app", "items/item"], (App, Item) ->
+define ["items/item"], (App, Item) ->
 
   class ImageItem extends Item
 
-    constructor: (@x, @y, @scale, @active = false) ->
-      super()
-      @loaded = false
-      @img = new Image()
-      @img.src = @src
+    constructor: (options) ->
+      super(options)
+      {@scale}    = options
+      @loaded     = false
+      @img        = new Image()
+      @img.src    = @src
       @img.onload = => @loaded = true
 
     draw: (ctx) ->
       if @loaded
-        ctx.drawImage(@img, @x, @y, @img.width*@scale, @img.height*@scale)
+        @drawSpriteCentered(ctx)
+
+    drawSpriteCentered: (ctx) ->
+      x = @pos.x - @img.width/2
+      y = @pos.y - @img.height/2
+      ctx.drawImage(@img, x, y, @img.width*@scale, @img.height*@scale)
