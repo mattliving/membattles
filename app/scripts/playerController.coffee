@@ -25,7 +25,6 @@ define [
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
         @trigger("model:fetched")
-        # hacky way of not showing the ready button if the other user is ready on load
         if @ready then @playerView.off("show")
         @playerLayout.player.show(@playerView)
 

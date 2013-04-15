@@ -45,7 +45,7 @@ define [
     update: (dx) ->
       if not @collided
         updates = Math.round(dx*150)
-        while updates --> 0 and not @collided
+        while updates-- > 0 and not @collided
           @velocity.x += @force.x
           @velocity.y += @force.y
           @pos.x  += @velocity.x
