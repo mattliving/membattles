@@ -9,12 +9,12 @@ define ["app", "items/imageItem"], (App, ImageItem) ->
       {@mirrored, @axis} = options
       @mirrored ?= false
 
-    draw: (ctx) ->
+    draw: ->
       if @loaded
-        ctx.save()
+        @ctx.save()
         if @mirrored
-          ctx.translate(@axis, 0)
-          ctx.scale(-1, 1)
-          ctx.translate(-@axis, 0)
-        super(ctx)
-        ctx.restore()
+          @ctx.translate(@axis, 0)
+          @ctx.scale(-1, 1)
+          @ctx.translate(-@axis, 0)
+        super(@ctx)
+        @ctx.restore()

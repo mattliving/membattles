@@ -28,6 +28,7 @@ define [
       @el.width  = $(".span12").width()
       @el.height = @el.width/@aspectRatio
       @ctx       = @el.getContext("2d")
+      Item.setContext @ctx
       @timer = new Timer()
       @floor = new Floor
         pos:
@@ -60,10 +61,17 @@ define [
       @input.on 'keyup', (input, key) =>
         # might need to find a way that this can support unicode
         if key isnt " " and key isnt ""
+          # these are used to calculate the force needed to make it go to the word
+          # TODO: make it move to where the word will be, rather than where it is
+          {x: tx, y: ty} = @thisPlayerController.getPosition()
+          {x: sx, y: sy} = @thatPlayerController.spawnPos
           new Letter
-            pos: x: 100, y: 300
-            force: x: 4000, y: -4000
+            pos: x: sx, y: sy
+            force: x: 70*(tx-sx), y: 70*(ty-sy)
+            gravityOn: false
             letter: key
+            text: @thisPlayerController.getCurrentText()
+
         @socket.emit 'keypress', input
 
       @socket.on 'keypress', (input) =>
@@ -74,7 +82,7 @@ define [
         @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.getData().text)
 
       @thisPlayerController.on 'next', =>
-        @input.ui.otheranswer.text('')
+        @input.ui.otheranswer.text("")
 
       # show our correct answer under the text box
       @thisPlayerController.on 'exploded', (text, success) =>
@@ -151,7 +159,3 @@ define [
         Item.update(@timer.tick())
         Item.draw(@ctx)
         requestAnimFrame @loop.bind(@), @ctx.canvas
-
-
-
-

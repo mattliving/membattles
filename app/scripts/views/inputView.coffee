@@ -30,7 +30,8 @@ define ["marionette", "helpers/vent"],
       @trigger("guess", guess)
 
     keyPressed: (e) ->
-      @trigger("keyup", @ui.input.val(), String.fromCharCode(e.which or e.keyCode).toLowerCase())
+      unless @ui.input.prop("disabled")
+        @trigger("keyup", @ui.input.val(), String.fromCharCode(e.which or e.keyCode).toLowerCase())
 
     testKey: (e) ->
       # stop the backspace key from ruining everything

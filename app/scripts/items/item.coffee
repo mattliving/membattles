@@ -5,6 +5,7 @@ define ["backbone"], (Backbone) ->
 
     constructor: (options) ->
       {@pos} = options
+      @ctx = Item.ctx
       @active = true
       Item.items.push @
 
@@ -14,9 +15,11 @@ define ["backbone"], (Backbone) ->
 
   Item.items = []
 
-  Item.draw = (ctx) ->
+  Item.setContext = (ctx) -> Item.ctx = ctx
+
+  Item.draw = ->
     for item in Item.items
-      item.draw(ctx)
+      item.draw()
 
   Item.update = (dx) ->
     for item in Item.items

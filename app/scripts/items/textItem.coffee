@@ -12,28 +12,34 @@ define [
       super(options)
       {@model, @floor} = options
       @success = false
+
+      @fontSize = 24
+      @ctx.font = @fontSize + "pt 'Merriweather Sans'"
+      @ctx.fillStyle = "#222"
+
+      @width = @ctx.measureText(@model.get("translation")).width
+      @height = @fontSize
+
       # change this when we move to time based animation
       @expFrames = 0
 
-    draw: (ctx) ->
-      ctx.font = "15pt 'Merriweather Sans'"
-      ctx.fillStyle = "#222"
+    draw: ->
       if @collided
-        @explode(ctx)
+        @explode()
         @expFrames++
         if @expFrames > 50
           @active = false
           @trigger "inactive", @success
       else
-        ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
+        @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
-    explode: (ctx) ->
-      lastFill = ctx.fillStyle
-      ctx.beginPath()
-      ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
-      ctx.fillStyle = if @success then "green" else "red"
-      ctx.fill()
-      ctx.fillStyle = lastFill
+    explode: ->
+      lastFill = @ctx.fillStyle
+      @ctx.beginPath()
+      @ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
+      @ctx.fillStyle = if @success then "green" else "red"
+      @ctx.fill()
+      @ctx.fillStyle = lastFill
 
     update: (dx) ->
       unless @collided

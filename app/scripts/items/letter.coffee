@@ -7,12 +7,28 @@ define [
 
     constructor: (options) ->
       super(options)
-      {@letter} = options
+      {@letter, @text} = options
 
-    draw: (ctx) ->
-      ctx.fillText @letter, @pos.x, @pos.y
+      @fontSize = 24
+      @ctx.font = @fontSize + "pt 'Merriweather Sans'"
+      @ctx.fillStyle = "#222"
+
+      @width = @ctx.measureText(@letter).width
+      @height = @fontSize
+
+    draw: ->
+      @ctx.fillText @letter, @pos.x, @pos.y
 
     checkCollision: ->
-      # this should check against text objects only
-      # text objects will need to have bounding boxes for this to work
-      # may also have to make moments work for rotation, might be overkill
+      if @pos.x > document.width or @pos.y > document.height
+        @active = false
+
+      {x: lx, y: ly} = @pos
+      {x: tx, y: ty} = @text.pos
+      console.log lx, ly, tx, ty, @width, @height, @text.height
+      # this checks if it's hit or has passed the text; it's moving at high
+      # speed to may not actually collide
+      if ((lx + @width) > tx) and ((ly + @height) < (ty + @text.height))
+        @collided = true
+        console.log "collision"
+        @applyForce(-100, 100)

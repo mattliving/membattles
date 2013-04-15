@@ -49,4 +49,8 @@
 
       return text
 
-    checkAnswer: (text) -> @sanitizeInput(text) in @get("accept")
+    checkAnswer: (text) ->
+      for answer in @get("accept")
+        if @sanitizeInput(text) is @sanitizeInput(answer)
+          return true
+      return false

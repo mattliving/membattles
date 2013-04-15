@@ -49,19 +49,19 @@ define [
         active: true
         mirrored: @local
 
+      @spawnPos = y: @cannon.pos.y - @cannon.img.height - 100
+      if @local
+        @spawnPos.x = 2*@cannon.axis-@cannon.pos.x
+      else
+        @spawnPos.x = @cannon.pos.x
+
       @on 'next', ->
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
 
-        if @local
-          x = 2*@cannon.axis-@cannon.pos.x
-        else
-          x = @cannon.pos.x
         # create the new text item at the mouth of the cannon
         @currentTextItem = new TextItem
-          pos:
-            x: x
-            y: @cannon.pos.y - @cannon.img.height - 50
+          pos: _.clone @spawnPos
           force:
             x: if @local then -2400 else 2400
             y: -3000
@@ -93,7 +93,10 @@ define [
         else
           model.incPoints()
 
+    getPosition: -> @currentTextItem.pos
+
     getData: ->
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
 
+    getCurrentText: -> @currentTextItem
