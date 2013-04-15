@@ -23,8 +23,6 @@ define [
       input:      '#inputArea'
       game:       '#game'
 
-    # only the first argument is being sent for some awful reason.
-    # This is the quickest (and ugliest) workaround...
     initialize: ({@socket, @thisPlayerController}) ->
       @thisPlayer.on 'show', (layout) =>
         layout.player.on 'show', (view) =>
