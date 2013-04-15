@@ -64,13 +64,6 @@ define [
       @socket.on 'keypress', (input) =>
         @input.trigger 'keypress', input
 
-      @thisPlayerController.on 'exploded', (text, success) =>
-        unless success or @stopped
-          @input.ui.thisanswer.html("Correct answer: #{text}")
-
-      @thatPlayerController.on 'endTurn', =>
-        unless @stopped
-          @input.ui.thisanswer.html('')
 
       vent.on 'other:disconnect', =>
         @stop()
@@ -90,13 +83,22 @@ define [
           vent.trigger 'game:ended', "You Win!"
 
       # Show the other person's answer under the input box
-      # @thatPlayerController.on 'next', =>
-      #   if @thatPlayerController.textView.model?
-      #     @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.textView.model.get("text"))
+      @thatPlayerController.on 'next', =>
+        @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.getData().text)
 
       @thisPlayerController.on 'next', =>
         @input.ui.otheranswer.text('')
 
+      # show our correct answer under the text box
+      @thisPlayerController.on 'exploded', (text, success) =>
+        unless success or @stopped
+          @input.ui.thisanswer.html("Correct answer: #{text}")
+
+      @thatPlayerController.on 'endTurn', =>
+        unless @stopped
+          @input.ui.thisanswer.html('')
+
+      # disable and enable the input box, start the other player when one stops
       @thisPlayerController.on 'endTurn', =>
         @input.disable()
         @thatPlayerController.trigger('next')

@@ -13,6 +13,9 @@ define [], ->
       wallDelta = (wallCurrent - @wallLastTimestamp) / 1000
       @wallLastTimestamp = wallCurrent
 
+      # the commented out code meant that the sometimes long delays between
+      # requestAnimationFrame callbacks wouldn't update the screen enough,
+      # leaving the two players really out of sync.
       gameDelta = wallDelta # Math.min(wallDelta, @maxStep)
       @gameTime += gameDelta
       return gameDelta

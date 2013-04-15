@@ -56,6 +56,7 @@ define [
         # be hanging around as it's still in Item.items
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
+        # create the new text item at the mouth of the cannon
         @currentTextItem = new TextItem
           pos:
             # the end part adds 600 if cannon is mirrored, otherwise adds nothing
@@ -91,4 +92,8 @@ define [
             vent.trigger 'game:ending', model.get('username')
         else
           model.incPoints()
+
+    getData: ->
+      text: @currentTextItem.model.get("text")
+      translation: @currentTextItem.model.get("translation")
 

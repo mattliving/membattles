@@ -44,8 +44,8 @@ define [
     # we switch the animation code to time based
     update: (dx) ->
       if not @collided
-        updates = Math.round(dx*200)
-        while updates-- > 0 and not @collided
+        updates = Math.round(dx*150)
+        while updates --> 0 and not @collided
           @velocity.x += @force.x
           @velocity.y += @force.y
           @pos.x  += @velocity.x
