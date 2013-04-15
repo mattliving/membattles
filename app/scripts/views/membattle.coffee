@@ -15,20 +15,21 @@ define [
 
     tagName: "canvas"
 
-    attributes:
-      width: "1080px"
-      height : "640px"
+    # attributes:
+    #   width: "960px"
+    #   height : "640px"
 
     ui:
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
-    factory: {}
-    entities: []
-
     stopped: true
 
+    aspectRatio: 16 / 9
+
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
+      @el.setAttribute "width", $(".span12").width()
+      @el.setAttribute "height", @el.getAttribute("width")/@aspectRatio
       @ctx = @el.getContext("2d")
       @timer = new Timer()
       @floor = new Floor

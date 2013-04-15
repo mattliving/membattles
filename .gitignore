@@ -3,5 +3,10 @@ dist
 .tmp
 .sass-cache
 app/components
+<<<<<<< HEAD
+*.sublime-project
+*.sublime-workspace
+=======
 *.sublime-workspace
 *.sublime-project
+>>>>>>> 41b214e835da1c8377ec2babff8880094dd8cf21

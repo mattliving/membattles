@@ -42,8 +42,6 @@ define [
 
     initialize: (@floor) ->
 
-      console.log "initialized"
-
       # more permanent solution to this is needed.
       @cannon = new Cannon
         pos:
@@ -54,6 +52,8 @@ define [
         mirrored: @local
 
       @on 'next', ->
+        # look into the memory impact of this - pretty sure the old object will
+        # be hanging around as it's still in Item.items
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
         @currentTextItem = new TextItem
@@ -70,23 +70,19 @@ define [
 
         # set up and bubble events from the newly created object
         @listenTo @currentTextItem, 'inactive', (success) ->
-          console.log "inactive"
           @trigger 'endTurn', success
 
         @listenTo @currentTextItem, 'exploded', (text, success) ->
-          console.log "exploded"
           @trigger 'exploded', text, success
 
         @playerView.model.setCurrentPlayer()
 
       @on 'guess', (guess) ->
-        console.log "guess"
         if @currentTextItem.active
           @currentTextItem.success  = @currentTextItem.model.checkAnswer(guess)
           @currentTextItem.collided = true
 
       @on 'endTurn', (success) ->
-        console.log "endTurn"
         model = @playerView.model
         model.setCurrentPlayer()
         unless success
@@ -95,6 +91,4 @@ define [
             vent.trigger 'game:ending', model.get('username')
         else
           model.incPoints()
-
-      console.log "finished initializing"
 
