@@ -1,6 +1,6 @@
 define [
   "marionette",
-  "vent",
+  "helpers/vent",
   "items/plant",
   "items/cannon",
   "models/player",
@@ -101,8 +101,6 @@ define [
         if @currentTextItem.active
           @currentTextItem.success  = @currentTextItem.model.checkAnswer(guess)
           @currentTextItem.collided = true
-
-
 
       @on 'endTurn', (success) ->
         console.log "endTurn"

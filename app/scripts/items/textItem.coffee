@@ -1,5 +1,5 @@
 define [
-  "vent",
+  "helpers/vent",
   "models/thing",
   "items/item",
 ],
@@ -42,17 +42,19 @@ define [
 
     # force based animation updates will need to be carefully updated when
     # we switch the animation code to time based
-    update: ->
+    update: (dx) ->
       if not @collided
-        @velocity.x += @force.x
-        @velocity.y += @force.y
-        @pos.x  += @velocity.x
-        @pos.y  += @velocity.y
+        updates = Math.round(dx*200)
+        while updates-- > 0 and not @collided
+          @velocity.x += @force.x
+          @velocity.y += @force.y
+          @pos.x  += @velocity.x
+          @pos.y  += @velocity.y
 
-        @applyForce(0, 9.8)
+          @applyForce(0, 9.8)
 
-        dx = @pos.x - @floor.pos.x - @floor.img.width
-        dy = @pos.y - @floor.pos.y - @floor.img.height
-        if  0 < dx < @floor.img.width and 0 < dy < @floor.img.height
-          @success = false
-          @collided = true
+          dx = @pos.x - @floor.pos.x - @floor.img.width
+          dy = @pos.y - @floor.pos.y - @floor.img.height
+          if  0 < dx < @floor.img.width and 0 < dy < @floor.img.height
+            @success = false
+            @collided = true

@@ -1,14 +1,14 @@
-define ["items/item"],
-(Item) ->
+define ["items/item"], (Item) ->
 
   class TextView extends Item
 
-    constructor: (@collection, @floor, startPosition, startForce = [0, 0]) ->
-      super()
+    constructor: (options) ->
+      super(options)
+      {@collection, @floor, @startPosition, @startForce} = options
 
       @collection.map (model) =>
-        model.set("position", startPosition)
-        model.applyForce(startForce[0], startForce[1])
+        model.set("position", @startPosition)
+        model.applyForce(@startForce[0], @startForce[1])
         model.set("floor", @floor)
         return model
 

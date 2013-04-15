@@ -1,6 +1,6 @@
 define [
   "marionette",
-  "vent",
+  "helpers/vent",
   "views/gameLayout",
   "views/loginView",
   "playerController",

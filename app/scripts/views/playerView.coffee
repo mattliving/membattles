@@ -1,6 +1,6 @@
 define [
   "marionette",
-  "vent",
+  "helpers/vent",
   "collections/things",
   "bootstrap.button"],
 (Marionette, vent, Things) ->

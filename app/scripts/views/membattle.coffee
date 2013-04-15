@@ -1,6 +1,7 @@
 define [
   "marionette",
-  "vent",
+  "helpers/vent",
+  "helpers/timer",
   "items/item",
   "items/imageItem",
   "items/floor",
@@ -8,24 +9,28 @@ define [
   "items/cannon",
   "items/textItem"
 ],
-(Marionette, vent, Item, ImageItem, Floor, Plant, Cannon, TextItem) ->
+(Marionette, vent, Timer, Item, ImageItem, Floor, Plant, Cannon, TextItem) ->
 
   class Membattle extends Marionette.View
 
     tagName: "canvas"
 
     attributes:
-      height : "800px"
+      width: "960px"
+      height : "640px"
 
     ui:
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
 
+    factory: {}
+    entities: []
+
     stopped: true
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
-      @$el.attr("width", $(".span12").css("width"))
       @ctx = @el.getContext("2d")
+      @timer = new Timer()
       @floor = new Floor
         pos:
           x: @el.width/2
@@ -65,7 +70,7 @@ define [
           @input.ui.thisanswer.html('')
 
       vent.on 'other:disconnect', =>
-        @stopAnimation()
+        @stop()
         @ctx.fillStyle = "black"
         @ctx.globalAlpha = 0.5
         @ctx.font = "28pt 'Merriweather Sans'"
@@ -75,7 +80,7 @@ define [
         @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
 
       vent.on 'game:ending', (username) =>
-        @stopAnimation()
+        @stop()
         if username is @thisPlayerController.playerView.model.get('username')
           vent.trigger 'game:ended', "You Lose!"
         else
@@ -97,6 +102,11 @@ define [
         @input.enable()
         @thisPlayerController.trigger('next')
 
+    spawnEntity = (typename) ->
+      entity = new (factory[typename])()
+      @entities.push entity
+      return entity
+
     initPlants: (x, y, n, type) ->
       for i in [1..n]
         if type is "medium"
@@ -108,34 +118,27 @@ define [
           plant.x = i
         @items.push plant
 
-    startAnimation: ->
-      @ms = 0
+    start: ->
       if @thisStarts
         @thisPlayerController.trigger("next")
       else
         @thatPlayerController.trigger("next")
 
       @stopped = false
-      @update(Date.now())
+      @lastUpdateTimestamp = Date.now()
+      do gameLoop = =>
+        unless @stopped
+          @loop()
+          requestAnimFrame gameLoop, @ctx.canvas
 
-    stopAnimation: ->
+    stop: ->
       @stopped = true
       @input.disable()
       @input.off('keyup')
       @input.off('guess')
 
-    update: (lastTime) ->
-      unless @stopped
-        time = Date.now()
-        dx = time - lastTime
-        @ms += dx
-        while @ms > 10
-          @ctx.clearRect(0, 0, @el.width, @el.height)
-          for item in Item.items
-            if item? and item.active
-              item.draw(@ctx)
-              item.update()
-          @ms -= 10
-        requestAnimFrame (=>
-          @update(time)
-        ), @ctx
+    # main game loop
+    loop: ->
+      @ctx.clearRect(0, 0, @el.width, @el.height)
+      Item.update(@timer.tick())
+      Item.draw(@ctx)
