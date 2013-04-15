@@ -51,8 +51,6 @@ define [
         mirrored: @local
 
       @on 'next', ->
-        # look into the memory impact of this - pretty sure the old object will
-        # be hanging around as it's still in Item.items
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
         # create the new text item at the mouth of the cannon

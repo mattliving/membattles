@@ -7,9 +7,10 @@ define [
   "items/floor",
   "items/plant",
   "items/cannon",
-  "items/textItem"
+  "items/textItem",
+  "items/letter"
 ],
-(Marionette, vent, Timer, Item, ImageItem, Floor, Plant, Cannon, TextItem) ->
+(Marionette, vent, Timer, Item, ImageItem, Floor, Plant, Cannon, TextItem, Letter) ->
 
   class Membattle extends Marionette.View
 
@@ -46,11 +47,12 @@ define [
       @input.listenTo @thatPlayerController, 'next', ->
         @ui.input.prop('disabled', true)
         @ui.input.css('color', 'grey')
+
       @input.listenTo @thisPlayerController, 'next', ->
         @ui.input.prop('disabled', false)
         @ui.input.removeAttr('style')
 
-      # send and listen to guesses, checking them against the correct player
+      # trigger/listen to guesses, checking them against the correct player
       @input.on 'guess', (guess) =>
         @thisPlayerController.trigger 'guess', guess
         @socket.emit 'guess', guess
@@ -59,28 +61,17 @@ define [
         @thatPlayerController.trigger 'guess', guess
 
       # send and listen to all keypress events, to show the other person typing
-      @input.on 'keyup', (input) =>
+      @input.on 'keyup', (input, key) =>
+        # might need to find a way that this can support unicode
+        if key isnt " " and key isnt ""
+          new Letter
+            pos: x: 100, y: 300
+            force: x: 4000, y: -4000
+            letter: key
         @socket.emit 'keypress', input
+
       @socket.on 'keypress', (input) =>
         @input.trigger 'keypress', input
-
-
-      vent.on 'other:disconnect', =>
-        @stop()
-        @ctx.fillStyle = "black"
-        @ctx.globalAlpha = 0.5
-        @ctx.font = "28pt 'Merriweather Sans'"
-        @ctx.fillRect(0, 0, @el.width, @el.height)
-        @ctx.globalAlpha = 1
-        @ctx.fillStyle = "white"
-        @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
-
-      vent.on 'game:ending', (username) =>
-        @stop()
-        if username is @thisPlayerController.playerView.model.get('username')
-          vent.trigger 'game:ended', "You Lose!"
-        else
-          vent.trigger 'game:ended', "You Win!"
 
       # Show the other person's answer under the input box
       @thatPlayerController.on 'next', =>
@@ -106,6 +97,24 @@ define [
       @thatPlayerController.on 'endTurn', =>
         @input.enable()
         @thisPlayerController.trigger('next')
+
+      # global events that membattle has to deal with
+      vent.on 'other:disconnect', =>
+        @stop()
+        @ctx.fillStyle = "black"
+        @ctx.globalAlpha = 0.5
+        @ctx.font = "28pt 'Merriweather Sans'"
+        @ctx.fillRect(0, 0, @el.width, @el.height)
+        @ctx.globalAlpha = 1
+        @ctx.fillStyle = "white"
+        @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
+
+      vent.on 'game:ending', (username) =>
+        @stop()
+        if username is @thisPlayerController.playerView.model.get('username')
+          vent.trigger 'game:ended', "You Lose!"
+        else
+          vent.trigger 'game:ended', "You Win!"
 
     spawnEntity = (typename) ->
       entity = new (factory[typename])()
