@@ -54,12 +54,13 @@ define [
       @on 'next', ->
         # look into the memory impact of this - pretty sure the old object will
         # be hanging around as it's still in Item.items
+        # inactive items will be removed from the items array
         @currentTextItem?.active = false
         @currentTextItem = new TextItem
           pos:
             # the end part adds 600 if cannon is mirrored, otherwise adds nothing
-            x: @cannon.pos.x+@cannon.img.width + @cannon.mirrored * 600
-            y: @cannon.pos.y-@cannon.img.height
+            x: @cannon.pos.x + @cannon.img.width + @cannon.mirrored * 600
+            y: @cannon.pos.y - @cannon.img.height - 50
           force:
             x: if @local then -2400 else 2400
             y: -3000

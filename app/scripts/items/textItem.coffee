@@ -53,8 +53,8 @@ define [
 
           @applyForce(0, 9.8)
 
-          dx = @pos.x - @floor.pos.x - @floor.img.width
-          dy = @pos.y - @floor.pos.y - @floor.img.height
+          dx = @pos.x - (@floor.pos.x - @floor.img.width/2)
+          dy = @pos.y - (@floor.pos.y - @floor.img.height/2)
           if  0 < dx < @floor.img.width and 0 < dy < @floor.img.height
             @success = false
             @collided = true
