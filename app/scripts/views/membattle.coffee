@@ -16,7 +16,7 @@ define [
     tagName: "canvas"
 
     attributes:
-      width: "960px"
+      width: "1080px"
       height : "640px"
 
     ui:
@@ -41,6 +41,7 @@ define [
       @thisPlayerController.initialize(@floor)
       @thatPlayerController.initialize(@floor)
 
+      # make the input box fade out & be disabled as necessary
       @input.listenTo @thatPlayerController, 'next', ->
         @ui.input.prop('disabled', true)
         @ui.input.css('color', 'grey')
@@ -48,18 +49,19 @@ define [
         @ui.input.prop('disabled', false)
         @ui.input.removeAttr('style')
 
+      # send and listen to guesses, checking them against the correct player
       @input.on 'guess', (guess) =>
         @thisPlayerController.trigger 'guess', guess
         @socket.emit 'guess', guess
 
-      @input.on 'keyup', (input) =>
-        @socket.emit 'keypress', input
-
-      @socket.on 'keypress', (input) =>
-        @input.trigger 'keypress', input
-
       @socket.on 'guess', (guess) =>
         @thatPlayerController.trigger 'guess', guess
+
+      # send and listen to all keypress events, to show the other person typing
+      @input.on 'keyup', (input) =>
+        @socket.emit 'keypress', input
+      @socket.on 'keypress', (input) =>
+        @input.trigger 'keypress', input
 
       @thisPlayerController.on 'exploded', (text, success) =>
         unless success or @stopped

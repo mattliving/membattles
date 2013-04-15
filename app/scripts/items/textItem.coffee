@@ -19,7 +19,7 @@ define [
 
     draw: (ctx) ->
       if @active
-        ctx.font = "15pt 'Comic Sans MS'"
+        ctx.font = "15pt 'Merriweather Sans'"
         ctx.fillStyle = "#222"
         if @collided
           @explode(ctx)
