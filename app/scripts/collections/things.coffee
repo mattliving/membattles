@@ -18,6 +18,8 @@ define ["app", "models/thing"],
 
     getNext: -> @at(@current++)
 
+    getCurrent: -> @at(@current)
+
     addText: (text) ->
       @push(text)
       @listenTo text, 'loaded', ->

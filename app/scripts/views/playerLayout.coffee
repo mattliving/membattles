@@ -1,6 +1,6 @@
 define [
   "marionette",
-  "vent"],
+  "helpers/vent"],
 (Marionette, vent) ->
 
   class PlayerLayout extends Marionette.Layout

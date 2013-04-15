@@ -1,5 +1,5 @@
-define ["models/thinguser"],
-(Thinguser) ->
+define ["marionette", "models/thinguser"],
+(Marionette, Thinguser) ->
   
   class Thingusers extends Backbone.Collection
 

@@ -8,9 +8,9 @@ define [
   "views/playerLayout",
   "views/playerView",
   "views/coursesView",
-  "views/textView"
+  "items/textItem"
 ],
-(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextView) ->
+(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem) ->
 
   class PlayerController extends Marionette.Controller
 
@@ -41,43 +41,49 @@ define [
         @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->
+
       # more permanent solution to this is needed.
-      cPos =
-        x: if @local then 600 else 40
-        y: @floor.pos.y-4
       @cannon = new Cannon
-        pos: cPos
+        pos:
+          y: @floor.pos.y-4
+          x: if @local then 600 else 40
         scale: 1.2
+        active: true
         mirrored: @local
-        active: true
-
-      textPos = [@cannon.pos.x+@cannon.img.width, @cannon.pos.y]
-      if @cannon.mirrored
-        textPos[0] += 600 # probably just chance that this is the right num
-
-      fx = if @local then -2400 else 2400
-      @textView = new TextView
-        collection: @things
-        floor: @floor
-        startPosition: textPos 
-        startForce: [fx, -3000]
-        active: true
 
       @on 'next', ->
+        # look into the memory impact of this - pretty sure the old object will
+        # be hanging around as it's still in Item.items
+        @currentTextItem?.active = false
+        @currentTextItem = new TextItem
+          pos:
+            # the end part adds 600 if cannon is mirrored, otherwise adds nothing
+            x: @cannon.pos.x+@cannon.img.width + @cannon.mirrored * 600
+            y: @cannon.pos.y-@cannon.img.height
+          force:
+            x: if @local then -2400 else 2400
+            y: -3000
+          active: true
+          floor: @floor
+          model: @things.getNext()
+
+        # set up and bubble events from the newly created object
+        @listenTo @currentTextItem, 'inactive', (success) ->
+          @trigger 'endTurn', success
+
+        @listenTo @currentTextItem, 'exploded', (text, success) ->
+          @trigger 'exploded', text, success
+
         @playerView.model.setCurrentPlayer()
-        @textView.trigger('next')
 
       @on 'guess', (guess) ->
-        if @textView.model.get("active")
-          @textView.model.set "success", @textView.model.checkAnswer(guess)
-          @textView.model.set "collided", true
-
-      @listenTo @textView, 'inactive', (success) ->
-        @trigger 'endTurn', success
+        if @currentTextItem.active
+          @currentTextItem.success  = @currentTextItem.model.checkAnswer(guess)
+          @currentTextItem.collided = true
 
       @on 'endTurn', (success) ->
         model = @playerView.model
-        @playerView.model.setCurrentPlayer()
+        model.setCurrentPlayer()
         unless success
           model.decLives()
           if model.get('lives') <= 0
