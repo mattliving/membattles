@@ -16,10 +16,6 @@ define [
 
     tagName: "canvas"
 
-    # attributes:
-    #   width: "960px"
-    #   height : "640px"
-
     ui:
       thisPlayer: "#thisPlayer"
       thatPlayer: "#thatPlayer"
@@ -29,15 +25,15 @@ define [
     aspectRatio: 16 / 9
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
-      @el.setAttribute "width", $(".span12").width()
-      @el.setAttribute "height", @el.getAttribute("width")/@aspectRatio
-      @ctx = @el.getContext("2d")
+      @el.width  = $(".span12").width()
+      @el.height = @el.width/@aspectRatio
+      @ctx       = @el.getContext("2d")
       @timer = new Timer()
       @floor = new Floor
         pos:
           x: @el.width/2
           y: @el.height/2
-        scale: 1
+        scaleX: @el.width
         active: true
 
       @thisPlayerController.initialize(@floor)
@@ -140,10 +136,7 @@ define [
 
       @stopped = false
       @lastUpdateTimestamp = Date.now()
-      do gameLoop = =>
-        unless @stopped
-          @loop()
-          requestAnimFrame gameLoop, @ctx.canvas
+      @loop()
 
     stop: ->
       @stopped = true
@@ -153,6 +146,12 @@ define [
 
     # main game loop
     loop: ->
-      @ctx.clearRect(0, 0, @el.width, @el.height)
-      Item.update(@timer.tick())
-      Item.draw(@ctx)
+      unless @stopped
+        @ctx.clearRect(0, 0, @el.width, @el.height)
+        Item.update(@timer.tick())
+        Item.draw(@ctx)
+        requestAnimFrame @loop.bind(@), @ctx.canvas
+
+
+
+
