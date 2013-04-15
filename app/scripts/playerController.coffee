@@ -42,12 +42,10 @@ define [
 
     initialize: (@floor) ->
 
-      # more permanent solution to this is needed.
       @cannon = new Cannon
         pos:
-          y: @floor.pos.y-4
-          x: if @local then 600 else 40
-        scale: 1.2
+          x: @floor.pos.x*(0.1 + 0.8*@local) #if @local then @floor.pos.x*1.1 else @floor.pos.x*0.1
+          y: @floor.pos.y
         active: true
         mirrored: @local
 
@@ -58,8 +56,7 @@ define [
         @currentTextItem?.active = false
         @currentTextItem = new TextItem
           pos:
-            # the end part adds 600 if cannon is mirrored, otherwise adds nothing
-            x: @cannon.pos.x + @cannon.img.width + @cannon.mirrored * 600
+            x: @cannon.pos.x + @cannon.img.width
             y: @cannon.pos.y - @cannon.img.height - 50
           force:
             x: if @local then -2400 else 2400

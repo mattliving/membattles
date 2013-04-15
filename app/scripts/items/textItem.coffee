@@ -48,8 +48,8 @@ define [
         while updates-- > 0 and not @collided
           @velocity.x += @force.x
           @velocity.y += @force.y
-          @pos.x  += @velocity.x
-          @pos.y  += @velocity.y
+          @pos.x += @velocity.x
+          @pos.y += @velocity.y
 
           @applyForce(0, 9.8)
 
