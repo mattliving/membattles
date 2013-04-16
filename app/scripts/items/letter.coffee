@@ -25,10 +25,9 @@ define [
 
       {x: lx, y: ly} = @pos
       {x: tx, y: ty} = @text.pos
-      console.log lx, ly, tx, ty, @width, @height, @text.height
       # this checks if it's hit or has passed the text; it's moving at high
       # speed to may not actually collide
       if ((lx + @width) > tx) and ((ly + @height) < (ty + @text.height))
         @collided = true
-        console.log "collision"
-        @applyForce(-100, 100)
+        @gravityOn = true
+        @applyForce(x: -14000*Math.random(), y: 4000)
