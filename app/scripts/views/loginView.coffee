@@ -8,13 +8,13 @@ define ["marionette"],
     className: "span12"
 
     ui:
-      inputEmail: "#inputEmail"
+      inputUsername: "#inputUsername"
 
     template: "#loginTemplate"
 
     events:
-      "click .btn": "login"
+      "click .btn.btn-large": "login"
 
     login: (e) ->
       e.preventDefault()
-      @trigger 'submit', @ui.inputEmail.val()
+      @trigger 'submit', @ui.inputUsername.val()

@@ -11,6 +11,7 @@
       <meta name="viewport" content="width=device-width">
       <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
       <link rel="stylesheet" href="styles/main.css">
+      <link href='http://fonts.googleapis.com/css?family=Merriweather' rel='stylesheet' type='text/css'>
       <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans' rel='stylesheet' type='text/css'>
       <!-- build:js scripts/vendor/modernizr.js -->
       <script src="components/modernizr/modernizr.js"></script>
@@ -70,35 +71,18 @@
       </script>
 
       <script id="loginTemplate" type="text/template" class="template">
-        <h1>WORD WAR ONE</h1>
-        <div class="row-fluid">
           <div class="span4"></div>
-          <form class="span4 form-horizontal">
-            <h3>Login</h3>
-            <div class="control-group">
-              <label class="control-label" for="inputEmail">Email</label>
-              <div class="controls">
-                <!-- username is not a valid type, but will be displayed as text -->
-                <input type="username" id="inputEmail" placeholder="Email">
-              </div>
-            </div>
-            <div class="control-group">
-              <label class="control-label" for="inputPassword">Password</label>
-              <div class="controls">
-                <input type="password" id="inputPassword" placeholder="Password">
-              </div>
-            </div>
-            <div class="control-group">
-              <div class="controls">
-                <label class="checkbox">
-                  <input type="checkbox"> Remember me
-                </label>
-                <button type="submit" class="btn">Sign in</button>
-              </div>
-            </div>
-          </form>
+          <div id="auth-box" class="span4">
+            <a href="/" class="circle-logo">
+              <img src="http://static.memrise.com/garden/img/logo/circle@2x.png" alt="Memrise logo">
+            </a>
+            <form>
+              <h3>Login to Word Wars</h3>
+              <input class="input-large" id="inputUsername" type="username" placeholder="Username">
+              <button class="btn btn-large" type="submit">Login</button>
+            </form>
+          </div>
           <div class="span4"></div>
-        </div>
       </script>
 
       <script id="noItemsTemplate" type="text/template" class="template">
