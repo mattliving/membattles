@@ -9,7 +9,7 @@ define [
 
     constructor: (options) ->
       super(options)
-      # @gravityOn is true if undefined or true in options, false if false
+      # @gravityOn is true if undefined or true in options, only false if false
       @gravityOn = options.gravityOn isnt false
       @applyForce(options.force)
       @velocity = x: 0, y: 0
@@ -18,8 +18,6 @@ define [
     applyForce: (f = x: 0, y: 0) -> @force = x: f.x*0.0005, y: f.y*0.0005
 
     update: (dx) ->
-      # fix this as adam has said - store a difference rather than an
-      # absolute count
       @dx += dx
       while @dx > 1/100
         @velocity.x += @force.x

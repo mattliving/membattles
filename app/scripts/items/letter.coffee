@@ -29,7 +29,7 @@ define [
 
 
     update: (dx) ->
-      if @rotating then @rotation += 1*dx
+      if @rotating then @rotation += dx
       super(dx)
 
     checkCollision: ->
