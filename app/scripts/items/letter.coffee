@@ -21,7 +21,6 @@ define [
         @ctx.save()
         @ctx.translate(@pos.x+@width/2, @pos.y+@height/2)
         @ctx.rotate(@rotation)
-        # @ctx.translate(-@width/2, -@height/2)
         @ctx.fillText @letter, -@width/2, -@height/2
         @ctx.restore()
       else
@@ -33,7 +32,7 @@ define [
       super(dx)
 
     checkCollision: ->
-      if @pos.x > document.width or @pos.y > document.height
+      if @pos.x > window.innerWidth or @pos.x < 0 or @pos.y > window.innerHeight
         @active = false
 
       if @hitWord

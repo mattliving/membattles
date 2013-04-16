@@ -1,10 +1,12 @@
 define [
+  "marionette",
   "helpers/vent",
   "models/thing",
-  "items/physicsitem",
+  "items/physicsItem",
+  "items/letter",
   "items/explosion"
 ],
-(vent, Thing, PhysicsItem, Explosion) ->
+(Marionette, vent, Thing, PhysicsItem, Letter, Explosion) ->
 
   # displays a single text item
   class TextItem extends PhysicsItem
@@ -27,26 +29,61 @@ define [
     draw: ->
       if @collided
         new Explosion pos: _.clone @pos
+        if @success
+          @animatePoints()
+        else
+          @explode()
         @active = false
         @trigger "inactive", @success
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
     explode: ->
-      lastFill = @ctx.fillStyle
-      @ctx.beginPath()
-      @ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
-      @ctx.fillStyle = if @success then "green" else "red"
-      @ctx.fill()
-      @ctx.fillStyle = lastFill
+      letters = []
+      startPos = @pos
+      for letter, i in @model.get("translation").split('')
+        letters.push new Letter
+          letter: letter
+          text: @
+          floor: @floor
+          pos:
+            x: startPos.x + i * 30
+            y: startPos.y
+          force:
+            x: (Math.random()-0.5)*1000
+            y: -200
+
+    animatePoints: ->
+      $curPoints = $("#thisPlayer #points")
+      $points    = $("<div><h3></h3></div>")
+      $("#game").append($points)
+      $points.text "+45"
+      $points.css
+        position: "absolute",
+        top:    $("canvas")[0].offsetTop + @pos.y + "px",
+        left:   $("canvas")[0].offsetLeft + @pos.x + "px",
+        "text-align": "center";
+        "vertical-align": "center";
+        "font-family": "Helvetica Neue";
+        "font-size": "49px";
+        "z-index": 1,
+        color: "#333"
+      $points.animate(
+        top:    $curPoints[0].offsetTop + $curPoints[0].offsetHeight/4
+        left:   $curPoints[0].offsetLeft + $curPoints[0].offsetWidth/4
+        'font-size': "24.5px",
+        1000,
+        "swing",
+        ->
+          $points.remove()
+      )
 
     update: (dx) ->
       unless @collided
         super(dx)
 
     checkCollision: ->
-      dx = @pos.x - (@floor.pos.x - @floor.img.width/2)
-      dy = @pos.y - (@floor.pos.y - @floor.img.height/2)
-      if  0 < dx < @floor.img.width and 0 < dy < @floor.img.height
+      dy = @pos.y - @floor.pos.y
+      if 0 < dy < @floor.height
         @success = false
         @collided = true

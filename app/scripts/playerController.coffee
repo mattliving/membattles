@@ -93,7 +93,7 @@ define [
           if model.get('lives') <= 0
             vent.trigger 'game:ending', model.get('username')
         else
-          model.incPoints()
+          model.incPoints(45)
 
     getData: ->
       text: @currentTextItem.model.get("text")
