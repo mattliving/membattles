@@ -109,9 +109,9 @@ define [
         gravityOn: false
         letter: letter
         text: @currentTextItem
+        floor: @floor
       letter.on 'collided', =>
         if @currentTextItem.model.checkPartialAnswer(input)
-          console.log "partial answer was correct!"
           letter.explode()
         else
           letter.bounce()
