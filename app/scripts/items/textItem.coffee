@@ -2,8 +2,9 @@ define [
   "helpers/vent",
   "models/thing",
   "items/physicsitem",
+  "items/explosion"
 ],
-(vent, Thing, PhysicsItem) ->
+(vent, Thing, PhysicsItem, Explosion) ->
 
   # displays a single text item
   class TextItem extends PhysicsItem
@@ -25,11 +26,9 @@ define [
 
     draw: ->
       if @collided
-        @explode()
-        @expFrames++
-        if @expFrames > 50
-          @active = false
-          @trigger "inactive", @success
+        new Explosion pos: _.clone @pos
+        @active = false
+        @trigger "inactive", @success
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 

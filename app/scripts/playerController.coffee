@@ -99,6 +99,7 @@ define [
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
 
+    # no longer used :(
     fireLetter: (letter, input, startPos) ->
       # these are used to calculate the force needed to make it go to the word
       # TODO: make it move to where the word will be, rather than where it is

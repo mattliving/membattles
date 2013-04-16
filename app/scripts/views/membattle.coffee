@@ -59,9 +59,6 @@ define [
 
       # send and listen to all keypress events, to show the other person typing
       @input.on 'keyup', (input, key) =>
-        # find a way that this can support unicode symbols
-        if key.match /\w+/
-          @thisPlayerController.fireLetter(key, input, @thatPlayerController.spawnPos)
         @socket.emit 'keypress', input
 
       @socket.on 'keypress', (input) =>
@@ -98,10 +95,11 @@ define [
         @ctx.fillStyle = "black"
         @ctx.globalAlpha = 0.5
         @ctx.font = "28pt 'Merriweather Sans'"
+        width = @ctx.measureText("User disconnected :(")
         @ctx.fillRect(0, 0, @el.width, @el.height)
         @ctx.globalAlpha = 1
         @ctx.fillStyle = "white"
-        @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
+        @ctx.fillText("User disconnected :(", @el.width/2-width, @el.height/2-28)
 
       vent.on 'game:ending', (username) =>
         @stop()
