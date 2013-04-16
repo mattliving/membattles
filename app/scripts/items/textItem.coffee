@@ -1,9 +1,10 @@
 define [
   "helpers/vent",
   "models/thing",
-  "items/physicsitem",
+  "items/letter",
+  "items/physicsitem"
 ],
-(vent, Thing, PhysicsItem) ->
+(vent, Thing, Letter, PhysicsItem) ->
 
   # displays a single text item
   class TextItem extends PhysicsItem
@@ -26,20 +27,33 @@ define [
     draw: ->
       if @collided
         @explode()
-        @expFrames++
-        if @expFrames > 50
-          @active = false
-          @trigger "inactive", @success
+        # @expFrames++
+        # if @expFrames > 50
+        @active = false
+        @trigger "inactive", @success
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
     explode: ->
-      lastFill = @ctx.fillStyle
-      @ctx.beginPath()
-      @ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
-      @ctx.fillStyle = if @success then "green" else "red"
-      @ctx.fill()
-      @ctx.fillStyle = lastFill
+      letters = []
+      startPos = @pos
+      console.log startPos
+      for letter, i in @model.get("translation").split('')
+        letters.push new Letter
+          letter: letter
+          pos:
+            x: startPos.x*i
+            y: startPos.y
+          # force:
+          #   y: -13
+        # console.log letters[i]
+
+      # lastFill = @ctx.fillStyle
+      # @ctx.beginPath()
+      # @ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
+      # @ctx.fillStyle = if @success then "green" else "red"
+      # @ctx.fill()
+      # @ctx.fillStyle = lastFill
 
     update: (dx) ->
       unless @collided
