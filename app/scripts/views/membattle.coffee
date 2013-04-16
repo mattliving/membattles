@@ -69,7 +69,7 @@ define [
 
       # Show the other person's answer under the input box
       @thatPlayerController.on 'next', =>
-        @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.getData().text)
+        @input.ui.otheranswer.text("Their answer: " + @thatPlayerController.getData().text)
 
       @thisPlayerController.on 'next', =>
         @input.ui.otheranswer.text("")
