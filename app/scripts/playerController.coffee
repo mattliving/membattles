@@ -9,9 +9,10 @@ define [
   "views/playerView",
   "views/coursesView",
   "items/textItem",
-  "items/letter"
+  "items/letter",
+  "items/explosion"
 ],
-(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem, Letter) ->
+(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem, Letter, Explosion) ->
 
   class PlayerController extends Marionette.Controller
 
@@ -112,6 +113,8 @@ define [
         floor: @floor
       letter.on 'collided', =>
         if @currentTextItem.model.checkPartialAnswer(input)
-          letter.explode()
+          console.log "exploding"
+          new Explosion pos: _.clone letter.pos
+          letter.active = false
         else
           letter.bounce()

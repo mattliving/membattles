@@ -24,10 +24,13 @@ define [
         # @ctx.translate(-@width/2, -@height/2)
         @ctx.fillText @letter, -@width/2, -@height/2
         @ctx.restore()
-        if @rotating then @rotation += 0.1
       else
         @ctx.fillText @letter, @pos.x, @pos.y
 
+
+    update: (dx) ->
+      if @rotating then @rotation += 1*dx
+      super(dx)
 
     checkCollision: ->
       if @pos.x > document.width or @pos.y > document.height
@@ -57,7 +60,3 @@ define [
       @rotation = 0
       @velocity = x: 0, y: 0
       @applyForce x: 1000*(Math.random()-0.5), y: 1000
-
-    explode: ->
-      @velocity = x: 0, y: 0
-      @applyForce x: 0, y: 0
