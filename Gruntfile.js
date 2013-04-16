@@ -113,6 +113,9 @@ module.exports = function (grunt) {
         },
         coffee: {
             dist: {
+                options: {
+                    sourceMap: true
+                },
                 files: [{
                     // rather than compiling multiple files here you should
                     // require them into your main .coffee file

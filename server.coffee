@@ -16,6 +16,9 @@ looking = []
 app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
 app.get "/styles/*", (req, res) -> res.sendfile ".tmp"+req.url
 
+# this is to fix coffeescript source map requests
+app.get "/app/*", (req, res) -> res.sendfile __dirname + req.url.replace("\\\\", "\\")
+
 io = socket.listen(server.listen(9000))
 
 io.sockets.on 'connection', (socket) ->
