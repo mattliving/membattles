@@ -14,7 +14,7 @@ define [
       @applyForce(options.force)
       @velocity = x: 0, y: 0
 
-    applyForce: (f) -> @force = x: f.x*0.0005, y: f.y*0.0005
+    applyForce: (f = x: 0, y: 0) -> @force = x: f.x*0.0005, y: f.y*0.0005
 
     update: (dx) ->
       # fix this as adam has said - store a difference rather than an

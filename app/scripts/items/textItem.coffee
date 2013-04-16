@@ -27,8 +27,6 @@ define [
     draw: ->
       if @collided
         @explode()
-        # @expFrames++
-        # if @expFrames > 50
         @active = false
         @trigger "inactive", @success
       else
@@ -37,23 +35,16 @@ define [
     explode: ->
       letters = []
       startPos = @pos
-      console.log startPos
-      for letter, i in @model.get("translation").split('')
+      for letter, i in @model.get("text").split('')
         letters.push new Letter
           letter: letter
+          text: @
           pos:
-            x: startPos.x*i
+            x: startPos.x + i * 30
             y: startPos.y
-          # force:
-          #   y: -13
-        # console.log letters[i]
-
-      # lastFill = @ctx.fillStyle
-      # @ctx.beginPath()
-      # @ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
-      # @ctx.fillStyle = if @success then "green" else "red"
-      # @ctx.fill()
-      # @ctx.fillStyle = lastFill
+          force:
+            x: (Math.random()-0.5)*1000
+            y: -200
 
     update: (dx) ->
       unless @collided
