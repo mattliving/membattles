@@ -50,7 +50,20 @@
       return text
 
     checkAnswer: (text) ->
+      safeText = @sanitizeInput(text)
       for answer in @get("accept")
-        if @sanitizeInput(text) is @sanitizeInput(answer)
+        if safeText is @sanitizeInput(answer)
           return true
+      return false
+
+    checkPartialAnswer: (text) ->
+      safeText = @sanitizeInput(text)
+      for answer in @get("accept")
+        if safeText is @sanitizeInput(answer).substring(0, safeText.length)
+          # console.log "match for " + safeText + ", and:" + @sanitizeInput(answer)
+          # console.log "substring was " + @sanitizeInput(answer).substring(0, safeText.length)
+          return true
+        else
+          # console.log "substring was " + @sanitizeInput(answer).substring(0, safeText.length)
+          # console.log "no match for " + safeText + ", and:" + @sanitizeInput(answer)
       return false

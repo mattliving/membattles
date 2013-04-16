@@ -8,9 +8,10 @@ define [
   "views/playerLayout",
   "views/playerView",
   "views/coursesView",
-  "items/textItem"
+  "items/textItem",
+  "items/letter"
 ],
-(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem) ->
+(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem, Letter) ->
 
   class PlayerController extends Marionette.Controller
 
@@ -93,10 +94,24 @@ define [
         else
           model.incPoints()
 
-    getPosition: -> @currentTextItem.pos
-
     getData: ->
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
 
-    getCurrentText: -> @currentTextItem
+    fireLetter: (letter, input, startPos) ->
+      # these are used to calculate the force needed to make it go to the word
+      # TODO: make it move to where the word will be, rather than where it is
+      {x: tx, y: ty} = @currentTextItem.pos
+      {x: sx, y: sy} = startPos
+      letter = new Letter
+        pos: x: sx, y: sy
+        force: x: 70*(tx-sx), y: 70*(ty-sy)
+        gravityOn: false
+        letter: letter
+        text: @currentTextItem
+      letter.on 'collided', =>
+        if @currentTextItem.model.checkPartialAnswer(input)
+          console.log "partial answer was correct!"
+          letter.explode()
+        else
+          letter.bounce()

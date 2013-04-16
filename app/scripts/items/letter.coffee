@@ -29,5 +29,12 @@ define [
       # speed to may not actually collide
       if ((lx + @width) > tx) and ((ly + @height) < (ty + @text.height))
         @collided = true
-        @gravityOn = true
-        @applyForce(x: -14000*Math.random(), y: 4000)
+        @trigger 'collided'
+
+    bounce: ->
+      @gravityOn = true
+      @applyForce x: -14000*Math.random(), y: 4000
+
+    explode: ->
+      @velocity = x: 0, y: 0
+      @applyForce x: 0, y: 0
