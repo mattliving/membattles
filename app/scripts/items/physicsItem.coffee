@@ -16,6 +16,10 @@ define [
 
     applyForce: (f = x: 0, y: 0) -> @force = x: f.x*0.0005, y: f.y*0.0005
 
+    removeForces: ->
+      @velocity.x = 0
+      @velocity.y = 0
+
     update: (dx) ->
       # fix this as adam has said - store a difference rather than an
       # absolute count

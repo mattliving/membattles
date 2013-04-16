@@ -27,8 +27,9 @@ define ["app"], (App) ->
       ready: false
       currentPlayer: false
 
-    incPoints: () ->
-      @set("points", @get("points")+45)
+    incPoints: (points) ->
+      unless points > 45
+        @set("points", @get("points") + points)
 
     decLives: () ->
       @set("lives", @get("lives")-1)

@@ -59,19 +59,9 @@ define [
 
       # send and listen to all keypress events, to show the other person typing
       @input.on 'keyup', (input, key) =>
-        # might need to find a way that this can support unicode
-        if key isnt " " and key isnt ""
-          # these are used to calculate the force needed to make it go to the word
-          # TODO: make it move to where the word will be, rather than where it is
-          {x: tx, y: ty} = @thisPlayerController.getPosition()
-          {x: sx, y: sy} = @thatPlayerController.spawnPos
-          new Letter
-            pos: x: sx, y: sy
-            force: x: 70*(tx-sx), y: 70*(ty-sy)
-            gravityOn: false
-            letter: key
-            text: @thisPlayerController.getCurrentText()
-
+        # find a way that this can support unicode symbols
+        if key.match /\w+/
+          @thisPlayerController.fireLetter(key, input, @thatPlayerController.spawnPos)
         @socket.emit 'keypress', input
 
       @socket.on 'keypress', (input) =>
