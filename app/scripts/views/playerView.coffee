@@ -14,8 +14,8 @@ define [
     events:
       "click .btn" : "toggleReady"
 
-    modelEvents:
-      "change" : "render"
+    # modelEvents:
+    #   "change" : "render"
 
     initialize: ({@disabled})->
       @on "show", ->

@@ -21,7 +21,6 @@ define [
       thisPlayer: '#thisPlayer'
       thatPlayer: '#thatPlayer'
       input:      '#inputArea'
-      game:       '#game'
 
     initialize: ({@socket, @thisPlayerController}) ->
       @thisPlayer.on 'show', (layout) =>
@@ -56,6 +55,8 @@ define [
 
     startGame: ->
       @input.show new InputView()
+      # $game = $("#main").after("<div id='game' class='row-fluid'></div>")
+      # console.log $("#game")
       # @ui.input.append('<h2>Game starting in 3 seconds!</h2>')
       # setTimeout (() =>
       #   @ui.input.children('h2').text('Game starting in 2 seconds!')
@@ -66,7 +67,7 @@ define [
       # setTimeout (() =>
       #   @ui.input.children('h2').remove()
       membattle = new Membattle(@socket, @input.currentView, @thisPlayerController, @thatPlayerController, @thisStarts)
-      @game.show(membattle)
+      vent.trigger "game:starting", membattle
       membattle.start()
       # ), 3000
 

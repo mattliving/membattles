@@ -21,6 +21,7 @@ define [
 
   app.addRegions
     main: "#main"
+    game: "#game"
 
   loginView = new LoginView()
 
@@ -57,5 +58,8 @@ define [
         thatPlayer.on 'model:fetched', ->
           gameLayout.thatPlayer.show(@playerLayout)
           @trigger("view:rendered")
+
+        vent.on "game:starting", (view) ->
+          app.game.show(view)
 
   return app
