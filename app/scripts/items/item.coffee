@@ -4,10 +4,9 @@ define ["backbone"], (Backbone) ->
     _.extend(Item::, Backbone.Events)
 
     constructor: (options) ->
-      {@pos, @active} = options
-      # Item.items is a 'static' array attached to the class object.
-      # By putting this into the constructor, all Items are added to it
-      # on creation.
+      {@pos} = options
+      @ctx = Item.ctx
+      @active = true
       Item.items.push @
 
     draw: (ctx) ->
@@ -16,9 +15,11 @@ define ["backbone"], (Backbone) ->
 
   Item.items = []
 
-  Item.draw = (ctx) ->
+  Item.setContext = (ctx) -> Item.ctx = ctx
+
+  Item.draw = ->
     for item in Item.items
-      item.draw(ctx)
+      item.draw()
 
   Item.update = (dx) ->
     for item in Item.items

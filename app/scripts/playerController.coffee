@@ -1,16 +1,18 @@
 define [
   "marionette",
   "helpers/vent",
-  "items/plant",
-  "items/cannon",
   "models/player",
   "collections/courses",
   "views/playerLayout",
   "views/playerView",
   "views/coursesView",
-  "items/textItem"
+  "items/cannon",
+  "items/textItem",
+  "items/letter",
+  "items/plant",
+  "items/explosion"
 ],
-(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem) ->
+(Marionette, vent, Player, Courses, PlayerLayout, PlayerView, CoursesView, Cannon, TextItem, Letter, Plant, Explosion) ->
 
   class PlayerController extends Marionette.Controller
 
@@ -41,26 +43,29 @@ define [
 
     initialize: (@floor) ->
 
-      # more permanent solution to this is needed.
       @cannon = new Cannon
+        axis: @floor.pos.x
         pos:
-          y: @floor.pos.y-4
-          x: if @local then 600 else 40
-        scale: 1.2
+          x: @floor.pos.x*0.4
+          y: @floor.pos.y-10
         active: true
         mirrored: @local
 
+      @initPlants()
+
+      @spawnPos = y: @cannon.pos.y - @cannon.img.height - 100
+      if @local
+        @spawnPos.x = 2*@cannon.axis-@cannon.pos.x
+      else
+        @spawnPos.x = @cannon.pos.x
+
       @on 'next', ->
-        # look into the memory impact of this - pretty sure the old object will
-        # be hanging around as it's still in Item.items
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
+
         # create the new text item at the mouth of the cannon
         @currentTextItem = new TextItem
-          pos:
-            # the end part adds 600 if cannon is mirrored, otherwise adds nothing
-            x: @cannon.pos.x + @cannon.img.width + @cannon.mirrored * 600
-            y: @cannon.pos.y - @cannon.img.height - 50
+          pos: _.clone @spawnPos
           force:
             x: if @local then -2400 else 2400
             y: -3000
@@ -87,12 +92,44 @@ define [
         model.setCurrentPlayer()
         unless success
           model.decLives()
+          @plants[0].active = false
+          @plants.shift()
           if model.get('lives') <= 0
             vent.trigger 'game:ending', model.get('username')
         else
-          model.incPoints()
+          model.incPoints(45)
+
+    initPlants: ->
+      @plants = []
+      for i in [1..@playerModel.get("lives")]
+        @plants.push new Plant
+          pos:
+            x: @cannon.pos.x - (i+1)*60
+            y: @cannon.pos.y
+          axis: @floor.pos.x
+          mirrored: not @local
+          active: true
 
     getData: ->
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
 
+    # no longer used :(
+    fireLetter: (letter, input, startPos) ->
+      # these are used to calculate the force needed to make it go to the word
+      # TODO: make it move to where the word will be, rather than where it is
+      {x: tx, y: ty} = @currentTextItem.pos
+      {x: sx, y: sy} = startPos
+      letter = new Letter
+        pos: x: sx, y: sy
+        force: x: 70*(tx-sx), y: 70*(ty-sy)
+        gravityOn: false
+        letter: letter
+        text: @currentTextItem
+        floor: @floor
+      letter.on 'collided', =>
+        if @currentTextItem.model.checkPartialAnswer(input)
+          new Explosion pos: _.clone letter.pos
+          letter.active = false
+        else
+          letter.bounce()

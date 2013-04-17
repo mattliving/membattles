@@ -71,6 +71,6 @@ define [
       # ), 3000
 
     endGame: (endMsg) ->
-      @input.currentView.close()
-      @game.currentView.close()
+      # @input.currentView.close()
+      # @game.currentView.close()
       @input.$el.append("<h1>#{endMsg}</h1>")

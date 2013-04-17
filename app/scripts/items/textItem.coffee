@@ -1,60 +1,89 @@
 define [
+  "marionette",
   "helpers/vent",
   "models/thing",
-  "items/item",
+  "items/physicsItem",
+  "items/letter",
+  "items/explosion"
 ],
-(vent, Thing, Item) ->
+(Marionette, vent, Thing, PhysicsItem, Letter, Explosion) ->
 
   # displays a single text item
-  class TextItem extends Item
+  class TextItem extends PhysicsItem
 
     constructor: (options) ->
       super(options)
       {@model, @floor} = options
-      @applyForce(options.force.x, options.force.y)
-      @velocity = x: 0, y: 0
-      @collided = @success = false
+      @success = false
+
+      @fontSize = 24
+      @ctx.font = @fontSize + "pt 'Merriweather Sans'"
+      @ctx.fillStyle = "#222"
+
+      @width = @ctx.measureText(@model.get("translation")).width
+      @height = @fontSize
+
       # change this when we move to time based animation
       @expFrames = 0
 
-    draw: (ctx) ->
-      if @active
-        ctx.font = "15pt 'Merriweather Sans'"
-        ctx.fillStyle = "#222"
-        if @collided
-          @explode(ctx)
-          @expFrames++
-          if @expFrames > 50
-            @active = false
-            @trigger "inactive", @success
+    draw: ->
+      if @collided
+        new Explosion pos: _.clone @pos
+        if @success
+          @animatePoints()
         else
-          ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
+          @trigger("exploded", @model.get("text"))
+          @explode()
+        @active = false
+        @trigger "inactive", @success
+      else
+        @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
-    explode: (ctx) ->
-      lastFill = ctx.fillStyle
-      ctx.beginPath()
-      ctx.arc(@pos.x, @pos.y, 40, 2*Math.PI, false)
-      ctx.fillStyle = if @success then "green" else "red"
-      ctx.fill()
-      ctx.fillStyle = lastFill
+    explode: ->
+      letters = []
+      startPos = @pos
+      for letter, i in @model.get("translation").split('')
+        letters.push new Letter
+          letter: letter
+          text: @
+          floor: @floor
+          pos:
+            x: startPos.x + i * 30
+            y: startPos.y
+          force:
+            x: (Math.random()-0.5)*1000
+            y: -200
 
-    applyForce: (fx, fy) -> @force = x: fx*0.0005, y: fy*0.0005
+    animatePoints: ->
+      $curPoints = $("#thisPlayer #points")
+      $points    = $("<div><h3></h3></div>")
+      $("#game").append($points)
+      $points.text "+45"
+      $points.css
+        position: "absolute",
+        top:    $("canvas")[0].offsetTop + @pos.y + "px",
+        left:   $("canvas")[0].offsetLeft + @pos.x + "px",
+        "text-align": "center";
+        "vertical-align": "center";
+        "font-family": "Helvetica Neue";
+        "font-size": "49px";
+        "z-index": 1,
+        color: "#333"
+      $points.animate(
+        top:    $curPoints[0].offsetTop + 25
+        left:   $curPoints[0].offsetLeft + 30
+        'font-size': "24.5px",
+        1000,
+        "swing",
+        -> $points.remove()
+      )
 
-    # force based animation updates will need to be carefully updated when
-    # we switch the animation code to time based
     update: (dx) ->
-      if not @collided
-        updates = Math.round(dx*150)
-        while updates-- > 0 and not @collided
-          @velocity.x += @force.x
-          @velocity.y += @force.y
-          @pos.x  += @velocity.x
-          @pos.y  += @velocity.y
+      unless @collided
+        super(dx)
 
-          @applyForce(0, 9.8)
-
-          dx = @pos.x - (@floor.pos.x - @floor.img.width/2)
-          dy = @pos.y - (@floor.pos.y - @floor.img.height/2)
-          if  0 < dx < @floor.img.width and 0 < dy < @floor.img.height
-            @success = false
-            @collided = true
+    checkCollision: ->
+      dy = @pos.y - @floor.pos.y
+      if 0 < dy < @floor.height
+        @success = false
+        @collided = true

@@ -2,9 +2,6 @@ define ["app"], (App) ->
 
   class Player extends Backbone.Model
 
-    initialize: ->
-      @set("currentText", 0)
-
     url: ->
       "http://www.memrise.com/api/user/get/?user_username=" + @get("username")
 
@@ -27,8 +24,9 @@ define ["app"], (App) ->
       ready: false
       currentPlayer: false
 
-    incPoints: () ->
-      @set("points", @get("points")+45)
+    incPoints: (points) ->
+      unless points > 45
+        @set("points", @get("points") + points)
 
     decLives: () ->
       @set("lives", @get("lives")-1)
@@ -38,14 +36,3 @@ define ["app"], (App) ->
 
     setReady: ->
       @set("ready", !@get("ready"))
-
-    addCannon: (cannon) ->
-      @set("cannon", cannon)
-
-    addText: (text) ->
-      cannon = @get("cannon")
-      text.x = cannon.x*cannon.offset+60
-      text.y = cannon.y
-      if cannon.mirrored then text.x = canvas.width - text.x
-      text.on "inactive", =>
-        @trigger "inactive"

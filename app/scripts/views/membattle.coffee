@@ -5,19 +5,14 @@ define [
   "items/item",
   "items/imageItem",
   "items/floor",
-  "items/plant",
-  "items/cannon",
-  "items/textItem"
+  "items/textItem",
+  "items/letter"
 ],
-(Marionette, vent, Timer, Item, ImageItem, Floor, Plant, Cannon, TextItem) ->
+(Marionette, vent, Timer, Item, ImageItem, Floor, TextItem, Letter) ->
 
   class Membattle extends Marionette.View
 
     tagName: "canvas"
-
-    # attributes:
-    #   width: "960px"
-    #   height : "640px"
 
     ui:
       thisPlayer: "#thisPlayer"
@@ -28,15 +23,16 @@ define [
     aspectRatio: 16 / 9
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
-      @el.setAttribute "width", $(".span12").width()
-      @el.setAttribute "height", @el.getAttribute("width")/@aspectRatio
-      @ctx = @el.getContext("2d")
+      @el.width  = $(".span12").width()
+      @el.height = @el.width/@aspectRatio
+      @ctx       = @el.getContext("2d")
+      Item.setContext @ctx
       @timer = new Timer()
       @floor = new Floor
         pos:
           x: @el.width/2
           y: @el.height/2
-        scale: 1
+        scaleX: @el.width
         active: true
 
       @thisPlayerController.initialize(@floor)
@@ -46,11 +42,12 @@ define [
       @input.listenTo @thatPlayerController, 'next', ->
         @ui.input.prop('disabled', true)
         @ui.input.css('color', 'grey')
+
       @input.listenTo @thisPlayerController, 'next', ->
         @ui.input.prop('disabled', false)
         @ui.input.removeAttr('style')
 
-      # send and listen to guesses, checking them against the correct player
+      # trigger/listen to guesses, checking them against the correct player
       @input.on 'guess', (guess) =>
         @thisPlayerController.trigger 'guess', guess
         @socket.emit 'guess', guess
@@ -59,44 +56,27 @@ define [
         @thatPlayerController.trigger 'guess', guess
 
       # send and listen to all keypress events, to show the other person typing
-      @input.on 'keyup', (input) =>
+      @input.on 'keyup', (input, key) =>
         @socket.emit 'keypress', input
+
       @socket.on 'keypress', (input) =>
         @input.trigger 'keypress', input
 
-
-      vent.on 'other:disconnect', =>
-        @stop()
-        @ctx.fillStyle = "black"
-        @ctx.globalAlpha = 0.5
-        @ctx.font = "28pt 'Merriweather Sans'"
-        @ctx.fillRect(0, 0, @el.width, @el.height)
-        @ctx.globalAlpha = 1
-        @ctx.fillStyle = "white"
-        @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
-
-      vent.on 'game:ending', (username) =>
-        @stop()
-        if username is @thisPlayerController.playerView.model.get('username')
-          vent.trigger 'game:ended', "You Lose!"
-        else
-          vent.trigger 'game:ended', "You Win!"
-
       # Show the other person's answer under the input box
       @thatPlayerController.on 'next', =>
-        @input.ui.otheranswer.text("Their answer:" + @thatPlayerController.getData().text)
+        @input.ui.otheranswer.text("Their answer: " + @thatPlayerController.getData().text)
 
       @thisPlayerController.on 'next', =>
-        @input.ui.otheranswer.text('')
+        @input.ui.otheranswer.text("")
 
       # show our correct answer under the text box
       @thisPlayerController.on 'exploded', (text, success) =>
         unless success or @stopped
-          @input.ui.thisanswer.html("Correct answer: #{text}")
+          @input.ui.thisanswer.text("Correct answer: #{text}")
 
       @thatPlayerController.on 'endTurn', =>
         unless @stopped
-          @input.ui.thisanswer.html('')
+          @input.ui.thisanswer.text('')
 
       # disable and enable the input box, start the other player when one stops
       @thisPlayerController.on 'endTurn', =>
@@ -107,21 +87,29 @@ define [
         @input.enable()
         @thisPlayerController.trigger('next')
 
+      # global events that membattle has to deal with
+      vent.on 'other:disconnect', =>
+        @stop()
+        @ctx.fillStyle = "black"
+        @ctx.globalAlpha = 0.5
+        @ctx.font = "28pt 'Merriweather Sans'"
+        width = @ctx.measureText("User disconnected :(")
+        @ctx.fillRect(0, 0, @el.width, @el.height)
+        @ctx.globalAlpha = 1
+        @ctx.fillStyle = "white"
+        @ctx.fillText("User disconnected :(", @el.width/2-width, @el.height/2-28)
+
+      vent.on 'game:ending', (username) =>
+        @stop()
+        if username is @thisPlayerController.playerView.model.get('username')
+          vent.trigger 'game:ended', "You Lose!"
+        else
+          vent.trigger 'game:ended', "You Win!"
+
     spawnEntity = (typename) ->
       entity = new (factory[typename])()
       @entities.push entity
       return entity
-
-    initPlants: (x, y, n, type) ->
-      for i in [1..n]
-        if type is "medium"
-          plant   = new Plant(x, y, "/images/medium_plant.png", 1.1, 0.3, true)
-          plant.x = i+@largePlants
-          plant.y += 24
-        else
-          plant   = new Plant(x, y, "/images/large_plant.png", 1.1, 0.3, true)
-          plant.x = i
-        @items.push plant
 
     start: ->
       if @thisStarts
@@ -131,10 +119,7 @@ define [
 
       @stopped = false
       @lastUpdateTimestamp = Date.now()
-      do gameLoop = =>
-        unless @stopped
-          @loop()
-          requestAnimFrame gameLoop, @ctx.canvas
+      @loop()
 
     stop: ->
       @stopped = true
@@ -144,6 +129,8 @@ define [
 
     # main game loop
     loop: ->
-      @ctx.clearRect(0, 0, @el.width, @el.height)
-      Item.update(@timer.tick())
-      Item.draw(@ctx)
+      unless @stopped
+        @ctx.clearRect(0, 0, @el.width, @el.height)
+        Item.update(@timer.tick())
+        Item.draw(@ctx)
+        requestAnimFrame @loop.bind(@), @ctx.canvas

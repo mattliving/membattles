@@ -30,16 +30,14 @@ define ["marionette", "helpers/vent"],
       @trigger("guess", guess)
 
     keyPressed: (e) ->
-      @trigger("keyup", @ui.input.val())
+      unless @ui.input.prop("disabled")
+        @trigger("keyup", @ui.input.val(), String.fromCharCode(e.which or e.keyCode).toLowerCase())
 
-    # stop the backspace key from ruining everything
     testKey: (e) ->
+      # stop the backspace key from ruining everything
       if e.which is 8 and @ui.input.prop("disabled")
         e.preventDefault()
         e.stopPropagation()
-
-      unless @ui.input.prop("disabled")
-        console.log String.fromCharCode(e.charCode)
 
     enable: ->
       # simple test if it's an input box
