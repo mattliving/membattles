@@ -24,14 +24,15 @@ define [
 
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @el.width  = $(".span12").width()
-      @el.height = @el.width/@aspectRatio
+      @el.height = window.innerHeight - $(".player-container").height() - 15
+      # @el.height = @el.width/@aspectRatio
       @ctx       = @el.getContext("2d")
       Item.setContext @ctx
       @timer = new Timer()
       @floor = new Floor
         pos:
           x: @el.width/2
-          y: @el.height/2
+          y: @el.height*4/5
         scaleX: @el.width
         active: true
 
