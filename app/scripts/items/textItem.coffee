@@ -26,6 +26,7 @@ define [
     draw: ->
       if @collided
         @active = false
+        if @success then @explode()
         @trigger("exploded", @model.get("text"), @success)
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)

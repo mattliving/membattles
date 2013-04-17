@@ -149,11 +149,12 @@ define [
         "font-size": "49px";
         "z-index": 1,
         color: "#333"
-      $points.animate(
+      $points.animate
+        "font-size": "73.5px"
+      .animate
         top:    $curPoints[0].offsetTop + 25
         left:   $curPoints[0].offsetLeft + 30
         'font-size': "24.5px",
         1000,
         "swing",
         -> $points.remove()
-      )
