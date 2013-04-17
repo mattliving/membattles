@@ -70,13 +70,12 @@ define [
         "z-index": 1,
         color: "#333"
       $points.animate(
-        top:    $curPoints[0].offsetTop + $curPoints[0].offsetHeight/4
-        left:   $curPoints[0].offsetLeft + $curPoints[0].offsetWidth/4
+        top:    $curPoints[0].offsetTop + 25
+        left:   $curPoints[0].offsetLeft + 30
         'font-size': "24.5px",
         1000,
         "swing",
-        ->
-          $points.remove()
+        -> $points.remove()
       )
 
     update: (dx) ->
