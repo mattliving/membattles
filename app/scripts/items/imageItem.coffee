@@ -13,7 +13,7 @@ define ["items/item"], (Item) ->
         @scaleX ?= @img.width
         @scaleY ?= @img.height
         @width  = @img.width * (@scaleX / @img.width)
-        @height = @img.height * (@scaleY / @img.height)
+        @height = @img.height / @img.width * @width
 
     draw: ->
       if @loaded

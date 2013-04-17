@@ -73,4 +73,4 @@ define [
     endGame: (endMsg) ->
       # @input.currentView.close()
       # @game.currentView.close()
-      # @input.$el.append("<h1>#{endMsg}</h1>")
+      @input.$el.append("<h1>#{endMsg}</h1>")
