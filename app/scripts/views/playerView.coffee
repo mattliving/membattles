@@ -19,12 +19,13 @@ define [
 
     initialize: ({@disabled})->
       @on "show", ->
-        @addReadyButton()
+        unless @disabled
+          @addReadyButton()
 
       @on 'fetch:data', @getCourseModel, @
 
     onDomRefresh: ->
-      @$btn.button()
+      @$btn?.button()
 
     onBeforeRender: ->
       if @model.get("currentPlayer")
