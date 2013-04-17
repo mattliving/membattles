@@ -39,14 +39,3 @@ define ["app"], (App) ->
 
     setReady: ->
       @set("ready", !@get("ready"))
-
-    addCannon: (cannon) ->
-      @set("cannon", cannon)
-
-    addText: (text) ->
-      cannon = @get("cannon")
-      text.x = cannon.x*cannon.offset+60
-      text.y = cannon.y
-      if cannon.mirrored then text.x = canvas.width - text.x
-      text.on "inactive", =>
-        @trigger "inactive"

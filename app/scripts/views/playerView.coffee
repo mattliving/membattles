@@ -40,7 +40,7 @@ define [
       e.preventDefault()
       if @selectedCourse and not @disabled
         @$btn.button("toggle")
-        @model.set 
+        @model.set
           "ready": true
           "silent": true
         if @model.get("ready")

@@ -74,11 +74,11 @@ define [
       # show our correct answer under the text box
       @thisPlayerController.on 'exploded', (text, success) =>
         unless success or @stopped
-          @input.ui.thisanswer.html("Correct answer: #{text}")
+          @input.ui.thisanswer.text("Correct answer: #{text}")
 
       @thatPlayerController.on 'endTurn', =>
         unless @stopped
-          @input.ui.thisanswer.html('')
+          @input.ui.thisanswer.text('')
 
       # disable and enable the input box, start the other player when one stops
       @thisPlayerController.on 'endTurn', =>
