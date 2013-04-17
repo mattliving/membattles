@@ -35,12 +35,6 @@
         </div>
         <div class="media-body">
           <h4 class="media-heading"><%= username %></h4>
-          <% for (var i = 0; i < lives; i++) { %>
-            <img class="media-object <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="/images/small_plant.png">
-          <% } %>
-          <% for (var i = 0; i < 3-lives; i++) { %>
-            <img class="media-object <%= position === 'left' ? 'pull-left' : 'pull-right' %>" src="/images/small_plant_trans.png">
-          <% } %>
         </div>
       </script>
 

@@ -5,12 +5,10 @@ define [
   "items/item",
   "items/imageItem",
   "items/floor",
-  "items/plant",
-  "items/cannon",
   "items/textItem",
   "items/letter"
 ],
-(Marionette, vent, Timer, Item, ImageItem, Floor, Plant, Cannon, TextItem, Letter) ->
+(Marionette, vent, Timer, Item, ImageItem, Floor, TextItem, Letter) ->
 
   class Membattle extends Marionette.View
 
@@ -112,17 +110,6 @@ define [
       entity = new (factory[typename])()
       @entities.push entity
       return entity
-
-    initPlants: (x, y, n, type) ->
-      for i in [1..n]
-        if type is "medium"
-          plant   = new Plant(x, y, "/images/medium_plant.png", 1.1, 0.3, true)
-          plant.x = i+@largePlants
-          plant.y += 24
-        else
-          plant   = new Plant(x, y, "/images/large_plant.png", 1.1, 0.3, true)
-          plant.x = i
-        @items.push plant
 
     start: ->
       if @thisStarts

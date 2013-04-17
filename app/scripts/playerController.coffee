@@ -1,18 +1,18 @@
 define [
   "marionette",
   "helpers/vent",
-  "items/plant",
-  "items/cannon",
   "models/player",
   "collections/courses",
   "views/playerLayout",
   "views/playerView",
   "views/coursesView",
+  "items/cannon",
   "items/textItem",
   "items/letter",
+  "items/plant",
   "items/explosion"
 ],
-(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem, Letter, Explosion) ->
+(Marionette, vent, Player, Courses, PlayerLayout, PlayerView, CoursesView, Cannon, TextItem, Letter, Plant, Explosion) ->
 
   class PlayerController extends Marionette.Controller
 
@@ -46,12 +46,14 @@ define [
       @cannon = new Cannon
         axis: @floor.pos.x
         pos:
-          x: @floor.pos.x*0.3
+          x: @floor.pos.x*0.4
           y: @floor.pos.y-10
         active: true
         mirrored: @local
 
-      @spawnPos = y: @cannon.pos.y - @cannon.height
+      @initPlants()
+
+      @spawnPos = y: @cannon.pos.y - @cannon.img.height - 100
       if @local
         @spawnPos.x = 2*@cannon.axis-@cannon.pos.x
       else
@@ -90,10 +92,23 @@ define [
         model.setCurrentPlayer()
         unless success
           model.decLives()
+          @plants[0].active = false
+          @plants.shift()
           if model.get('lives') <= 0
             vent.trigger 'game:ending', model.get('username')
         else
           model.incPoints(45)
+
+    initPlants: ->
+      @plants = []
+      for i in [1..@playerModel.get("lives")]
+        @plants.push new Plant
+          pos:
+            x: @cannon.pos.x - (i+1)*60
+            y: @cannon.pos.y
+          axis: @floor.pos.x
+          mirrored: not @local
+          active: true
 
     getData: ->
       text: @currentTextItem.model.get("text")
@@ -114,7 +129,6 @@ define [
         floor: @floor
       letter.on 'collided', =>
         if @currentTextItem.model.checkPartialAnswer(input)
-          console.log "exploding"
           new Explosion pos: _.clone letter.pos
           letter.active = false
         else
