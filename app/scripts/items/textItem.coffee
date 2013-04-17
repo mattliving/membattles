@@ -23,26 +23,27 @@ define [
       @width = @ctx.measureText(@model.get("translation")).width
       @height = @fontSize
 
-      # change this when we move to time based animation
-      @expFrames = 0
-
     draw: ->
       if @collided
-        new Explosion pos: _.clone @pos
         if @success
           @animatePoints()
-        else
-          @trigger("exploded", @model.get("text"))
           @explode()
+        else
+          new Explosion pos: _.clone @pos
+        @trigger("exploded", @model.get("text"))
         @active = false
         @trigger "inactive", @success
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
     explode: ->
-      letters = []
+      letters  = []
       startPos = @pos
-      for letter, i in @model.get("translation").split('')
+      randX    = Math.random() * (18000 - 16000) + 16000;
+      randY    = Math.random() * (6000 - 4000) + 4000;
+      chars    = @model.get("translation").split('')
+      center   = chars.length/2
+      for letter, i in chars
         letters.push new Letter
           letter: letter
           text: @
@@ -51,12 +52,13 @@ define [
             x: startPos.x + i * 30
             y: startPos.y
           force:
-            x: (Math.random()-0.5)*1000
-            y: -200
+            x: if i > center then randX else -randX
+            y: (Math.random()-0.5) * randY
+          gravityOn: false
 
     animatePoints: ->
       $curPoints = $("#thisPlayer #points")
-      $points    = $("<div><h3></h3></div>")
+      $points    = $("<div></div>")
       $("#game").append($points)
       $points.text "+45"
       $points.css
@@ -70,6 +72,8 @@ define [
         "z-index": 1,
         color: "#333"
       $points.animate(
+        "font-size": "73.5px"
+      ).animate(
         top:    $curPoints[0].offsetTop + $curPoints[0].offsetHeight/4
         left:   $curPoints[0].offsetLeft + $curPoints[0].offsetWidth/4
         'font-size': "24.5px",
