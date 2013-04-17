@@ -23,9 +23,6 @@ define [
       @width = @ctx.measureText(@model.get("translation")).width
       @height = @fontSize
 
-      # change this when we move to time based animation
-      @expFrames = 0
-
     draw: ->
       if @collided
         @active = false
@@ -34,9 +31,13 @@ define [
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
     explode: ->
-      letters = []
+      letters  = []
       startPos = @pos
-      for letter, i in @model.get("translation").split('')
+      randX    = Math.random() * (18000 - 16000) + 16000;
+      randY    = Math.random() * (6000 - 4000) + 4000;
+      chars    = @model.get("translation").split('')
+      center   = chars.length/2
+      for letter, i in chars
         letters.push new Letter
           letter: letter
           text: @
@@ -45,8 +46,9 @@ define [
             x: startPos.x + i * 30
             y: startPos.y
           force:
-            x: (Math.random()-0.5)*1000
-            y: -200
+            x: if i > center then randX else -randX
+            y: (Math.random()-0.5) * randY
+          gravityOn: false
 
     update: (dx) ->
       unless @collided
