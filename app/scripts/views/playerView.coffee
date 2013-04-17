@@ -19,12 +19,13 @@ define [
 
     initialize: ({@disabled})->
       @on "show", ->
-        @addReadyButton()
+        unless @disabled
+          @addReadyButton()
 
       @on 'fetch:data', @getCourseModel, @
 
     onDomRefresh: ->
-      @$btn.button()
+      @$btn?.button()
 
     onBeforeRender: ->
       if @model.get("currentPlayer")
@@ -40,7 +41,7 @@ define [
       e.preventDefault()
       if @selectedCourse and not @disabled
         @$btn.button("toggle")
-        @model.set 
+        @model.set
           "ready": true
           "silent": true
         if @model.get("ready")

@@ -2,10 +2,11 @@ define [
   "marionette",
   "helpers/vent",
   "models/thing",
+  "items/physicsItem",
   "items/letter",
-  "items/physicsItem"
+  "items/explosion"
 ],
-(Marionette, vent, Thing, Letter, PhysicsItem) ->
+(Marionette, vent, Thing, PhysicsItem, Letter, Explosion) ->
 
   # displays a single text item
   class TextItem extends PhysicsItem
@@ -27,9 +28,11 @@ define [
 
     draw: ->
       if @collided
-        if @success is true
+        new Explosion pos: _.clone @pos
+        if @success
           @animatePoints()
         else
+          @trigger("exploded", @model.get("text"))
           @explode()
         @active = false
         @trigger "inactive", @success
@@ -43,6 +46,7 @@ define [
         letters.push new Letter
           letter: letter
           text: @
+          floor: @floor
           pos:
             x: startPos.x + i * 30
             y: startPos.y

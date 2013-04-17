@@ -45,7 +45,7 @@ body {
 		font-size: 16px;
 		cursor: pointer;
 	}
-	input[type="username"].input-large {
+	input[type="text"].input-large {
 		padding: 11px 18px;
 		font-size: 16px;
 		border: 1px solid #e4e4e4;
@@ -61,7 +61,10 @@ body {
 }
 
 #inputArea {
-	margin-top: 3%;
+	position: absolute;
+	left: 33%;
+	right: 33%;
+	top: 40px;
 	h1, h2, h3, h4 {
 		text-align: center;
 	}
@@ -98,6 +101,20 @@ body {
 	text-align: right;
 }
 
+.player-container {
+	position: absolute;
+	width: 33%;
+	top: 15px;
+}
+
+.player-left {
+	left: 15px;
+}
+
+.player-right {
+	right: 15px;
+}
+
 .media-body {
 	.media-heading {
 		margin-left: 2%;
@@ -109,8 +126,12 @@ body {
 }
 
 canvas {
+	position: absolute;
+	top: 210px;
+	left: 0;
+	right: 0;
 	margin: 0 auto;
-	margin-top: 1%;
+	// margin-top: 1%;
 	z-index: 0;
 }
 

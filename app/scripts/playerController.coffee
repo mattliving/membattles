@@ -9,9 +9,10 @@ define [
   "views/playerView",
   "views/coursesView",
   "items/textItem",
-  "items/letter"
+  "items/letter",
+  "items/explosion"
 ],
-(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem, Letter) ->
+(Marionette, vent, Plant, Cannon, Player, Courses, PlayerLayout, PlayerView, CoursesView, TextItem, Letter, Explosion) ->
 
   class PlayerController extends Marionette.Controller
 
@@ -98,6 +99,7 @@ define [
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
 
+    # no longer used :(
     fireLetter: (letter, input, startPos) ->
       # these are used to calculate the force needed to make it go to the word
       # TODO: make it move to where the word will be, rather than where it is
@@ -109,8 +111,11 @@ define [
         gravityOn: false
         letter: letter
         text: @currentTextItem
+        floor: @floor
       letter.on 'collided', =>
         if @currentTextItem.model.checkPartialAnswer(input)
+          console.log "exploding"
+          new Explosion pos: _.clone letter.pos
           letter.active = false
         else
           letter.bounce()

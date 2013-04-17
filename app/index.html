@@ -52,12 +52,12 @@
       </script>
 
       <script id="gameTemplate" type="text/template" class="template">
-        <div class="span4">
+        <div class="player-container player-left">
           <div id="thisPlayer" class="span11"></div>
           <div class="span1"></div>
         </div>
-        <div id="inputArea" class="span4"></div>
-        <div class="span4">
+        <div id="inputArea"></div>
+        <div class="player-container player-right">
           <div class="span1"></div>
           <div id="thatPlayer" class="span11"></div>
         </div>
@@ -78,7 +78,7 @@
             </a>
             <form>
               <h3>Login to Word Wars</h3>
-              <input class="input-large" id="inputUsername" type="username" placeholder="Username">
+              <input class="input-large" id="inputUsername" type="text" placeholder="Username">
               <button class="btn btn-large" type="submit">Login</button>
             </form>
           </div>

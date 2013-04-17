@@ -59,9 +59,6 @@ define [
 
       # send and listen to all keypress events, to show the other person typing
       @input.on 'keyup', (input, key) =>
-        # find a way that this can support unicode symbols
-        if key.match /\w+/
-          @thisPlayerController.fireLetter(key, input, @thatPlayerController.spawnPos)
         @socket.emit 'keypress', input
 
       @socket.on 'keypress', (input) =>
@@ -77,11 +74,11 @@ define [
       # show our correct answer under the text box
       @thisPlayerController.on 'exploded', (text, success) =>
         unless success or @stopped
-          @input.ui.thisanswer.html("Correct answer: #{text}")
+          @input.ui.thisanswer.text("Correct answer: #{text}")
 
       @thatPlayerController.on 'endTurn', =>
         unless @stopped
-          @input.ui.thisanswer.html('')
+          @input.ui.thisanswer.text('')
 
       # disable and enable the input box, start the other player when one stops
       @thisPlayerController.on 'endTurn', =>
@@ -98,10 +95,11 @@ define [
         @ctx.fillStyle = "black"
         @ctx.globalAlpha = 0.5
         @ctx.font = "28pt 'Merriweather Sans'"
+        width = @ctx.measureText("User disconnected :(")
         @ctx.fillRect(0, 0, @el.width, @el.height)
         @ctx.globalAlpha = 1
         @ctx.fillStyle = "white"
-        @ctx.fillText("User disconnected :(", @el.width/2, @el.height/2)
+        @ctx.fillText("User disconnected :(", @el.width/2-width, @el.height/2-28)
 
       vent.on 'game:ending', (username) =>
         @stop()
