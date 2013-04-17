@@ -1,6 +1,6 @@
 define [
   "helpers/vent",
-  "items/physicsitem"
+  "items/physicsItem"
 ], (vent, PhysicsItem) ->
 
   class Letter extends PhysicsItem
