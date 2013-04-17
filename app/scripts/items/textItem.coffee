@@ -32,6 +32,7 @@ define [
         if @success
           @animatePoints()
         else
+          @trigger("exploded", @model.get("text"))
           @explode()
         @active = false
         @trigger "inactive", @success
