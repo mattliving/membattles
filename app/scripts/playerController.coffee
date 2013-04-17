@@ -45,12 +45,12 @@ define [
       @cannon = new Cannon
         axis: @floor.pos.x
         pos:
-          x: @floor.pos.x*0.2
-          y: @floor.pos.y
+          x: @floor.pos.x*0.3
+          y: @floor.pos.y-10
         active: true
         mirrored: @local
 
-      @spawnPos = y: @cannon.pos.y - @cannon.img.height - 100
+      @spawnPos = y: @cannon.pos.y - @cannon.height
       if @local
         @spawnPos.x = 2*@cannon.axis-@cannon.pos.x
       else
