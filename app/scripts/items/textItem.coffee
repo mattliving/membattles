@@ -23,7 +23,7 @@ define [
       @ctx.font = @fontSize + "pt 'Merriweather Sans'"
       @ctx.fillStyle = "#222"
 
-      @width = @ctx.measureText(@model.get("translation")).width
+      @width  = @ctx.measureText(@model.get("translation")).width
       @height = @fontSize
 
       console.log "starting timer for #{@model.get("text")}"

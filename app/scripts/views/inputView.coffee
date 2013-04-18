@@ -17,6 +17,7 @@ define ["marionette", "helpers/vent"],
       change:  "inputChanged"
       keyup:   "keyPressed"
       keydown: "testKey"
+      "click #playAgain": "playAgain"
 
     initialize: ->
       @on 'keypress', (input) =>
@@ -50,3 +51,13 @@ define ["marionette", "helpers/vent"],
       if @ui.input.prop
         @ui.input.prop("disabled", true)
         @ui.input.val('')
+
+    displayEndMsg: (endMsg) ->
+      @ui.input.remove()
+      @$el.append "<h1>#{endMsg}</h1>"
+      @ui.playAgain = $("<button id='playAgain' class='btn btn-large' type='button'><strong>Play Again?</strong></button>")
+      @$el.append @ui.playAgain
+
+    playAgain: (e) ->
+      e.preventDefault()
+      vent.trigger "game:playAgain"

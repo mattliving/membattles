@@ -102,15 +102,29 @@ define [
 
       vent.on 'game:ending', (username) =>
         @stop()
-        if username is @thisPlayerController.playerView.model.get('username')
-          vent.trigger 'game:ended', "You Lose!"
-        else
-          vent.trigger 'game:ended', "You Win!"
+        @checkWinner()
+
+      vent.on 'game:playAgain', =>
+        @socket.emit 'invalidate'
+        @socket.emit 'register', user: @thisPlayerController.playerModel.get('username')
 
     spawnEntity = (typename) ->
       entity = new (factory[typename])()
       @entities.push entity
       return entity
+
+    checkWinner: ->
+      thisModel = @thisPlayerController.playerModel
+      thatModel = @thatPlayerController.playerModel
+      if thisModel.get('lives') <= 0
+        vent.trigger 'game:ended', thatModel.get('username') + ' Wins!'
+      else if thatModel.get('lives') <= 0
+        vent.trigger 'game:ended', thisModel.get('username') + ' Wins!'
+      else if thisModel.get('points') > thatModel.get('points')
+        vent.trigger 'game:ended', thisModel.get('username') + ' Wins!'
+      else if thisModel.get('points') < thatModel.get('points')
+        vent.trigger 'game:ended', thatModel.get('username') + ' Wins!'
+      else vent.trigger 'game:ended', "It's a Draw!"
 
     start: ->
       if @thisStarts
