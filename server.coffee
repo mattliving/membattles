@@ -100,6 +100,9 @@ io.sockets.on 'connection', (socket) ->
 
   socket.on 'keypress', (input) -> @toOther 'keypress', input
 
+  socket.on 'invalidate', ->
+    delete clients[socket.id]
+
   socket.on 'disconnect', ->
     socket.get 'otherid', (err, otherid) ->
       unless err

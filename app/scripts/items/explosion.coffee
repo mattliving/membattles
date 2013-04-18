@@ -26,7 +26,7 @@ define [
         @height = @images[0].height
 
     draw: ->
-      if @loaded
+      if @loaded and @frame < @images.length
         @ctx.drawImage(@images[@frame], @pos.x-@width/2, @pos.y-@height/2)
 
     update: (dx) ->

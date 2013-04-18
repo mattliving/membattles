@@ -20,12 +20,13 @@ define [
       @ctx.font = @fontSize + "pt 'Merriweather Sans'"
       @ctx.fillStyle = "#222"
 
-      @width = @ctx.measureText(@model.get("translation")).width
+      @width  = @ctx.measureText(@model.get("translation")).width
       @height = @fontSize
 
     draw: ->
       if @collided
         @active = false
+        if @success then @explode()
         @trigger("exploded", @model.get("text"), @success)
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)

@@ -64,23 +64,25 @@ define [
         @currentTextItem?.active = false
 
         # create the new text item at the mouth of the cannon
-        @currentTextItem = new TextItem
-          pos: _.clone @spawnPos
-          force:
-            x: if @local then -2400 else 2400
-            y: -3000
-          active: true
-          floor: @floor
-          model: @things.getNext()
+        if (model = @things.getNext())?
 
-        @listenTo @currentTextItem, 'exploded', (text, success) ->
-          new Explosion pos: _.clone @currentTextItem.pos
-          if success
-            @animatePoints()
-          @trigger 'exploded', text, success
-          @trigger 'endTurn', success
+          @currentTextItem = new TextItem
+            pos: _.clone @spawnPos
+            force:
+              x: if @local then -2400 else 2400
+              y: -3000
+            active: true
+            floor: @floor
+            model: model
 
-        @playerView.model.setCurrentPlayer()
+          @listenTo @currentTextItem, 'exploded', (text, success) ->
+            new Explosion pos: _.clone @currentTextItem.pos
+            if success then @animatePoints()
+            @trigger 'exploded', text, success
+            @trigger 'endTurn', success
+
+          @playerView.model.setCurrentPlayer()
+        else vent.trigger 'game:ending'
 
       @on 'guess', (guess) ->
         if @currentTextItem.active
@@ -95,7 +97,7 @@ define [
           @plants[0].active = false
           @plants.shift()
           if model.get('lives') <= 0
-            vent.trigger 'game:ending', model.get('username')
+            vent.trigger 'game:ending'
         else
           model.incPoints(45)
 
@@ -149,11 +151,12 @@ define [
         "font-size": "49px";
         "z-index": 1,
         color: "#333"
-      $points.animate(
+      $points.animate
+        "font-size": "73.5px"
+      .animate
         top:    $curPoints[0].offsetTop + 25
         left:   $curPoints[0].offsetLeft + 30
         'font-size': "24.5px",
         1000,
         "swing",
         -> $points.remove()
-      )

@@ -55,8 +55,6 @@ define [
 
     startGame: ->
       @input.show new InputView()
-      # $game = $("#main").after("<div id='game' class='row-fluid'></div>")
-      # console.log $("#game")
       # @ui.input.append('<h2>Game starting in 3 seconds!</h2>')
       # setTimeout (() =>
       #   @ui.input.children('h2').text('Game starting in 2 seconds!')
@@ -74,4 +72,4 @@ define [
     endGame: (endMsg) ->
       # @input.currentView.close()
       # @game.currentView.close()
-      @input.$el.append("<h1>#{endMsg}</h1>")
+      @input.currentView.displayEndMsg(endMsg)

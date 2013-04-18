@@ -67,6 +67,11 @@ body {
 	h1, h2, h3, h4 {
 		text-align: center;
 	}
+	#playAgain {
+		position: absolute;
+		left: 33%;
+		right: 33%;
+	}
 }
 
 #thisPlayer, #thatPlayer {
@@ -79,6 +84,8 @@ body {
 	}
 	.btn {
 		margin-top: 5%;
+		padding: 8px 12px;
+		font-size: 18px;
 	}
 	#courses {
 		margin-top: 5%;
@@ -114,13 +121,16 @@ body {
 	right: 15px;
 }
 
-.media-body {
-	.media-heading {
-		margin-left: 2%;
-	}
-	.media-object {
-		padding: 2%;
-		display: inline;
+.media {
+	.media-body {
+		.media-heading {
+			display: inline;
+			margin-left: 2%;
+		}
+		.media-object {
+			padding: 2%;
+			display: inline;
+		}
 	}
 }
 
@@ -151,7 +161,7 @@ canvas {
 .typing-wrapper {
 	.typing-type-here {
 		background-image: none;
-		width: 95%;
+		width: 90%;
 		padding: 5px 20px;
 		height: 50px;
 		margin: 0 0 0 0;
