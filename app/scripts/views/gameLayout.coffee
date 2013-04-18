@@ -72,4 +72,5 @@ define [
     endGame: (endMsg) ->
       # @input.currentView.close()
       # @game.currentView.close()
+      console.log "GAME ENDED"
       @input.currentView.displayEndMsg(endMsg)

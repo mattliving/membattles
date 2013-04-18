@@ -2,7 +2,7 @@ define ["app", "items/imageItem"], (App, ImageItem) ->
 
   class Cannon extends ImageItem
 
-    src: "/images/cannon.png"
+    src: "images/cannon.png"
 
     constructor: (options) ->
       super(options)

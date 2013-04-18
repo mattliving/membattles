@@ -25,7 +25,6 @@ define [
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @el.width  = $(".span12").width()
       @el.height = window.innerHeight - $(".player-container").height() - 15
-      # @el.height = @el.width/@aspectRatio
       @ctx       = @el.getContext("2d")
       Item.setContext @ctx
       @timer = new Timer()
@@ -100,9 +99,14 @@ define [
         @ctx.fillStyle = "white"
         @ctx.fillText("User disconnected :(", @el.width/2-width, @el.height/2-28)
 
-      vent.on 'game:ending', (username) =>
-        @stop()
-        @checkWinner()
+      vent.on 'game:ending', =>
+        if not @stopped
+          console.log @stopped
+          @ctx.clearRect(0, 0, @el.width, @el.height)
+          Item.update(@timer.tick())
+          Item.draw(@ctx)
+          @stop()
+          @checkWinner()
 
       vent.on 'game:playAgain', =>
         @socket.emit 'invalidate'
@@ -116,14 +120,10 @@ define [
     checkWinner: ->
       thisModel = @thisPlayerController.playerModel
       thatModel = @thatPlayerController.playerModel
-      if thisModel.get('lives') <= 0
+      if thisModel.get('lives') <= 0 or thisModel.get('points') < thatModel.get('points')
         vent.trigger 'game:ended', thatModel.get('username') + ' Wins!'
-      else if thatModel.get('lives') <= 0
+      else if thatModel.get('lives') <= 0 or thisModel.get('points') > thatModel.get('points')
         vent.trigger 'game:ended', thisModel.get('username') + ' Wins!'
-      else if thisModel.get('points') > thatModel.get('points')
-        vent.trigger 'game:ended', thisModel.get('username') + ' Wins!'
-      else if thisModel.get('points') < thatModel.get('points')
-        vent.trigger 'game:ended', thatModel.get('username') + ' Wins!'
       else vent.trigger 'game:ended', "It's a Draw!"
 
     start: ->
@@ -137,7 +137,9 @@ define [
       @loop()
 
     stop: ->
+      console.log 'stopped:before', @stopped
       @stopped = true
+      console.log 'stopped:after', @stopped
       @input.disable()
       @input.off('keyup')
       @input.off('guess')

@@ -60,4 +60,5 @@ define ["marionette", "helpers/vent"],
 
     playAgain: (e) ->
       e.preventDefault()
-      vent.trigger "game:playAgain"
+      # vent.trigger "game:playAgain"
+      window.location.reload()

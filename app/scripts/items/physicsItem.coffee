@@ -9,10 +9,8 @@ define [
 
     constructor: (options) ->
       super(options)
-      console.log options
       {@frametime} = options
       @frametime ?= 1/100
-      console.log @frametime
       # @gravityOn is true if undefined or true in options, only false if false
       @gravityOn = options.gravityOn isnt false
       @applyForce(options.force)
