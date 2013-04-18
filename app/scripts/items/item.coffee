@@ -22,7 +22,7 @@ define ["backbone"], (Backbone) ->
       item.draw()
 
   Item.update = (dx) ->
-    for item in Item.items
+    for item, i in Item.items
       if item?.active
         item.update(dx)
 
