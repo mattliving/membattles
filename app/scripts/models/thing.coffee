@@ -67,3 +67,8 @@
           # console.log "substring was " + @sanitizeInput(answer).substring(0, safeText.length)
           # console.log "no match for " + safeText + ", and:" + @sanitizeInput(answer)
       return false
+
+    getTiming: ->
+      text = @get("text")
+      words = text.split(" ").length
+      return 2000 + Math.max(5000, words*3000, text.length*300)

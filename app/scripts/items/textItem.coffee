@@ -3,17 +3,20 @@ define [
   "helpers/vent",
   "models/thing",
   "items/physicsItem",
-  "items/letter",
-  "items/explosion"
+  "items/letter"
 ],
-(Marionette, vent, Thing, PhysicsItem, Letter, Explosion) ->
+(Marionette, vent, Thing, PhysicsItem, Letter) ->
 
   # displays a single text item
   class TextItem extends PhysicsItem
 
     constructor: (options) ->
+      {@model, @floor, @toPos} = options
+      timing = @model.getTiming()
+      options.frametime = 0.001*timing/680 # 680 is the number of frames
       super(options)
-      {@model, @floor} = options
+      console.log "startPos:#{@pos.y}"
+      @on 'exploded', => console.log "endPos:#{@pos.y}"
       @success = false
 
       @fontSize = 24
@@ -22,6 +25,10 @@ define [
 
       @width  = @ctx.measureText(@model.get("translation")).width
       @height = @fontSize
+
+      console.log "starting timer for #{@model.get("text")}"
+      console.time(@model.get("text"))
+      @on 'exploded', -> console.timeEnd(@model.get("text"))
 
     draw: ->
       if @collided
