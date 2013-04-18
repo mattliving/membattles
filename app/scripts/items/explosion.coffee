@@ -14,7 +14,7 @@ define [
       @loadCount = 0
       for i in [0..10]
         img = new Image()
-        img.src = "/images/explosion#{i}.png"
+        img.src = "images/explosion#{i}.png"
         img.onload = =>
           @loadCount++
           if @loadCount is 10 then @trigger('loaded')

@@ -28,7 +28,7 @@ define [
   app.addInitializer ->
     app.main.show(loginView)
 
-  socket = io.connect(window.location.origin)
+  socket = io.connect("http://wordwar.memrise.com")
 
   socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
 

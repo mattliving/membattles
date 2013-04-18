@@ -12,12 +12,21 @@ clientCount = 0
 # ids of clients that have requested another user to connect to
 looking = []
 
-# this is for dealing with the way grunt watch moves compiled files
-app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
-app.get "/styles/*", (req, res) -> res.sendfile ".tmp"+req.url
+prep = (url) -> url.replace("/wordwarone", "")
 
-# this is to fix coffeescript source map requests
-app.get "/app/*", (req, res) -> res.sendfile __dirname + req.url.replace("\\\\", "\\")
+app.get "/wordwarone/scripts/*", (req, res) -> res.sendfile ".tmp"+prep(req.url)
+app.get "/wordwarone/styles/*", (req, res) -> res.sendfile ".tmp"+prep(req.url)
+app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + prep(req.url)
+app.get "/wordwarone/", (req, res) -> res.sendfile "app/index.html"
+app.get "/wordwarone", (req, res) -> res.sendfile "app/index.html"
+
+# this is for dealing with the way grunt watch moves compiled files
+
+# app.get "/wordwarone/*", (req, res) -> res.send req.url
+
+# # this is for dealing with the way grunt watch moves compiled files
+# app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
+# app.get "/styles/*", (req, res) -> res.sendfile ".tmp"+req.url
 
 io = socket.listen(server.listen(9000))
 

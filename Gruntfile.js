@@ -113,9 +113,6 @@ module.exports = function (grunt) {
         },
         coffee: {
             dist: {
-                options: {
-                    sourceMap: true
-                },
                 files: [{
                     // rather than compiling multiple files here you should
                     // require them into your main .coffee file
@@ -152,7 +149,7 @@ module.exports = function (grunt) {
                 // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
                 options: {
                     // `name` and `out` is set by grunt-usemin
-                    baseUrl: 'app/scripts',
+                    baseUrl: '.tmp/scripts',
                     optimize: 'none',
                     // TODO: Figure out how to make sourcemaps work with grunt-usemin
                     // https://github.com/yeoman/grunt-usemin/issues/30
@@ -277,7 +274,7 @@ module.exports = function (grunt) {
         'requirejs',
         'imagemin',
         'htmlmin',
-        'concat',
+        // 'concat',
         'cssmin',
         'uglify',
         'copy',
