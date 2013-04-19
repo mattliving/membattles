@@ -77,8 +77,6 @@ define [
             model: model
 
           @listenTo @currentTextItem, 'exploded', (text, success) =>
-            if success then @animatePoints()
-            # explosion = new Explosion pos: _.clone @currentTextItem.pos
             @trigger 'endTurn', text, success
 
           @playerView.model.setCurrentPlayer()
@@ -117,32 +115,6 @@ define [
     getData: ->
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
-
-    animatePoints: ->
-      $curPoints = if @local then $("#thisPlayer #points") else $("#thatPlayer #points")
-      $points    = $("<div><h3></h3></div>")
-      $("#game").append($points)
-      $points.text "+45"
-      $points.css
-        position: "absolute",
-        top:  $("canvas").offset().top + @currentTextItem.pos.y + "px",
-        left: $("canvas").offset().left + @currentTextItem.pos.x + "px",
-        "text-align": "center";
-        "vertical-align": "center";
-        "font-family": "Helvetica Neue";
-        "font-weight": "bold";
-        "font-size": "49px";
-        "z-index": 1,
-        color: "#333"
-      $points.animate
-        "font-size": "73.5px"
-      .animate
-        top:  $curPoints.offset().top + 10
-        left: $curPoints.offset().left + 11
-        'font-size': "24.5px",
-        1000,
-        "swing",
-        -> $points.remove()
 
     # no longer used :(
     fireLetter: (letter, input, startPos) ->

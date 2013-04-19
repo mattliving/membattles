@@ -32,7 +32,9 @@ define [
           explosion = new Explosion pos: _.clone @pos
         else if @collidedType is "floor"
           explosion = new Explosion pos: _.clone @target
-        if @success then @explode()
+        if @success
+          @explode()
+          @animatePoints()
         explosion.on "inactive", =>
           @trigger("exploded", @model.get("text"), @success)
       else
@@ -57,6 +59,32 @@ define [
             x: if i > center then randX else -randX
             y: (Math.random()-0.5) * randY
           gravityOn: false
+
+    animatePoints: ->
+      $curPoints = if @local then $("#thisPlayer #points") else $("#thatPlayer #points")
+      $points    = $("<div><h3></h3></div>")
+      $("#game").append($points)
+      $points.text "+45"
+      $points.css
+        position: "absolute",
+        top:  $("canvas").offset().top + @pos.y + "px",
+        left: $("canvas").offset().left + @pos.x + "px",
+        "text-align": "center";
+        "vertical-align": "center";
+        "font-family": "Helvetica Neue";
+        "font-weight": "bold";
+        "font-size": "49px";
+        "z-index": 1,
+        color: "#333"
+      $points.animate
+        "font-size": "73.5px"
+      .animate
+        top:  $curPoints.offset().top + 10
+        left: $curPoints.offset().left + 11
+        'font-size': "24.5px",
+        1000,
+        "swing",
+        -> $points.remove()
 
     update: (dx) ->
       unless @collided
