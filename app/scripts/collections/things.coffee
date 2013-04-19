@@ -3,7 +3,7 @@ define ["app", "models/thing"],
 
   class Things extends Backbone.Collection
 
-    url: "http://www.memrise.com/api/thingusers/waterable/?course_id="
+    url: "http://www.memrise.com/api/thinguser/waterable/?course_id="
 
     model: Thing
 

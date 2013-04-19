@@ -12,4 +12,3 @@ define ["app", "models/course"],
 
     comparator: (course) ->
       course.get("name")
-
