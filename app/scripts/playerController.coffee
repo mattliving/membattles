@@ -22,8 +22,7 @@ define [
       @playerLayout      = new PlayerLayout()
       @playerView        = new PlayerView model: @playerModel, disabled: not @local
       @playerCoursesView = new CoursesView(collection: new Courses())
-      if @local
-        @playerCoursesView.collection.url += @playerModel.get("username")
+      @playerCoursesView.collection.url += @playerModel.get("username")
 
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
@@ -32,7 +31,7 @@ define [
         @playerLayout.player.show(@playerView)
 
       @on 'view:rendered', ->
-        unless @ready
+        unless @ready or @local
           @playerCoursesView.collection.fetch success: (model) =>
             @playerLayout.courses.show(@playerCoursesView)
         else

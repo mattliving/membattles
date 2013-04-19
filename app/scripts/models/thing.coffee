@@ -21,7 +21,6 @@
         text: col_a.val
         translation: col_b.val
         accept: accept
-      console.log end
       return end
 
     initialize: ->
