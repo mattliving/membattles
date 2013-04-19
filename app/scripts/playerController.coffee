@@ -80,6 +80,8 @@ define [
           @listenTo @currentTextItem, 'exploded', (text, success) =>
             @trigger 'endTurn', text, success
 
+          @listenTo @currentTextItem, 'success', -> @animatePoints()
+
           @playerView.model.setCurrentPlayer()
         else
           vent.trigger 'game:ending'
@@ -101,6 +103,32 @@ define [
             vent.trigger 'game:ending'
         else
           model.incPoints(45)
+
+    animatePoints: ->
+      $curPoints = if @local then $("#thisPlayer #points") else $("#thatPlayer #points")
+      $points    = $("<div><h3></h3></div>")
+      $("#game").append($points)
+      $points.text "+45"
+      $points.css
+        position: "absolute",
+        top:  $("canvas").offset().top + @currentTextItem.pos.y + "px",
+        left: $("canvas").offset().left + @currentTextItem.pos.x + "px",
+        "text-align": "center";
+        "vertical-align": "center";
+        "font-family": "Helvetica Neue";
+        "font-weight": "bold";
+        "font-size": "49px";
+        "z-index": 1,
+        color: "#333"
+      $points.animate
+        "font-size": "73.5px"
+      .animate
+        top:  $curPoints.offset().top + 10
+        left: $curPoints.offset().left + 11
+        'font-size': "24.5px",
+        1000,
+        "swing",
+        -> $points.remove()
 
     initPlants: ->
       @plants = []
