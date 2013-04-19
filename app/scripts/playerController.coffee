@@ -42,7 +42,6 @@ define [
         @playerCoursesView.collection.reset(@playerView.selectedCourse)
 
     initialize: (@floor) ->
-
       @cannon = new Cannon
         axis: @floor.pos.x
         pos:
