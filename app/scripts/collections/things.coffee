@@ -32,3 +32,5 @@ define ["app", "models/thing"],
         if @unloaded is 0
           @trigger "ready"
       @listenTo text, 'inactive', => @trigger 'next'
+
+    comparator: -> Math.random()

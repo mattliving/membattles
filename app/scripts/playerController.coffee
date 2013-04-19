@@ -70,7 +70,7 @@ define [
               x: if @local then @plants[0].pos.x else $("canvas").width() - @plants[0].pos.x
               y: @plants[0].pos.y
             force:
-              x: if @local then -2400 else 2400
+              x: if @local then -2600 else 2600
               y: -3000
             active: true
             floor: @floor
