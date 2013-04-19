@@ -56,9 +56,9 @@ define [
 
       socket.on 'disconnect', -> vent.trigger 'other:disconnect'
 
-      socket.on 'otherid', ({id, otheruser, first}) ->
+      socket.on 'otherid', ({id, user, first}) ->
 
-        thatPlayer = new PlayerController username: otheruser, local: false
+        thatPlayer = new PlayerController username: user, local: false
         gameLayout.thatPlayerController = thatPlayer
         gameLayout.thisStarts = not first
 
