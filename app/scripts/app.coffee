@@ -24,13 +24,12 @@ define [
     main: "#main"
     game: "#game"
 
-  loadingView = new LoadingView()
+  # loadingView = new LoadingView()
   landingView = new LandingView()
 
   app.addInitializer ->
-    app.main.show(loadingView)
+    app.main.show(landingView)
     $.getJSON "http://www.memrise.com/api/hello/", (data) ->
-      app.main.show(landingView)
       landingView.loggedIn(data.user?)
       landingView.on 'ready', -> @trigger 'start', data.user
 
@@ -48,6 +47,8 @@ define [
     thisPlayer.on 'model:fetched', ->
       gameLayout.thisPlayer.show(@playerLayout)
       @trigger("view:rendered")
+      gameLayout.thatPlayer.show(thatPlayer.playerLayout)
+      thatPlayer.trigger("view:rendered")
 
     socket.emit 'register', user: user.username
 
@@ -63,7 +64,7 @@ define [
         gameLayout.thisStarts = not first
 
         thatPlayer.on 'model:fetched', ->
-          gameLayout.thatPlayer.show(@playerLayout)
+          # gameLayout.thatPlayer.show(@playerLayout)
           @trigger("view:rendered")
 
         vent.on "game:starting", (view) ->

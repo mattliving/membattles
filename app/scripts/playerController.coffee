@@ -22,7 +22,8 @@ define [
       @playerLayout      = new PlayerLayout()
       @playerView        = new PlayerView model: @playerModel, disabled: not @local
       @playerCoursesView = new CoursesView(collection: new Courses())
-      @playerCoursesView.collection.url += @playerModel.get("username")
+      if @local
+        @playerCoursesView.collection.url += @playerModel.get("username")
 
       @playerModel.fetch success: (model) =>
         model.set("photo_small", model.get("photo_small").replace("large", "small"))
@@ -119,7 +120,6 @@ define [
     # no longer used :(
     fireLetter: (letter, input, startPos) ->
       # these are used to calculate the force needed to make it go to the word
-      # TODO: make it move to where the word will be, rather than where it is
       {x: tx, y: ty} = @currentTextItem.pos
       {x: sx, y: sy} = startPos
       letter = new Letter

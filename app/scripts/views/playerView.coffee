@@ -18,10 +18,7 @@ define [
       "change" : "render"
 
     initialize: ({@disabled})->
-      @on "show", ->
-        unless @disabled
-          @addReadyButton()
-
+      @on "show", @addButton, @
       @on 'fetch:data', @getCourseModel, @
 
     onDomRefresh: ->
@@ -33,8 +30,15 @@ define [
       else
         @$el.parent().parent().removeClass("currentPlayer")
 
-    addReadyButton: ->
-      @$btn = $("<button class='btn btn-block' type='button'><strong>Ready!</strong></button>")
+    addButton: ->
+      if @disabled
+        buttonText = "Waiting for another user..."
+      else
+        buttonText = "Ready!"
+      @$btn = $("<button class='btn btn-block' type='button'><strong>#{buttonText}</strong></button>")
+      if @disabled
+        @$btn.addClass("disabled")
+
       @$el.children(".media-body").after(@$btn)
 
     toggleReady: (e) ->
@@ -49,8 +53,7 @@ define [
 
     getCourseModel: ->
       @selectedCourse.url = @selectedCourse.urlRoot + @selectedCourse.get("id")
-      @selectedCourse.parse = (response) ->
-        response.course
+      @selectedCourse.parse = ({course}) -> course
 
       @selectedCourse.fetch(
         success: (model) =>
@@ -60,6 +63,7 @@ define [
         @things.url += @selectedCourse.get("id")
         @things.fetch(
           success: (collection) =>
+            # if there's less than 10 waterable items, get the first level of the course
             if collection.length < 10
               @things.url = "http://www.memrise.com/api/level/get/?with_content=true&level_id="+@selectedCourse.get("levels")[0].id
               @things.fetch reset: true, success: (collection) => @trigger("things:fetched", collection)
