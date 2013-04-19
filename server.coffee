@@ -19,7 +19,7 @@ app.get /.*(\/styles.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replac
 # server specific url rewrites
 app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + req.url.replace("/wordwarone", "")
 app.get "/wordwarone/", (req, res) -> res.sendfile "app/index.html"
-app.get "/wordwarone", (req, res) -> res.sendfile "app/index.html"
+app.get "/wordwarone", (req, res) -> res.redirect "/wordwarone/"
 
 
 # app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
