@@ -3,18 +3,13 @@ define ["app", "models/thing"],
 
   class Things extends Backbone.Collection
 
-    url: "http://www.memrise.com/api/level/get/?with_content=true&level_id="
+    url: "http://www.memrise.com/api/things/waterable/?course_id="
 
     model: Thing
 
     current: 0
 
-    parse: ({level}) ->
-      things = level.things
-      for thing in things
-        thing.a = level.column_a
-        thing.b = level.column_b
-      return things
+    parse: ({things}) -> things
 
     getNext: -> @at(@current++)
 

@@ -57,7 +57,7 @@ define [
           @trigger("course:fetched", (model))
       ).done =>
         @things = new Things()
-        @things.url += @selectedCourse.get("levels")[0].id
+        @things.url += @selectedCourse.get("id")
         @things.fetch(
           success: (collection) =>
             @trigger("things:fetched", collection)

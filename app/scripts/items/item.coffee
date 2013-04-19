@@ -17,9 +17,7 @@ define ["backbone"], (Backbone) ->
 
   Item.setContext = (ctx) -> Item.ctx = ctx
 
-  Item.draw = ->
-    for item in Item.items
-      item.draw()
+  Item.draw = -> item.draw() for item in Item.items
 
   Item.update = (dx) ->
     for item in Item.items

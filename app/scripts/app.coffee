@@ -40,7 +40,7 @@ define [
 
   socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
 
-  loadingView.on 'loaded', (username) =>
+  loginView.on 'submit', (username) =>
     thisPlayer = new PlayerController username, true
     gameLayout = new GameLayout socket: socket, thisPlayerController: thisPlayer
 
