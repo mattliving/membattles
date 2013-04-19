@@ -12,8 +12,6 @@ clientCount = 0
 # ids of clients that have requested another user to connect to
 looking = []
 
-# prep = (url) -> url.replace("/wordwarone", "")
-
 # grunt url rewrites
 app.get /.*(\/scripts.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
 app.get /.*(\/styles.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
