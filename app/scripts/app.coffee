@@ -49,7 +49,7 @@ define [
       gameLayout.thisPlayer.show(@playerLayout)
       @trigger("view:rendered")
 
-    socket.emit 'register', user: username
+    socket.emit 'register', user: user.username
 
     socket.on 'registered', ->
       socket.emit 'getid', {}
