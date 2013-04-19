@@ -32,7 +32,7 @@ define [
     $.getJSON "http://www.memrise.com/api/hello/", (data) ->
       app.main.show(landingView)
       landingView.loggedIn(data.user?)
-      landingView.on 'ready', @trigger 'start', data.user
+      landingView.on 'ready', -> @trigger 'start', data.user
 
 
   socket = io.connect("http://wordwar.memrise.com")

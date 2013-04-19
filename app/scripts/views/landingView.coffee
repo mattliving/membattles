@@ -8,7 +8,7 @@ define [
 
     id: "landing"
 
-    className: "span6 offset6"
+    className: "span6 offset3"
 
     template: "#landingTemplate"
 
