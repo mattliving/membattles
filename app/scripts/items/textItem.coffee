@@ -29,11 +29,12 @@ define [
       if @collided
         @active = false
         if @collidedType is "guess"
-          new Explosion pos: _.clone @pos
+          explosion = new Explosion pos: _.clone @pos
         else if @collidedType is "floor"
-          new Explosion pos: _.clone @target
+          explosion = new Explosion pos: _.clone @target
         if @success then @explode()
-        @trigger("exploded", @model.get("text"), @success)
+        explosion.on "inactive", =>
+          @trigger("exploded", @model.get("text"), @success)
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 

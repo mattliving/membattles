@@ -63,8 +63,8 @@ define [
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
 
-        # create the new text item at the mouth of the cannon
         if (model = @things.getNext())?
+          # create the new text item at the mouth of the cannon
           @currentTextItem = new TextItem
             pos: _.clone @spawnPos
             target:
@@ -79,11 +79,12 @@ define [
 
           @listenTo @currentTextItem, 'exploded', (text, success) =>
             if success then @animatePoints()
-            @trigger 'exploded', text, success
-            @trigger 'endTurn', success
+            # explosion = new Explosion pos: _.clone @currentTextItem.pos
+            @trigger 'endTurn', text, success
 
           @playerView.model.setCurrentPlayer()
-        else vent.trigger 'game:ending'
+        else
+          vent.trigger 'game:ending'
 
       @on 'guess', (guess) ->
         if @currentTextItem.active
@@ -91,7 +92,7 @@ define [
           @currentTextItem.collided = true
           @currentTextItem.collidedType = "guess"
 
-      @on 'endTurn', (success) ->
+      @on 'endTurn', (text, success) ->
         model = @playerView.model
         model.setCurrentPlayer()
         unless success
