@@ -21,6 +21,6 @@ define [
 
     loggedIn: (isLoggedIn) ->
       if isLoggedIn
-        @$el.find("logged-in").removeClass("hidden")
+        @$el.find(".logged-in").removeClass("hide")
       else
-        @$el.find("logged-out").removeClass("hidden")
+        @$el.find(".logged-out").removeClass("hide")
