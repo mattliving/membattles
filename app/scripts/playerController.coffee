@@ -62,9 +62,7 @@ define [
         # inactive items will be removed from the items array
         @currentTextItem?.active = false
 
-        # create the new text item at the mouth of the cannon
         if (model = @things.getNext())?
-
           @currentTextItem = new TextItem
             pos: _.clone @spawnPos
             force:

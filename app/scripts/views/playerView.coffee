@@ -60,6 +60,9 @@ define [
         @things.url += @selectedCourse.get("id")
         @things.fetch(
           success: (collection) =>
-            console.log @things
-            @trigger("things:fetched", collection)
+            if collection.length < 10
+              @things.url = "http://www.memrise.com/api/level/get/?with_content=true&level_id="+@selectedCourse.get("levels")[0].id
+              @things.fetch reset: true, success: (collection) => @trigger("things:fetched", collection)
+            else
+              @trigger("things:fetched", collection)
           )

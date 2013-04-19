@@ -10,7 +10,6 @@
     # extract what we need from the api - the text, translation and
     # anything else we're meant to accept. Now has to use hard coded columns
     parse: (thinguser) ->
-      console.log thinguser
       {thing} = thinguser
       col_a = thing.columns[thinguser.column_a]
       col_b = thing.columns[thinguser.column_b]

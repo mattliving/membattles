@@ -9,7 +9,17 @@ define ["app", "models/thing"],
 
     current: 0
 
-    parse: ({thingusers}) -> thingusers
+    parse: (data) ->
+      if data.thingusers then return data.thingusers
+
+      thingusers = []
+      things = data.level.things
+      for thing in things
+        thingusers.push
+          thing: thing
+          column_a: data.level.column_a
+          column_b: data.level.column_b
+      return thingusers
 
     getNext: -> @at(@current++)
 
