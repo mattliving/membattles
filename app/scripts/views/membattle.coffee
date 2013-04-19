@@ -100,13 +100,8 @@ define [
         @ctx.fillText("User disconnected :(", @el.width/2-width, @el.height/2-28)
 
       vent.on 'game:ending', =>
-        if not @stopped
-          console.log @stopped
-          @ctx.clearRect(0, 0, @el.width, @el.height)
-          Item.update(@timer.tick())
-          Item.draw(@ctx)
-          @stop()
-          @checkWinner()
+        @stop()
+        @checkWinner()
 
       vent.on 'game:playAgain', =>
         @socket.emit 'invalidate'
@@ -137,9 +132,7 @@ define [
       @loop()
 
     stop: ->
-      console.log 'stopped:before', @stopped
       @stopped = true
-      console.log 'stopped:after', @stopped
       @input.disable()
       @input.off('keyup')
       @input.off('guess')

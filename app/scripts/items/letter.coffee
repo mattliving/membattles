@@ -9,14 +9,15 @@ define [
       super(options)
       {@letter, @text, @floor} = options
 
+      @transparency = 1
       @fontSize = 24
       @ctx.font = @fontSize + "pt 'Merriweather Sans'"
-      @ctx.fillStyle = "#222"
 
       @width = @ctx.measureText(@letter).width
       @height = @fontSize
 
     draw: ->
+      @ctx.fillStyle = "rgba(34, 34, 34, "+@transparency+")"
       if @hitWord or @hitFloor
         @ctx.save()
         @ctx.translate(@pos.x+@width/2, @pos.y+@height/2)
@@ -25,10 +26,11 @@ define [
         @ctx.restore()
       else
         @ctx.fillText @letter, @pos.x, @pos.y
-
+      @ctx.fillStyle = "#222"
 
     update: (dx) ->
       if @rotating then @rotation += dx
+      if @transparency > 0.02 then @transparency -= 0.02 else @transparency = 0
       super(dx)
 
     checkCollision: ->

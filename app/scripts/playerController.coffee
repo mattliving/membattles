@@ -67,6 +67,9 @@ define [
         if (model = @things.getNext())?
           @currentTextItem = new TextItem
             pos: _.clone @spawnPos
+            target:
+              x: if @local then @plants[0].pos.x else $("canvas").width() - @plants[0].pos.x
+              y: @plants[0].pos.y
             force:
               x: if @local then -2400 else 2400
               y: -3000
@@ -74,8 +77,7 @@ define [
             floor: @floor
             model: model
 
-          @listenTo @currentTextItem, 'exploded', (text, success) ->
-            new Explosion pos: _.clone @currentTextItem.pos
+          @listenTo @currentTextItem, 'exploded', (text, success) =>
             if success then @animatePoints()
             @trigger 'exploded', text, success
             @trigger 'endTurn', success
@@ -87,6 +89,7 @@ define [
         if @currentTextItem.active
           @currentTextItem.success  = @currentTextItem.model.checkAnswer(guess)
           @currentTextItem.collided = true
+          @currentTextItem.collidedType = "guess"
 
       @on 'endTurn', (success) ->
         model = @playerView.model
