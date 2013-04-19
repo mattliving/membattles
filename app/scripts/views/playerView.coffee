@@ -60,5 +60,6 @@ define [
         @things.url += @selectedCourse.get("id")
         @things.fetch(
           success: (collection) =>
+            console.log @things
             @trigger("things:fetched", collection)
           )
