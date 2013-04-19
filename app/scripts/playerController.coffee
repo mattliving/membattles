@@ -31,7 +31,7 @@ define [
         @playerLayout.player.show(@playerView)
 
       @on 'view:rendered', ->
-        unless @ready or @local
+        unless @ready
           @playerCoursesView.collection.fetch success: (model) =>
             @playerLayout.courses.show(@playerCoursesView)
         else
