@@ -17,7 +17,7 @@ define [
 
     startGame: (e) ->
       e.preventDefault()
-      @trigger('start')
+      @trigger('ready')
 
     loggedIn: (isLoggedIn) ->
       if isLoggedIn

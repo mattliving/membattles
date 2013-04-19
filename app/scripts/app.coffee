@@ -32,13 +32,15 @@ define [
     $.getJSON "http://www.memrise.com/api/hello/", (data) ->
       app.main.show(landingView)
       landingView.loggedIn(data.user?)
+      landingView.on 'ready', @trigger 'start', data.user
+
 
   socket = io.connect("http://wordwar.memrise.com")
 
   socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
 
-  landingView.on 'start', (username, userdata) =>
-    thisPlayer = new PlayerController username: username, local: true
+  landingView.on 'start', (user) =>
+    thisPlayer = new PlayerController username: user.username, local: true
     gameLayout = new GameLayout socket: socket, thisPlayerController: thisPlayer
 
     app.main.show(gameLayout)
@@ -54,9 +56,9 @@ define [
 
       socket.on 'disconnect', -> vent.trigger 'other:disconnect'
 
-      socket.on 'otherid', ({id, user, first}) ->
+      socket.on 'otherid', ({id, otheruser, first}) ->
 
-        thatPlayer = new PlayerController user, false
+        thatPlayer = new PlayerController username: otheruser, local: false
         gameLayout.thatPlayerController = thatPlayer
         gameLayout.thisStarts = not first
 
