@@ -14,8 +14,11 @@ looking = []
 
 # prep = (url) -> url.replace("/wordwarone", "")
 
+# grunt url rewrites
 app.get /.*(\/scripts.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
 app.get /.*(\/styles.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
+
+# server specific url rewrites
 app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + req.url.replace("/wordwarone", "")
 app.get "/wordwarone/", (req, res) -> res.sendfile "app/index.html"
 app.get "/wordwarone", (req, res) -> res.sendfile "app/index.html"

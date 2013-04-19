@@ -3,10 +3,11 @@ define [
   "helpers/vent",
   "views/gameLayout",
   "views/loadingView",
+  "views/loginView",
   "playerController",
   "socket.io"
 ],
-(Marionette, vent, GameLayout, LoadingView, PlayerController, io) ->
+(Marionette, vent, GameLayout, LoadingView, LoginView, PlayerController, io) ->
 
   window.requestAnimFrame = do ((callback) ->
     window.requestAnimationFrame       ||
@@ -25,14 +26,14 @@ define [
 
   loadingView = new LoadingView()
 
-  # loginView = new LoginView()
+  loginView = new LoginView()
 
   app.addInitializer ->
     app.main.show(loadingView)
     $.getJSON "http://www.memrise.com/api/hello/", (data) ->
       console.log data
       if data.user?
-        loadingView.trigger('loaded', data.user.username)
+        loadingView.trigger('loaded', data.user.username, data.user)
       else
         alert("Log in to memrise")
 
@@ -40,7 +41,7 @@ define [
 
   socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
 
-  loadingView.on 'loaded', (username) =>
+  loadingView.on 'loaded', (username, userdata) =>
     thisPlayer = new PlayerController username, true
     gameLayout = new GameLayout socket: socket, thisPlayerController: thisPlayer
 

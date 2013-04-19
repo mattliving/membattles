@@ -16,7 +16,7 @@ define [
 
   class PlayerController extends Marionette.Controller
 
-    constructor: (username, @local) ->
+    constructor: ({username, userdata, @local}) ->
       pos                = if @local then "left" else "right"
       @playerModel       = new Player username: username, position: pos
       @playerLayout      = new PlayerLayout()

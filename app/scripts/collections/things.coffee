@@ -3,13 +3,13 @@ define ["app", "models/thing"],
 
   class Things extends Backbone.Collection
 
-    url: "http://www.memrise.com/api/things/waterable/?course_id="
+    url: "http://www.memrise.com/api/thingusers/waterable/?course_id="
 
     model: Thing
 
     current: 0
 
-    parse: ({things}) -> things
+    parse: ({thingusers}) -> thingusers
 
     getNext: -> @at(@current++)
 

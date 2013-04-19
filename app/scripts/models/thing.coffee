@@ -9,14 +9,17 @@
 
     # extract what we need from the api - the text, translation and
     # anything else we're meant to accept. Now has to use hard coded columns
-    parse: (thing) ->
-      accept = thing.columns["1"].accepted
-      for alt in thing.columns["1"].alts
+    parse: (thinguser) ->
+      {thing} = thinguser
+      col_a = thing.columns[thinguser.column_a]
+      col_b = thing.columns[thinguser.column_b]
+      accept = col_a.accepted
+      for alt in col_a.alts
         accept.push alt.val
-      accept.push thing.columns["1"].val
+      accept.push col_a.val
       _.extend thing,
-        text: thing.columns["1"].val
-        translation: thing.columns["2"].val
+        text: col_a.val
+        translation: col_b.val
         accept: accept
 
     initialize: ->
