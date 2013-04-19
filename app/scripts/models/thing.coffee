@@ -10,6 +10,7 @@
     # extract what we need from the api - the text, translation and
     # anything else we're meant to accept. Now has to use hard coded columns
     parse: (thinguser) ->
+      console.log thinguser
       {thing} = thinguser
       col_a = thing.columns[thinguser.column_a]
       col_b = thing.columns[thinguser.column_b]
@@ -17,10 +18,12 @@
       for alt in col_a.alts
         accept.push alt.val
       accept.push col_a.val
-      _.extend thing,
+      end = _.extend thing,
         text: col_a.val
         translation: col_b.val
         accept: accept
+      console.log end
+      return end
 
     initialize: ->
       @on "loaded", -> @set "loaded", true
