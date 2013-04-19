@@ -24,7 +24,6 @@ define [
     main: "#main"
     game: "#game"
 
-  # loadingView = new LoadingView()
   landingView = new LandingView()
 
   app.addInitializer ->
@@ -47,8 +46,6 @@ define [
     thisPlayer.on 'model:fetched', ->
       gameLayout.thisPlayer.show(@playerLayout)
       @trigger("view:rendered")
-      gameLayout.thatPlayer.show(thatPlayer.playerLayout)
-      thatPlayer.trigger("view:rendered")
 
     socket.emit 'register', user: user.username
 
@@ -64,7 +61,7 @@ define [
         gameLayout.thisStarts = not first
 
         thatPlayer.on 'model:fetched', ->
-          # gameLayout.thatPlayer.show(@playerLayout)
+          gameLayout.thatPlayer.show(@playerLayout)
           @trigger("view:rendered")
 
         vent.on "game:starting", (view) ->
