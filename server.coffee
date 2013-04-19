@@ -12,22 +12,19 @@ clientCount = 0
 # ids of clients that have requested another user to connect to
 looking = []
 
-prep = (url) -> url.replace("/wordwarone", "")
 
-app.get "/wordwarone/scripts/*", (req, res) -> res.sendfile ".tmp"+prep(req.url)
-app.get "/wordwarone/styles/*", (req, res) -> res.sendfile ".tmp"+prep(req.url)
+app.get /.*(\/scripts.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
+app.get /.*(\/styles.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
 app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + prep(req.url)
 app.get "/wordwarone/", (req, res) -> res.sendfile "app/index.html"
 app.get "/wordwarone", (req, res) -> res.sendfile "app/index.html"
 
-# this is for dealing with the way grunt watch moves compiled files
 
-# app.get "/wordwarone/*", (req, res) -> res.send req.url
-
-# # this is for dealing with the way grunt watch moves compiled files
 # app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
 # app.get "/styles/*", (req, res) -> res.sendfile ".tmp"+req.url
 
+
+# all socket stuff is done via a direct connection to the
 io = socket.listen(server.listen(9000))
 
 io.sockets.on 'connection', (socket) ->
