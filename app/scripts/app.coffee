@@ -32,7 +32,7 @@ define [
     $.getJSON "http://www.memrise.com/api/hello/", (data) ->
       console.log data
       if data.user?
-        loadingView.trigger("loaded", data.user.username)
+        loadingView.trigger('loaded', data.user.username)
       else
         alert("Log in to memrise")
 
@@ -40,7 +40,7 @@ define [
 
   socket.on 'error', ({msg}) -> console.log "ERROR #{msg}"
 
-  loginView.on 'submit', (username) =>
+  loadingView.on 'loaded', (username) =>
     thisPlayer = new PlayerController username, true
     gameLayout = new GameLayout socket: socket, thisPlayerController: thisPlayer
 

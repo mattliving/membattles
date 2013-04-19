@@ -12,10 +12,11 @@ clientCount = 0
 # ids of clients that have requested another user to connect to
 looking = []
 
+# prep = (url) -> url.replace("/wordwarone", "")
 
 app.get /.*(\/scripts.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
 app.get /.*(\/styles.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replace("\\\\", "\\")
-app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + prep(req.url)
+app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + req.url.replace("/wordwarone", "")
 app.get "/wordwarone/", (req, res) -> res.sendfile "app/index.html"
 app.get "/wordwarone", (req, res) -> res.sendfile "app/index.html"
 
