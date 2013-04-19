@@ -116,6 +116,7 @@ define [
     start: ->
       if @thisStarts
         @thisPlayerController.trigger("next")
+        @input.enable()
       else
         @thatPlayerController.trigger("next")
 
