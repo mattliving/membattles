@@ -32,7 +32,7 @@ define [
 
     addButton: ->
       if @disabled
-        buttonText = "Waiting for another user..."
+        buttonText = "Waiting for other user..."
       else
         buttonText = "Ready!"
       @$btn = $("<button class='btn btn-block' type='button'><strong>#{buttonText}</strong></button>")
