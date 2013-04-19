@@ -33,5 +33,7 @@ define [
       @dx += dx
       if @dx > 0.05
         @frame++
-        if @frame >= @images.length then @active = false
+        if @frame >= @images.length
+          @active = false
+          @trigger 'inactive'
         @dx -= 0.05

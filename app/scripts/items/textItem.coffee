@@ -3,20 +3,19 @@ define [
   "helpers/vent",
   "models/thing",
   "items/physicsItem",
-  "items/letter"
+  "items/letter",
+  "items/explosion"
 ],
-(Marionette, vent, Thing, PhysicsItem, Letter) ->
+(Marionette, vent, Thing, PhysicsItem, Letter, Explosion) ->
 
   # displays a single text item
   class TextItem extends PhysicsItem
 
     constructor: (options) ->
-      {@model, @floor, @toPos} = options
+      {@model, @floor, @target} = options
       timing = @model.getTiming()
       options.frametime = 0.001*timing/680 # 680 is the number of frames
       super(options)
-      console.log "startPos:#{@pos.y}"
-      @on 'exploded', => console.log "endPos:#{@pos.y}"
       @success = false
 
       @fontSize = 24
@@ -26,25 +25,26 @@ define [
       @width  = @ctx.measureText(@model.get("translation")).width
       @height = @fontSize
 
-      console.log "starting timer for #{@model.get("text")}"
-      console.time(@model.get("text"))
-      @on 'exploded', -> console.timeEnd(@model.get("text"))
-
     draw: ->
       if @collided
         @active = false
+        if @collidedType is "guess"
+          explosion = new Explosion pos: _.clone @pos
+        else if @collidedType is "floor"
+          explosion = new Explosion pos: _.clone @target
         if @success then @explode()
-        @trigger("exploded", @model.get("text"), @success)
+        explosion.on "inactive", =>
+          @trigger("exploded", @model.get("text"), @success)
       else
         @ctx.fillText(@model.get("translation"), @pos.x, @pos.y)
 
     explode: ->
-      letters  = []
-      startPos = @pos
       randX    = Math.random() * (18000 - 16000) + 16000;
-      randY    = Math.random() * (6000 - 4000) + 4000;
+      randY    = Math.random() * (8000 - 4000) + 4000;
       chars    = @model.get("translation").split('')
       center   = chars.length/2
+      letters  = []
+      startPos = @pos
       for letter, i in chars
         letters.push new Letter
           letter: letter
@@ -66,4 +66,5 @@ define [
       dy = @pos.y - @floor.pos.y
       if 0 < dy < @floor.height
         @success = false
+        @collidedType = "floor"
         @collided = true

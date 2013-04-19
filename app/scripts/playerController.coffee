@@ -63,8 +63,12 @@ define [
         @currentTextItem?.active = false
 
         if (model = @things.getNext())?
+          # create the new text item at the mouth of the cannon
           @currentTextItem = new TextItem
             pos: _.clone @spawnPos
+            target:
+              x: if @local then @plants[0].pos.x else $("canvas").width() - @plants[0].pos.x
+              y: @plants[0].pos.y
             force:
               x: if @local then -2400 else 2400
               y: -3000
@@ -72,26 +76,27 @@ define [
             floor: @floor
             model: model
 
-          @listenTo @currentTextItem, 'exploded', (text, success) ->
-            new Explosion pos: _.clone @currentTextItem.pos
+          @listenTo @currentTextItem, 'exploded', (text, success) =>
             if success then @animatePoints()
-            @trigger 'exploded', text, success
-            @trigger 'endTurn', success
+            # explosion = new Explosion pos: _.clone @currentTextItem.pos
+            @trigger 'endTurn', text, success
 
           @playerView.model.setCurrentPlayer()
-        else vent.trigger 'game:ending'
+        else
+          vent.trigger 'game:ending'
 
       @on 'guess', (guess) ->
         if @currentTextItem.active
           @currentTextItem.success  = @currentTextItem.model.checkAnswer(guess)
           @currentTextItem.collided = true
+          @currentTextItem.collidedType = "guess"
 
-      @on 'endTurn', (success) ->
+      @on 'endTurn', (text, success) ->
         model = @playerView.model
         model.setCurrentPlayer()
         unless success
           model.decLives()
-          @plants[0].active = false
+          @plants[0]?.active = false
           @plants.shift()
           if model.get('lives') <= 0
             vent.trigger 'game:ending'
@@ -113,6 +118,32 @@ define [
       text: @currentTextItem.model.get("text")
       translation: @currentTextItem.model.get("translation")
 
+    animatePoints: ->
+      $curPoints = if @local then $("#thisPlayer #points") else $("#thatPlayer #points")
+      $points    = $("<div><h3></h3></div>")
+      $("#game").append($points)
+      $points.text "+45"
+      $points.css
+        position: "absolute",
+        top:  $("canvas").offset().top + @currentTextItem.pos.y + "px",
+        left: $("canvas").offset().left + @currentTextItem.pos.x + "px",
+        "text-align": "center";
+        "vertical-align": "center";
+        "font-family": "Helvetica Neue";
+        "font-weight": "bold";
+        "font-size": "49px";
+        "z-index": 1,
+        color: "#333"
+      $points.animate
+        "font-size": "73.5px"
+      .animate
+        top:  $curPoints.offset().top + 10
+        left: $curPoints.offset().left + 11
+        'font-size': "24.5px",
+        1000,
+        "swing",
+        -> $points.remove()
+
     # no longer used :(
     fireLetter: (letter, input, startPos) ->
       # these are used to calculate the force needed to make it go to the word
@@ -132,28 +163,3 @@ define [
           letter.active = false
         else
           letter.bounce()
-
-    animatePoints: ->
-      $curPoints = $("#thisPlayer #points")
-      $points    = $("<div><h3></h3></div>")
-      $("#game").append($points)
-      $points.text "+45"
-      $points.css
-        position: "absolute",
-        top:    $("canvas")[0].offsetTop + @currentTextItem.pos.y + "px",
-        left:   $("canvas")[0].offsetLeft + @currentTextItem.pos.x + "px",
-        "text-align": "center";
-        "vertical-align": "center";
-        "font-family": "Helvetica Neue";
-        "font-size": "49px";
-        "z-index": 1,
-        color: "#333"
-      $points.animate
-        "font-size": "73.5px"
-      .animate
-        top:    $curPoints[0].offsetTop + 25
-        left:   $curPoints[0].offsetLeft + 30
-        'font-size': "24.5px",
-        1000,
-        "swing",
-        -> $points.remove()

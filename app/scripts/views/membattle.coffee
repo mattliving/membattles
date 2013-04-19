@@ -25,7 +25,6 @@ define [
     initialize: (@socket, @input, @thisPlayerController, @thatPlayerController, @thisStarts) ->
       @el.width  = $(".span12").width()
       @el.height = window.innerHeight - $(".player-container").height() - 15
-      # @el.height = @el.width/@aspectRatio
       @ctx       = @el.getContext("2d")
       Item.setContext @ctx
       @timer = new Timer()
@@ -70,23 +69,20 @@ define [
       @thisPlayerController.on 'next', =>
         @input.ui.otheranswer.text("")
 
-      # show our correct answer under the text box
-      @thisPlayerController.on 'exploded', (text, success) =>
-        unless success or @stopped
+      # show our correct answer under the text box, and disable and enable
+      # the input box, start the other player when one stops
+      @thisPlayerController.on 'endTurn', (text, success) =>
+        unless success
           @input.ui.thisanswer.text("Correct answer: #{text}")
+        unless @stopped
+          @input.disable()
+          @thatPlayerController.trigger('next')
 
       @thatPlayerController.on 'endTurn', =>
         unless @stopped
           @input.ui.thisanswer.text('')
-
-      # disable and enable the input box, start the other player when one stops
-      @thisPlayerController.on 'endTurn', =>
-        @input.disable()
-        @thatPlayerController.trigger('next')
-
-      @thatPlayerController.on 'endTurn', =>
-        @input.enable()
-        @thisPlayerController.trigger('next')
+          @input.enable()
+          @thisPlayerController.trigger('next')
 
       # global events that membattle has to deal with
       vent.on 'other:disconnect', =>
@@ -100,30 +96,21 @@ define [
         @ctx.fillStyle = "white"
         @ctx.fillText("User disconnected :(", @el.width/2-width, @el.height/2-28)
 
-      vent.on 'game:ending', (username) =>
+      vent.on 'game:ending', =>
         @stop()
         @checkWinner()
 
-      vent.on 'game:playAgain', =>
-        @socket.emit 'invalidate'
-        @socket.emit 'register', user: @thisPlayerController.playerModel.get('username')
-
-    spawnEntity = (typename) ->
-      entity = new (factory[typename])()
-      @entities.push entity
-      return entity
+      # vent.on 'game:playAgain', =>
+      #   @socket.emit 'invalidate'
+      #   @socket.emit 'register', user: @thisPlayerController.playerModel.get('username')
 
     checkWinner: ->
       thisModel = @thisPlayerController.playerModel
       thatModel = @thatPlayerController.playerModel
-      if thisModel.get('lives') <= 0
+      if thisModel.get('lives') <= 0 or thisModel.get('points') < thatModel.get('points')
         vent.trigger 'game:ended', thatModel.get('username') + ' Wins!'
-      else if thatModel.get('lives') <= 0
+      else if thatModel.get('lives') <= 0 or thisModel.get('points') > thatModel.get('points')
         vent.trigger 'game:ended', thisModel.get('username') + ' Wins!'
-      else if thisModel.get('points') > thatModel.get('points')
-        vent.trigger 'game:ended', thisModel.get('username') + ' Wins!'
-      else if thisModel.get('points') < thatModel.get('points')
-        vent.trigger 'game:ended', thatModel.get('username') + ' Wins!'
       else vent.trigger 'game:ended', "It's a Draw!"
 
     start: ->
