@@ -33,4 +33,4 @@ define ["app", "models/thing"],
           @trigger "ready"
       @listenTo text, 'inactive', => @trigger 'next'
 
-    comparator: -> Math.random()
+    # comparator: -> Math.random()

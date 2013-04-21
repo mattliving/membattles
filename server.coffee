@@ -19,12 +19,7 @@ app.get /.*(\/styles.*)/, (req, res) -> res.sendfile ".tmp"+req.params[0].replac
 # server specific url rewrites
 app.get "/wordwarone/*", (req, res) -> res.sendfile "app" + req.url.replace("/wordwarone", "")
 app.get "/wordwarone/", (req, res) -> res.sendfile "app/index.html"
-app.get "/wordwarone", (req, res) -> res.redirect "/wordwarone/"
-
-
-# app.get "/scripts/*", (req, res) -> res.sendfile ".tmp"+req.url
-# app.get "/styles/*", (req, res) -> res.sendfile ".tmp"+req.url
-
+app.get "/wordwarone", (req, res) -> res.redirect "/wordwarone/"µ
 
 # all socket stuff is done via a direct connection to the
 io = socket.listen(server.listen(9000))
