@@ -55,18 +55,21 @@ define [
       @selectedCourse.url = @selectedCourse.urlRoot + @selectedCourse.get("id")
       @selectedCourse.parse = ({course}) -> course
 
-      @selectedCourse.fetch(
-        success: (model) =>
-          @trigger("course:fetched", (model))
-      ).done =>
+      @selectedCourse.fetch
+        success: (model) => @trigger("course:fetched", model)
+      .done =>
         @things = new Things()
-        @things.url += @selectedCourse.get("id")
-        @things.fetch(
-          success: (collection) =>
-            # if there's less than 10 waterable items, get the first level of the course
-            if collection.length < 10
-              @things.url = "http://www.memrise.com/api/level/get/?with_content=true&level_id="+@selectedCourse.get("levels")[0].id
-              @things.fetch reset: true, success: (collection) => @trigger("things:fetched", collection)
-            else
-              @trigger("things:fetched", collection)
-          )
+        levelurl = "http://www.memrise.com/api/level/get/?with_content=true&level_id="+@selectedCourse.get("levels")[0].id
+        if vent.offline
+          @things.url = levelurl
+          @things.fetch success: (collection) => @trigger "things:fetched", collection
+        else
+          @things.url += @selectedCourse.get("id")
+          @things.fetch
+            success: (collection) =>
+              # if there's less than 10 waterable items, get the first level of the course
+              if collection.length < 10
+                @things.url = levelurl
+                @things.fetch reset: true, success: (collection) => @trigger("things:fetched", collection)
+              else
+                @trigger("things:fetched", collection)
